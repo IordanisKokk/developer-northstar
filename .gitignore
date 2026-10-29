@@ -8,3 +8,7 @@ progress-*.json
 *-progress.json
 backups/
 node_modules/
+# Ephemeral preview and synthetic browser QA artifacts
+.openai/
+preview/
+tests/qa-*.png

@@ -44,3 +44,13 @@
 .map-legend span{display:inline-flex;align-items:center;gap:7px}
 .legend-line{width:23px;height:0;border-top:2px solid var(--accent);display:inline-block}
 .legend-line.dashed{border-color:var(--muted);border-top-style:dashed}
+
+/* Shared track landing and portable progress controls. */
+.track-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:30px 0}
+.track-card{display:block;padding:25px;color:var(--fg);text-decoration:none}
+.track-card:hover{border-color:var(--accent);text-decoration:none}
+.track-card h2{font-size:24px;letter-spacing:-.04em;line-height:1.2}
+.track-card p{color:var(--muted);font-size:13px}.track-card strong{color:var(--accent)}
+#trackSelect{font-size:12px;margin-bottom:12px} .sidebar .side-note{max-height:130px;overflow:auto}
+@media(max-width:1050px){.track-cards{grid-template-columns:1fr}}
+@media(max-width:700px){.side-bottom{display:flex;flex-wrap:wrap;margin-top:8px;padding:0}.side-bottom .tiny{width:auto;font-size:10px;padding:7px}.side-bottom .progress-mini{width:100%}.side-bottom .footnote{width:100%;text-align:left}.side-bottom .track{margin-top:3px}#trackSelect{max-width:100%;margin-bottom:8px}.primary-nav{flex-wrap:wrap}.course-row{flex-wrap:wrap}.course-row .body{min-width:160px}.reader-title{overflow-wrap:anywhere}}
