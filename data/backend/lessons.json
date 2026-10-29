@@ -1,0 +1,2038 @@
+[
+  {
+    "id": "backend-python-l01",
+    "course_id": "backend-python",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Execution, ownership and the interpreter",
+    "explanation": "Python names reference objects; assignment does not copy mutable state.",
+    "concepts_in_context": "Python names reference objects; assignment does not copy mutable state. A closure can retain an object beyond its apparent scope, and reference counting is not a substitute for explicit resource cleanup. CPython execution constraints also depend on interpreter build: a conventional GIL-enabled build serializes much Python bytecode, while free-threaded builds have different tradeoffs. Measure your actual runtime instead of treating threads as universally parallel or universally useless. Context managers make file and lock lifetimes visible even when an exception interrupts control flow.",
+    "why_it_matters": "Reason about interpreter execution, task lifetimes and the difference between concurrency and parallelism.",
+    "outcomes": [
+      "Trace a shared mutable default, a late-bound closure and a file handle escaping a context manager; repair all three.",
+      "Tests show independent per-call state, the intended closure values and a closed handle after an exception.",
+      "Compare a CPU loop with a native hashing operation in a thread pool; record Python build and CPU utilization."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-python",
+        "priority": "required",
+        "reading_focus": "Read binding, resolution and runtime interaction. Then inspect the runtime documentation for the GIL of your installed interpreter.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-python-l01-lab",
+      "backend-python-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why can two threads race even when a GIL exists?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "The GIL does not make a multi-step read/modify/write invariant atomic, nor protect external side effects. Synchronize the invariant or transfer ownership."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "The GIL does not make a multi-step read/modify/write invariant atomic, nor protect external side effects. Synchronize the invariant or transfer ownership."
+    ],
+    "acceptance_focus": "Tests show independent per-call state, the intended closure values and a closed handle after an exception.",
+    "study_steps": [
+      "Read binding, resolution and runtime interaction. Then inspect the runtime documentation for the GIL of your installed interpreter.",
+      "Predict the result and failure boundary before running this experiment: Trace a shared mutable default, a late-bound closure and a file handle escaping a context manager; repair all three.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Compare a CPU loop with a native hashing operation in a thread pool; record Python build and CPU utilization."
+    ]
+  },
+  {
+    "id": "backend-python-l02",
+    "course_id": "backend-python",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Structured concurrency and backpressure",
+    "explanation": "An asynchronous function runs until it suspends; adding async to a CPU loop does not create cooperation.",
+    "concepts_in_context": "An asynchronous function runs until it suspends; adding async to a CPU loop does not create cooperation. A TaskGroup gives related tasks a shared lifetime, but cancellation still requires cleanup in finally blocks. A semaphore bounds active work, while an unbounded queue can still accumulate unlimited waiting work. Bound both admission and execution, propagate an absolute deadline, and distinguish a timed-out caller from an operation that may already have committed.",
+    "why_it_matters": "Reason about interpreter execution, task lifetimes and the difference between concurrency and parallelism.",
+    "outcomes": [
+      "Implement a bounded producer/consumer pipeline with a TaskGroup, queue capacity 20 and five workers.",
+      "Queue depth never exceeds 20; a worker failure cancels siblings and closes all resources.",
+      "Add a 200 ms end-to-end deadline and a deliberately blocking function; detect scheduler delay with a heartbeat."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-async",
+        "priority": "required",
+        "reading_focus": "Read TaskGroup, cancellation, timeout and shield. Sketch which exception escapes when a sibling task fails.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-python-l02-lab",
+      "backend-python-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why is a semaphore alone insufficient during overload?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "It limits running operations, not the number or memory footprint of waiting callers. Admission must be bounded and rejection explicit."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "backend-python-l01"
+    ],
+    "pitfalls": [
+      "It limits running operations, not the number or memory footprint of waiting callers. Admission must be bounded and rejection explicit."
+    ],
+    "acceptance_focus": "Queue depth never exceeds 20; a worker failure cancels siblings and closes all resources.",
+    "study_steps": [
+      "Read TaskGroup, cancellation, timeout and shield. Sketch which exception escapes when a sibling task fails.",
+      "Predict the result and failure boundary before running this experiment: Implement a bounded producer/consumer pipeline with a TaskGroup, queue capacity 20 and five workers.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add a 200 ms end-to-end deadline and a deliberately blocking function; detect scheduler delay with a heartbeat."
+    ]
+  },
+  {
+    "id": "backend-python-project",
+    "course_id": "backend-python",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Python execution and concurrency — integration project",
+    "explanation": "Concurrency laboratory: build a CLI that runs the same CPU-heavy checksum and delayed HTTP workload sequentially, in threads, in processes and with asyncio. Add cancellation and bounded admission; publish measured throughput, memory and tail latency.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Concurrency laboratory: build a CLI that runs the same CPU-heavy checksum and delayed HTTP workload sequentially, in threads, in processes and with asyncio. Add cancellation and bounded admission; publish measured throughput, memory and tail latency. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "For 1, 10 and 100 in-flight jobs, retain raw timings and explain the saturation point.",
+      "Cancel a run halfway through: no child process, socket or task remains after shutdown.",
+      "A CPU-bound task cannot silently block the asynchronous scheduler; demonstrate detection and isolation."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-async",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-python-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-python-l01",
+      "backend-python-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "For 1, 10 and 100 in-flight jobs, retain raw timings and explain the saturation point."
+  },
+  {
+    "id": "backend-linux-l01",
+    "course_id": "backend-linux",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Processes, virtual memory and resource limits",
+    "explanation": "A process owns an address space and resources; threads share much of that space while retaining execution state.",
+    "concepts_in_context": "A process owns an address space and resources; threads share much of that space while retaining execution state. Virtual allocation is not equal to resident RAM, and high RSS is not automatically a leak. Page faults, allocator retention and copy-on-write change what a memory chart means. File descriptors are finite handles shared through inheritance and duplication. Diagnose the resource that is exhausted before changing worker counts: more workers can multiply connection pools and memory pressure.",
+    "why_it_matters": "Connect process, memory, file descriptor and scheduling behavior to symptoms seen in Python services.",
+    "outcomes": [
+      "Compare RSS and descriptor counts while repeatedly allocating buffers and opening files, then closing and releasing them.",
+      "Record PID, RSS, virtual size and descriptor count before/after; explain which changes persist.",
+      "Run the workload under a low descriptor limit and a memory limit, then make failure recoverable."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-os",
+        "priority": "required",
+        "reading_focus": "Read Processes, Address Spaces and Paging; derive what fork shares before either process writes.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-linux-l01-lab",
+      "backend-linux-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why does adding four workers increase database connections?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Each process normally creates its own pool. Aggregate capacity is workers times per-process pool size plus administrative clients."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Each process normally creates its own pool. Aggregate capacity is workers times per-process pool size plus administrative clients."
+    ],
+    "acceptance_focus": "Record PID, RSS, virtual size and descriptor count before/after; explain which changes persist.",
+    "study_steps": [
+      "Read Processes, Address Spaces and Paging; derive what fork shares before either process writes.",
+      "Predict the result and failure boundary before running this experiment: Compare RSS and descriptor counts while repeatedly allocating buffers and opening files, then closing and releasing them.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Run the workload under a low descriptor limit and a memory limit, then make failure recoverable."
+    ]
+  },
+  {
+    "id": "backend-linux-l02",
+    "course_id": "backend-linux",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Diagnosing blocked work on Linux",
+    "explanation": "A slow endpoint can be computing, waiting for a lock, waiting for a socket or waiting to be scheduled.",
+    "concepts_in_context": "A slow endpoint can be computing, waiting for a lock, waiting for a socket or waiting to be scheduled. CPU utilization alone cannot distinguish these paths. Inspect process state, open sockets, syscall durations and per-thread stacks while preserving a timestamped hypothesis. Linux signals coordinate shutdown but cannot guarantee cleanup after SIGKILL. The service must stop admission, drain bounded work and close resources within the orchestrator grace period.",
+    "why_it_matters": "Connect process, memory, file descriptor and scheduling behavior to symptoms seen in Python services.",
+    "outcomes": [
+      "Use strace with elapsed syscall timing and ss to distinguish a sleeping worker from a connection stall.",
+      "A timestamped trace identifies the blocking syscall or wait; SIGTERM drains a running request within five seconds.",
+      "Introduce a lock convoy and diagnose it without inserting print statements into every function."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-linux",
+        "priority": "required",
+        "reading_focus": "Read status, fd, limits and task entries; map each to a production question.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-linux-l02-lab",
+      "backend-linux-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "What can a high load average with low CPU mean?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Runnable work and uninterruptible waits can contribute; inspect process states and I/O rather than assuming CPU saturation."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "backend-linux-l01"
+    ],
+    "pitfalls": [
+      "Runnable work and uninterruptible waits can contribute; inspect process states and I/O rather than assuming CPU saturation."
+    ],
+    "acceptance_focus": "A timestamped trace identifies the blocking syscall or wait; SIGTERM drains a running request within five seconds.",
+    "study_steps": [
+      "Read status, fd, limits and task entries; map each to a production question.",
+      "Predict the result and failure boundary before running this experiment: Use strace with elapsed syscall timing and ss to distinguish a sleeping worker from a connection stall.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Introduce a lock convoy and diagnose it without inserting print statements into every function."
+    ]
+  },
+  {
+    "id": "backend-linux-project",
+    "course_id": "backend-linux",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Operating systems and Linux diagnosis — integration project",
+    "explanation": "Build a Linux incident laboratory with reproducible modes for CPU saturation, leaked descriptors, growing resident memory and blocked I/O. Supply a diagnostic runbook using proc, ps, ss and strace.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a Linux incident laboratory with reproducible modes for CPU saturation, leaked descriptors, growing resident memory and blocked I/O. Supply a diagnostic runbook using proc, ps, ss and strace. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Identify the correct failure using evidence from two independent OS signals.",
+      "Each failure has a bounded trigger and a cleanup command.",
+      "Distinguish virtual memory, resident memory and container memory limits in the report."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-linux",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-linux-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-linux-l01",
+      "backend-linux-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Identify the correct failure using evidence from two independent OS signals."
+  },
+  {
+    "id": "backend-network-l01",
+    "course_id": "backend-network",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "TCP, DNS, TLS and connection budgets",
+    "explanation": "TCP is an ordered byte stream rather than a message queue: a read can return part of a message or several messages.",
+    "concepts_in_context": "TCP is an ordered byte stream rather than a message queue: a read can return part of a message or several messages. DNS, TCP establishment, TLS negotiation, pool waiting and response reads consume different parts of a request budget. Reusing connections avoids setup work but can preserve stale destinations. A timeout is an observation by one participant, not proof that the peer did no work. Instrument phases and propagate remaining time instead of assigning every hop an independent full timeout.",
+    "why_it_matters": "Understand byte streams, connection setup, proxy behavior and API semantics under retries.",
+    "outcomes": [
+      "Write a length-prefixed echo client/server that fragments each write and enforces maximum frame length.",
+      "Tests split the header and body at every byte boundary and reject oversized frames before allocation.",
+      "Add DNS delay and a slow peer; report which phase consumes the deadline."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-net",
+        "priority": "required",
+        "reading_focus": "Read send, recv, partial I/O and closing connections; draw DNS/TCP/TLS/request timing.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-network-l01-lab",
+      "backend-network-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why is a successful send not evidence the request committed?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "It may only mean bytes entered a local buffer. Application acknowledgement and durable server state establish the result."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "It may only mean bytes entered a local buffer. Application acknowledgement and durable server state establish the result."
+    ],
+    "acceptance_focus": "Tests split the header and body at every byte boundary and reject oversized frames before allocation.",
+    "study_steps": [
+      "Read send, recv, partial I/O and closing connections; draw DNS/TCP/TLS/request timing.",
+      "Predict the result and failure boundary before running this experiment: Write a length-prefixed echo client/server that fragments each write and enforces maximum frame length.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add DNS delay and a slow peer; report which phase consumes the deadline."
+    ]
+  },
+  {
+    "id": "backend-network-l02",
+    "course_id": "backend-network",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "HTTP semantics, proxies and safe retries",
+    "explanation": "HTTP methods communicate semantics to clients and intermediaries.",
+    "concepts_in_context": "HTTP methods communicate semantics to clients and intermediaries. Safe, idempotent and cacheable are separate properties. An idempotent method can return different responses while preserving the same intended server effect. Conditional requests prevent lost updates, while idempotency keys handle repeated commands when implemented with durable deduplication. Proxy buffering and timeout policies can hide how much work the origin completed. Always reason about an ambiguous response after a connection loss.",
+    "why_it_matters": "Understand byte streams, connection setup, proxy behavior and API semantics under retries.",
+    "outcomes": [
+      "Implement ETag/If-Match updates and an idempotency-key POST over a small inventory resource.",
+      "Two clients using one ETag cannot both overwrite the resource; a duplicate key returns the original result.",
+      "Drop the response after commit and retry; reject the same key with a different payload."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-http",
+        "priority": "required",
+        "reading_focus": "Read sections 9, 13 and 15 on methods, preconditions and status codes; derive PUT versus POST retry behavior.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-network-l02-lab",
+      "backend-network-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Does idempotent mean identical response bytes?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "No. It constrains the intended effect of repetition, not every observable response field or access log entry."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "backend-network-l01"
+    ],
+    "pitfalls": [
+      "No. It constrains the intended effect of repetition, not every observable response field or access log entry."
+    ],
+    "acceptance_focus": "Two clients using one ETag cannot both overwrite the resource; a duplicate key returns the original result.",
+    "study_steps": [
+      "Read sections 9, 13 and 15 on methods, preconditions and status codes; derive PUT versus POST retry behavior.",
+      "Predict the result and failure boundary before running this experiment: Implement ETag/If-Match updates and an idempotency-key POST over a small inventory resource.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Drop the response after commit and retry; reject the same key with a different payload."
+    ]
+  },
+  {
+    "id": "backend-network-project",
+    "course_id": "backend-network",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Networking and HTTP under failure — integration project",
+    "explanation": "Build an instrumented reverse-proxy experiment around an existing Flask service. Simulate slow reads, dropped connections and duplicate POSTs; implement explicit connection/read budgets and conditional updates.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build an instrumented reverse-proxy experiment around an existing Flask service. Simulate slow reads, dropped connections and duplicate POSTs; implement explicit connection/read budgets and conditional updates. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "A fragmented request body is decoded without assuming one recv returns one message.",
+      "A retried operation uses an idempotency key with a persisted result.",
+      "A stale If-Match update is rejected and proxy timeout behavior is documented."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-http",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-network-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-network-l01",
+      "backend-network-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "A fragmented request body is decoded without assuming one recv returns one message."
+  },
+  {
+    "id": "backend-security-l01",
+    "course_id": "backend-security",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Authentication is not object authorization",
+    "explanation": "Authentication establishes a principal; authorization answers whether that principal may perform this action on this object now.",
+    "concepts_in_context": "Authentication establishes a principal; authorization answers whether that principal may perform this action on this object now. Looking up an object by an unpredictable ID does not authorize access. Apply tenant scoping before returning data and before mutating it, including background jobs and exports. Limits on payload size, pagination and expensive operations defend availability as well as cost. Audit the decision without recording raw bearer tokens or private document contents.",
+    "why_it_matters": "Protect identities, resources and downstream systems with explicit authorization and bounded inputs.",
+    "outcomes": [
+      "Create a two-tenant fixture and test every object endpoint using the other tenant’s IDs.",
+      "The authorization matrix covers owner, collaborator, outsider and revoked membership for reads and writes.",
+      "Add an export job and prove its worker rechecks access rather than trusting queued IDs."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-owasp",
+        "priority": "required",
+        "reading_focus": "Read API1, API4 and API7; list an attack path for each in a tenant-aware API.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-security-l01-lab",
+      "backend-security-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why is filtering only the list endpoint insufficient?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Attackers can call item endpoints or indirect operations directly. Every access path must enforce the same object policy."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Attackers can call item endpoints or indirect operations directly. Every access path must enforce the same object policy."
+    ],
+    "acceptance_focus": "The authorization matrix covers owner, collaborator, outsider and revoked membership for reads and writes.",
+    "study_steps": [
+      "Read API1, API4 and API7; list an attack path for each in a tenant-aware API.",
+      "Predict the result and failure boundary before running this experiment: Create a two-tenant fixture and test every object endpoint using the other tenant’s IDs.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add an export job and prove its worker rechecks access rather than trusting queued IDs."
+    ]
+  },
+  {
+    "id": "backend-security-l02",
+    "course_id": "backend-security",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Tokens, sessions and downstream trust",
+    "explanation": "A signed token is useful only if the receiver validates issuer, audience, expiry and the intended algorithm using trusted configuration.",
+    "concepts_in_context": "A signed token is useful only if the receiver validates issuer, audience, expiry and the intended algorithm using trusted configuration. Access tokens are not arbitrary credentials to forward to another resource. OAuth delegates authority; it does not replace application authorization. PKCE protects authorization-code interception, while secure session handling must also consider CSRF, replay and credential rotation. A trusted backend can still become an SSRF proxy if users control downstream addresses.",
+    "why_it_matters": "Protect identities, resources and downstream systems with explicit authorization and bounded inputs.",
+    "outcomes": [
+      "Build a token-validation test matrix and a URL-fetch policy with scheme, destination and redirect restrictions.",
+      "Wrong audience, expired tokens and redirects to private IP space all fail closed.",
+      "Rotate signing keys while concurrent requests continue; document cache refresh and failure policy."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-oauth",
+        "priority": "required",
+        "reading_focus": "Read redirect validation, PKCE, audience restrictions and token replay mitigations; diagram trust at each hop.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-security-l02-lab",
+      "backend-security-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why should an API not accept a token issued for a different service?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Its audience binds authority to the intended resource. Accepting it creates a confused-deputy path across trust boundaries."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "backend-security-l01"
+    ],
+    "pitfalls": [
+      "Its audience binds authority to the intended resource. Accepting it creates a confused-deputy path across trust boundaries."
+    ],
+    "acceptance_focus": "Wrong audience, expired tokens and redirects to private IP space all fail closed.",
+    "study_steps": [
+      "Read redirect validation, PKCE, audience restrictions and token replay mitigations; diagram trust at each hop.",
+      "Predict the result and failure boundary before running this experiment: Build a token-validation test matrix and a URL-fetch policy with scheme, destination and redirect restrictions.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Rotate signing keys while concurrent requests continue; document cache refresh and failure policy."
+    ]
+  },
+  {
+    "id": "backend-security-project",
+    "course_id": "backend-security",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "API security and trust boundaries — integration project",
+    "explanation": "Threat-model a multi-tenant document API. Implement object-level authorization, resource budgets and token validation; test cross-tenant access, SSRF-like inputs and leaked-secret handling.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Threat-model a multi-tenant document API. Implement object-level authorization, resource budgets and token validation; test cross-tenant access, SSRF-like inputs and leaked-secret handling. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Every read/write checks tenant membership using server-derived identity.",
+      "Invalid issuer, audience and expired credentials are rejected.",
+      "Tests prove URL validation blocks internal destinations after resolution and redirect handling."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-oauth",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-security-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-security-l01",
+      "backend-security-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Every read/write checks tenant membership using server-derived identity."
+  },
+  {
+    "id": "backend-transactions-l01",
+    "course_id": "backend-transactions",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Constraints, isolation and write anomalies",
+    "explanation": "A preflight SELECT followed by an UPDATE is not an invariant when other transactions can run between them.",
+    "concepts_in_context": "A preflight SELECT followed by an UPDATE is not an invariant when other transactions can run between them. Place constraints in the database where possible and choose a transaction strategy for the remaining rules. Read committed gives each statement a fresh snapshot; stronger isolation changes which anomalies are possible and may require retries. Locks coordinate contenders but can deadlock when acquired inconsistently. Treat a serialization failure as a request to retry the entire transaction, including its reads.",
+    "why_it_matters": "Model invariants and enforce them under concurrent updates rather than relying on happy-path application checks.",
+    "outcomes": [
+      "Run two sessions that try to reserve the final stock unit using check-then-write, then repair with a conditional UPDATE.",
+      "A barrier-controlled test reproduces overselling before the fix and prevents it afterward.",
+      "Implement an alternative serializable transaction with bounded full-transaction retries."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-pg",
+        "priority": "required",
+        "reading_focus": "Read transaction isolation, row-level locks and deadlocks; reproduce the documented serialization example.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-transactions-l01-lab",
+      "backend-transactions-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why is retrying only the failed SQL statement wrong after serialization failure?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Earlier reads and decisions may no longer be valid. The transaction must restart from a new snapshot."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Earlier reads and decisions may no longer be valid. The transaction must restart from a new snapshot."
+    ],
+    "acceptance_focus": "A barrier-controlled test reproduces overselling before the fix and prevents it afterward.",
+    "study_steps": [
+      "Read transaction isolation, row-level locks and deadlocks; reproduce the documented serialization example.",
+      "Predict the result and failure boundary before running this experiment: Run two sessions that try to reserve the final stock unit using check-then-write, then repair with a conditional UPDATE.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Implement an alternative serializable transaction with bounded full-transaction retries."
+    ]
+  },
+  {
+    "id": "backend-transactions-l02",
+    "course_id": "backend-transactions",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Schema evolution and transaction boundaries",
+    "explanation": "Normalization separates facts so updates do not leave contradictory copies; denormalization trades maintenance work for read efficiency.",
+    "concepts_in_context": "Normalization separates facts so updates do not leave contradictory copies; denormalization trades maintenance work for read efficiency. Constraints encode local truths, while business workflows span multiple statements and sometimes multiple systems. Evolve a live schema using expand, backfill and contract steps so old and new application versions can overlap. Never hold a database transaction open while waiting indefinitely for an external payment service; commit an intent and coordinate the remote effect explicitly.",
+    "why_it_matters": "Model invariants and enforce them under concurrent updates rather than relying on happy-path application checks.",
+    "outcomes": [
+      "Migrate a populated orders table to a normalized currency/amount representation without a flag-day deployment.",
+      "Old and new writers coexist during backfill; invalid amounts fail at the database boundary.",
+      "Add payment intent and reconciliation states without holding a transaction during a remote call."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-pg",
+        "priority": "required",
+        "reading_focus": "Read consistency checks and application-level consistency; contrast constraint enforcement with transaction isolation.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-transactions-l02-lab",
+      "backend-transactions-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Where should an external side effect occur relative to commit?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "It cannot be atomically included in a local transaction by timing alone. Persist intent, use an outbox or reconciliation, and deduplicate the remote action."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "backend-transactions-l01"
+    ],
+    "pitfalls": [
+      "It cannot be atomically included in a local transaction by timing alone. Persist intent, use an outbox or reconciliation, and deduplicate the remote action."
+    ],
+    "acceptance_focus": "Old and new writers coexist during backfill; invalid amounts fail at the database boundary.",
+    "study_steps": [
+      "Read consistency checks and application-level consistency; contrast constraint enforcement with transaction isolation.",
+      "Predict the result and failure boundary before running this experiment: Migrate a populated orders table to a normalized currency/amount representation without a flag-day deployment.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add payment intent and reconciliation states without holding a transaction during a remote call."
+    ]
+  },
+  {
+    "id": "backend-transactions-project",
+    "course_id": "backend-transactions",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Relational design and transactional APIs — integration project",
+    "explanation": "Build a reservation API in PostgreSQL with stock limits, cancellation and idempotent commands. Include a concurrent test driver and schema migration; no overselling is permitted.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a reservation API in PostgreSQL with stock limits, cancellation and idempotent commands. Include a concurrent test driver and schema migration; no overselling is permitted. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "100 concurrent requests for ten units yield exactly ten reservations.",
+      "A retried command cannot create a second reservation or charge record.",
+      "Document isolation, lock ordering and the transaction boundary with rollback tests."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-pg",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-transactions-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-transactions-l01",
+      "backend-transactions-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "100 concurrent requests for ten units yield exactly ten reservations."
+  },
+  {
+    "id": "backend-postgres-l01",
+    "course_id": "backend-postgres",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Plans, indexes and cardinality",
+    "explanation": "A query planner chooses a plan from cost estimates based on statistics, selectivity and available access paths.",
+    "concepts_in_context": "A query planner chooses a plan from cost estimates based on statistics, selectivity and available access paths. An index is not automatically faster: fetching many scattered heap pages can cost more than scanning. Composite B-tree order affects which predicates efficiently narrow the scan, while covering indexes still interact with visibility. EXPLAIN ANALYZE executes the query, so mutating statements need deliberate rollback and operational care. Compare row estimates to actual rows before treating an expensive node as the root cause.",
+    "why_it_matters": "Use plans, indexes, visibility and WAL evidence to explain database behavior.",
+    "outcomes": [
+      "Load skewed events and compare tenant/time queries before and after composite indexes and ANALYZE.",
+      "Retain plans, row estimates, buffer counts, data size and insert throughput for each index variant.",
+      "Introduce a correlated predicate that misleads estimates and evaluate extended statistics."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-plan",
+        "priority": "required",
+        "reading_focus": "Read plan trees, join examples, buffers and caveats; annotate one real plan from leaf to root.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-postgres-l01-lab",
+      "backend-postgres-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why can the planner reject an available index?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "For a large fraction of rows, sequential access may be cheaper. Statistics, correlation, cache and random access costs affect the choice."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "For a large fraction of rows, sequential access may be cheaper. Statistics, correlation, cache and random access costs affect the choice."
+    ],
+    "acceptance_focus": "Retain plans, row estimates, buffer counts, data size and insert throughput for each index variant.",
+    "study_steps": [
+      "Read plan trees, join examples, buffers and caveats; annotate one real plan from leaf to root.",
+      "Predict the result and failure boundary before running this experiment: Load skewed events and compare tenant/time queries before and after composite indexes and ANALYZE.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Introduce a correlated predicate that misleads estimates and evaluate extended statistics."
+    ]
+  },
+  {
+    "id": "backend-postgres-l02",
+    "course_id": "backend-postgres",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "MVCC, vacuum, WAL and connection pools",
+    "explanation": "MVCC keeps row versions so readers can observe snapshots while writers proceed.",
+    "concepts_in_context": "MVCC keeps row versions so readers can observe snapshots while writers proceed. Updates create maintenance work: dead versions cannot be reclaimed while old snapshots still need them. Vacuum and analyze solve different problems, and long transactions can undermine both operational expectations and storage reuse. WAL records changes before data pages are safely persisted; checkpoints and replication introduce separate I/O and lag concerns. A pool is an admission boundary, not a way to make the database handle unlimited concurrent work.",
+    "why_it_matters": "Use plans, indexes, visibility and WAL evidence to explain database behavior.",
+    "outcomes": [
+      "Hold an old transaction while updating a table repeatedly; observe stats, table size, vacuum and pool waiting.",
+      "Release the snapshot and explain what vacuum reclaims versus what it returns to the OS.",
+      "Crash/restart a disposable database during writes and inspect recovery logs and acknowledged transaction survival."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-vacuum",
+        "priority": "required",
+        "reading_focus": "Read vacuum purposes, autovacuum and transaction ID wraparound; connect a long-lived snapshot to dead tuples.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-postgres-l02-lab",
+      "backend-postgres-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why does increasing the pool sometimes make latency worse?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "It adds contention and memory use beyond service capacity. Queueing moves into the database and increases tail latency."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "backend-postgres-l01"
+    ],
+    "pitfalls": [
+      "It adds contention and memory use beyond service capacity. Queueing moves into the database and increases tail latency."
+    ],
+    "acceptance_focus": "Release the snapshot and explain what vacuum reclaims versus what it returns to the OS.",
+    "study_steps": [
+      "Read vacuum purposes, autovacuum and transaction ID wraparound; connect a long-lived snapshot to dead tuples.",
+      "Predict the result and failure boundary before running this experiment: Hold an old transaction while updating a table repeatedly; observe stats, table size, vacuum and pool waiting.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Crash/restart a disposable database during writes and inspect recovery logs and acknowledged transaction survival."
+    ]
+  },
+  {
+    "id": "backend-postgres-project",
+    "course_id": "backend-postgres",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "PostgreSQL internals and query performance — integration project",
+    "explanation": "Create a million-row event workload with skewed tenants. Diagnose one slow query, one update-heavy table and one pool-saturation incident; publish before/after plans and maintenance decisions.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Create a million-row event workload with skewed tenants. Diagnose one slow query, one update-heavy table and one pool-saturation incident; publish before/after plans and maintenance decisions. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Capture EXPLAIN ANALYZE with buffers for cold and warm runs and acknowledge measurement effects.",
+      "Explain estimated versus actual row-count mismatch and choose an index with write-cost evidence.",
+      "Demonstrate dead-tuple growth and recovery after a long transaction is released."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-vacuum",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-postgres-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-postgres-l01",
+      "backend-postgres-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Capture EXPLAIN ANALYZE with buffers for cold and warm runs and acknowledge measurement effects."
+  },
+  {
+    "id": "backend-distributed-l01",
+    "course_id": "backend-distributed",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Partial failure, clocks and consistency",
+    "explanation": "In a distributed system one participant can fail while another continues, and a timeout cannot distinguish a slow peer from a dead peer.",
+    "concepts_in_context": "In a distributed system one participant can fail while another continues, and a timeout cannot distinguish a slow peer from a dead peer. Wall clocks can jump and disagree, so timestamp ordering is not automatically causal ordering. Linearizability gives a real-time single-object contract; eventual consistency permits temporary divergence under stated convergence assumptions. A network partition forces a choice about which operations remain available and which consistency guarantees they retain. Specify the contract per operation before selecting a storage product.",
+    "why_it_matters": "Reason about ordering, consistency, retries and coordination under partial failure.",
+    "outcomes": [
+      "Simulate two replicas with delayed messages and record reads around a leader write.",
+      "A history identifies one stale read, its ordering and the promised contract it violates or satisfies.",
+      "Add a partition and compare refusing writes with accepting divergent writes."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-raft",
+        "priority": "required",
+        "reading_focus": "Read the paper introduction and safety discussion; distinguish consensus from replication without agreement.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-distributed-l01-lab",
+      "backend-distributed-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Does eventual consistency imply a bounded staleness interval?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "No. A bound requires additional assumptions and mechanisms; eventual convergence alone does not promise a deadline."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "No. A bound requires additional assumptions and mechanisms; eventual convergence alone does not promise a deadline."
+    ],
+    "acceptance_focus": "A history identifies one stale read, its ordering and the promised contract it violates or satisfies.",
+    "study_steps": [
+      "Read the paper introduction and safety discussion; distinguish consensus from replication without agreement.",
+      "Predict the result and failure boundary before running this experiment: Simulate two replicas with delayed messages and record reads around a leader write.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add a partition and compare refusing writes with accepting divergent writes."
+    ]
+  },
+  {
+    "id": "backend-distributed-l02",
+    "course_id": "backend-distributed",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Retries, idempotency and coordination",
+    "explanation": "Retries amplify work during overload unless bounded by a common deadline and a retry budget.",
+    "concepts_in_context": "Retries amplify work during overload unless bounded by a common deadline and a retry budget. Exponential backoff with jitter spreads retries but does not create capacity. Durable idempotency records require a scope, payload fingerprint, retention policy and atomic relation to the effect. Distributed locks need careful lease and stale-owner reasoning: a paused owner may resume after its lease expires. Fencing tokens let the protected resource reject stale writers instead of trusting timing alone.",
+    "why_it_matters": "Reason about ordering, consistency, retries and coordination under partial failure.",
+    "outcomes": [
+      "Build a client that retries transient failures against a deduplicating ledger, including response loss after commit.",
+      "Each command changes the ledger once; attempts, elapsed time and retry reasons are visible.",
+      "Simulate an expired lease owner resuming and enforce monotonic fencing at the storage boundary."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-design",
+        "priority": "required",
+        "reading_focus": "Read Timeouts, retries, and backoff with jitter and Making retries safe with idempotent APIs.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-distributed-l02-lab",
+      "backend-distributed-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why can a lease expire while the old worker still writes?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "A pause or partition may prevent renewal without stopping execution. The resource must reject a stale fencing token."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "backend-distributed-l01"
+    ],
+    "pitfalls": [
+      "A pause or partition may prevent renewal without stopping execution. The resource must reject a stale fencing token."
+    ],
+    "acceptance_focus": "Each command changes the ledger once; attempts, elapsed time and retry reasons are visible.",
+    "study_steps": [
+      "Read Timeouts, retries, and backoff with jitter and Making retries safe with idempotent APIs.",
+      "Predict the result and failure boundary before running this experiment: Build a client that retries transient failures against a deduplicating ledger, including response loss after commit.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Simulate an expired lease owner resuming and enforce monotonic fencing at the storage boundary."
+    ]
+  },
+  {
+    "id": "backend-distributed-project",
+    "course_id": "backend-distributed",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Distributed systems and failure semantics — integration project",
+    "explanation": "Build a fault-injected replicated key/value simulator with delayed, duplicated and dropped messages. Compare leader reads and stale replica reads; design an idempotent command layer.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a fault-injected replicated key/value simulator with delayed, duplicated and dropped messages. Compare leader reads and stale replica reads; design an idempotent command layer. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "A deterministic seed reproduces every reported divergence.",
+      "Record histories showing stale reads and explain the consistency contract.",
+      "A bounded retry policy uses deadlines, backoff and deduplication under ambiguous completion."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-design",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-distributed-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-distributed-l01",
+      "backend-distributed-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "A deterministic seed reproduces every reported divergence."
+  },
+  {
+    "id": "backend-cache-l01",
+    "course_id": "backend-cache",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Cache-aside, invalidation and stale data",
+    "explanation": "A cache stores a derived answer with a freshness contract.",
+    "concepts_in_context": "A cache stores a derived answer with a freshness contract. Cache-aside reads can race with updates: an old read can repopulate a key after a writer invalidates it. TTL bounds some stale data only if fill and invalidation behavior obey the assumed timing. Negative caching reduces repeated misses but can hide newly created objects. Include tenant and authorization-relevant dimensions in keys, and avoid letting a cache outage turn every request into an unrestricted origin query.",
+    "why_it_matters": "Measure the consistency and load consequences of caching rather than adding Redis by reflex.",
+    "outcomes": [
+      "Reproduce stale repopulation with barriers around read, update, invalidate and cache fill.",
+      "A test deterministically exposes the race; the chosen mitigation states its remaining staleness window.",
+      "Add negative caching and tenant scoping, then test object creation and permission revocation."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-redis",
+        "priority": "required",
+        "reading_focus": "Read invalidation messages, disconnection handling and race conditions; compare server tracking to cache-aside.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-cache-l01-lab",
+      "backend-cache-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Does deleting a cache entry after update guarantee freshness?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "No. An in-flight read of old state can refill it afterward unless the design addresses that race."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "No. An in-flight read of old state can refill it afterward unless the design addresses that race."
+    ],
+    "acceptance_focus": "A test deterministically exposes the race; the chosen mitigation states its remaining staleness window.",
+    "study_steps": [
+      "Read invalidation messages, disconnection handling and race conditions; compare server tracking to cache-aside.",
+      "Predict the result and failure boundary before running this experiment: Reproduce stale repopulation with barriers around read, update, invalidate and cache fill.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add negative caching and tenant scoping, then test object creation and permission revocation."
+    ]
+  },
+  {
+    "id": "backend-cache-l02",
+    "course_id": "backend-cache",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Stampedes, queueing and measurement",
+    "explanation": "A high hit ratio can coexist with poor tail latency if a hot key expires and thousands of requests rebuild it.",
+    "concepts_in_context": "A high hit ratio can coexist with poor tail latency if a hot key expires and thousands of requests rebuild it. Single-flight collapses concurrent work for one key, but each waiter still needs a deadline and memory budget. Stale-while-revalidate exchanges freshness for availability; TTL jitter reduces synchronized expiry across keys. Little’s Law relates average in-flight work, throughput and time in a stable system, but it cannot justify unlimited queues. Compare distributions and origin saturation, not only average response time.",
+    "why_it_matters": "Measure the consistency and load consequences of caching rather than adding Redis by reflex.",
+    "outcomes": [
+      "Run a fixed-rate load generator through a synchronized expiry with and without single-flight.",
+      "The report separates offered load, completed throughput, rejected requests and percentile latency.",
+      "Implement stale-while-revalidate with a maximum stale age and a bounded refresh queue."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-sre",
+        "priority": "required",
+        "reading_focus": "Read Handling Overload and Addressing Cascading Failures; identify where queues form in a cache miss.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-cache-l02-lab",
+      "backend-cache-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why can a cache improve averages while worsening p99?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Rare synchronized misses create bursts and queueing; aggregate averages hide those expensive intervals."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "backend-cache-l01"
+    ],
+    "pitfalls": [
+      "Rare synchronized misses create bursts and queueing; aggregate averages hide those expensive intervals."
+    ],
+    "acceptance_focus": "The report separates offered load, completed throughput, rejected requests and percentile latency.",
+    "study_steps": [
+      "Read Handling Overload and Addressing Cascading Failures; identify where queues form in a cache miss.",
+      "Predict the result and failure boundary before running this experiment: Run a fixed-rate load generator through a synchronized expiry with and without single-flight.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Implement stale-while-revalidate with a maximum stale age and a bounded refresh queue."
+    ]
+  },
+  {
+    "id": "backend-cache-project",
+    "course_id": "backend-cache",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Caching and performance experiments — integration project",
+    "explanation": "Build a cache-performance experiment for an expensive catalog query: compare no cache, cache-aside, single-flight and stale-while-revalidate under a synchronized expiration burst.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a cache-performance experiment for an expensive catalog query: compare no cache, cache-aside, single-flight and stale-while-revalidate under a synchronized expiration burst. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Measure hit ratio, origin QPS, p50/p95/p99 and error rate with identical workload seeds.",
+      "A hot-key expiration does not produce one origin request per caller.",
+      "An update race and a cache outage have explicit, tested freshness and fallback behavior."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-sre",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-cache-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-cache-l01",
+      "backend-cache-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Measure hit ratio, origin QPS, p50/p95/p99 and error rate with identical workload seeds."
+  },
+  {
+    "id": "backend-messaging-l01",
+    "course_id": "backend-messaging",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Acknowledgements, duplicates and the outbox",
+    "explanation": "Publisher confirms tell a producer about broker acceptance; consumer acknowledgements tell the broker about processing progress.",
+    "concepts_in_context": "Publisher confirms tell a producer about broker acceptance; consumer acknowledgements tell the broker about processing progress. Neither alone proves a business side effect occurred exactly once. A worker can commit its effect and die before acknowledging, producing redelivery. The outbox writes a business change and event intent in one database transaction, while a separate publisher may still send duplicates. Consumers therefore need idempotent effects or an inbox deduplication record atomically tied to their local mutation.",
+    "why_it_matters": "Design recoverable work with explicit delivery, ordering and side-effect guarantees.",
+    "outcomes": [
+      "Implement an outbox publisher and an inbox-protected account projection; kill each process at every boundary.",
+      "No committed event disappears and replayed messages do not double-apply the projection.",
+      "Add broker outage recovery without holding business transactions open on publish."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-rabbit",
+        "priority": "required",
+        "reading_focus": "Read automatic/manual acknowledgement, requeue and publisher confirms; draw the crash windows separately.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-messaging-l01-lab",
+      "backend-messaging-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why does the outbox not remove consumer deduplication?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "The publisher can send successfully and crash before recording delivery, so its next attempt may duplicate the event."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "The publisher can send successfully and crash before recording delivery, so its next attempt may duplicate the event."
+    ],
+    "acceptance_focus": "No committed event disappears and replayed messages do not double-apply the projection.",
+    "study_steps": [
+      "Read automatic/manual acknowledgement, requeue and publisher confirms; draw the crash windows separately.",
+      "Predict the result and failure boundary before running this experiment: Implement an outbox publisher and an inbox-protected account projection; kill each process at every boundary.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add broker outage recovery without holding business transactions open on publish."
+    ]
+  },
+  {
+    "id": "backend-messaging-l02",
+    "course_id": "backend-messaging",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Ordering, retries and long-running jobs",
+    "explanation": "Ordering is usually scoped to a partition or queue, not global.",
+    "concepts_in_context": "Ordering is usually scoped to a partition or queue, not global. Retrying an earlier message can let later work overtake it, and a poison message can block progress indefinitely. Choose whether the domain needs per-key order, commutative updates or version checks. Long-running jobs require heartbeats, leases or resumable chunks, but lease expiry does not stop old workers. Store progress at safe boundaries and distinguish retryable infrastructure failures from permanent invalid input.",
+    "why_it_matters": "Design recoverable work with explicit delivery, ordering and side-effect guarantees.",
+    "outcomes": [
+      "Implement a job state machine with ready, leased, retry_wait, succeeded and dead states.",
+      "A frozen worker cannot finalize a job after lease ownership changes; retries retain attempt history.",
+      "Process ordered account events with one missing sequence number and define reconciliation behavior."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-kafka",
+        "priority": "required",
+        "reading_focus": "Read design sections on consumers, replication and delivery semantics; name the scope of each ordering promise.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-messaging-l02-lab",
+      "backend-messaging-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "When is a dead-letter queue insufficient?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "When no operator owns inspection, correction and replay. It is storage, not a recovery procedure."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "backend-messaging-l01"
+    ],
+    "pitfalls": [
+      "When no operator owns inspection, correction and replay. It is storage, not a recovery procedure."
+    ],
+    "acceptance_focus": "A frozen worker cannot finalize a job after lease ownership changes; retries retain attempt history.",
+    "study_steps": [
+      "Read design sections on consumers, replication and delivery semantics; name the scope of each ordering promise.",
+      "Predict the result and failure boundary before running this experiment: Implement a job state machine with ready, leased, retry_wait, succeeded and dead states.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Process ordered account events with one missing sequence number and define reconciliation behavior."
+    ]
+  },
+  {
+    "id": "backend-messaging-project",
+    "course_id": "backend-messaging",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Durable jobs, messaging and workflows — integration project",
+    "explanation": "Build a durable job-processing system with PostgreSQL outbox, a broker and independent workers. Include retry scheduling, dead-letter inspection, poison-job handling and restart recovery.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a durable job-processing system with PostgreSQL outbox, a broker and independent workers. Include retry scheduling, dead-letter inspection, poison-job handling and restart recovery. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Kill a worker after its external effect but before acknowledgement; replay causes no duplicate effect.",
+      "A committed business change eventually produces an event after publisher restart.",
+      "Poison jobs stop retrying after a bounded policy and can be inspected and replayed deliberately."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-kafka",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-messaging-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-messaging-l01",
+      "backend-messaging-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Kill a worker after its external effect but before acknowledgement; replay causes no duplicate effect."
+  },
+  {
+    "id": "backend-reliability-l01",
+    "course_id": "backend-reliability",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "SLIs, SLOs and overload control",
+    "explanation": "Reliability needs a user-facing definition: a successful request within a latency threshold is more useful than process uptime.",
+    "concepts_in_context": "Reliability needs a user-facing definition: a successful request within a latency threshold is more useful than process uptime. An SLO sets a target over a window and an error budget makes tradeoffs explicit. Retries and queues can hide failures while consuming the budget. Shed load before all workers saturate, reserve capacity for essential operations and use circuit breaking only with a clear recovery probe policy. A dependency being down should not make every unrelated endpoint fail.",
+    "why_it_matters": "Set service objectives, preserve useful telemetry and practice diagnosis under failure.",
+    "outcomes": [
+      "Specify an availability/latency SLI and replay a synthetic hour containing errors, slow successes and rejected requests.",
+      "The computed error budget includes the intended user failures and excludes only documented non-service traffic.",
+      "Add admission control and graceful degradation for a nonessential recommendation dependency."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-sre",
+        "priority": "required",
+        "reading_focus": "Read Service Level Objectives, Alerting on SLOs and Handling Overload; define numerator and denominator before choosing a target.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-reliability-l01-lab",
+      "backend-reliability-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why can queue length be a better early warning than error rate?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Requests may wait long before timing out. Growing queues expose demand exceeding capacity while success counters still look healthy."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Requests may wait long before timing out. Growing queues expose demand exceeding capacity while success counters still look healthy."
+    ],
+    "acceptance_focus": "The computed error budget includes the intended user failures and excludes only documented non-service traffic.",
+    "study_steps": [
+      "Read Service Level Objectives, Alerting on SLOs and Handling Overload; define numerator and denominator before choosing a target.",
+      "Predict the result and failure boundary before running this experiment: Specify an availability/latency SLI and replay a synthetic hour containing errors, slow successes and rejected requests.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add admission control and graceful degradation for a nonessential recommendation dependency."
+    ]
+  },
+  {
+    "id": "backend-reliability-l02",
+    "course_id": "backend-reliability",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Metrics, traces and useful logs",
+    "explanation": "Metrics summarize populations, traces connect causal work, and logs preserve selected events.",
+    "concepts_in_context": "Metrics summarize populations, traces connect causal work, and logs preserve selected events. A request ID in every metric label creates unbounded cardinality; keep such identifiers in traces or structured logs. Sampling reduces trace cost but can remove rare failure evidence, so document the policy. Propagate context across broker boundaries and record queue wait separately from execution. Logs must be redacted before export, not merely hidden by a dashboard.",
+    "why_it_matters": "Set service objectives, preserve useful telemetry and practice diagnosis under failure.",
+    "outcomes": [
+      "Instrument request latency, queue wait, database duration and tool-like downstream calls with trace context.",
+      "One failed job can be followed from request through retry without storing credentials or document bodies.",
+      "Introduce missing context and metric-label explosion; detect and repair both in a telemetry review."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-otel",
+        "priority": "required",
+        "reading_focus": "Read signals, baggage and context propagation; decide which fields belong in metrics versus traces.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-reliability-l02-lab",
+      "backend-reliability-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why is baggage a poor place for secrets?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "It propagates across service boundaries and may be logged or exported. It is contextual data, not a secure credential channel."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "backend-reliability-l01"
+    ],
+    "pitfalls": [
+      "It propagates across service boundaries and may be logged or exported. It is contextual data, not a secure credential channel."
+    ],
+    "acceptance_focus": "One failed job can be followed from request through retry without storing credentials or document bodies.",
+    "study_steps": [
+      "Read signals, baggage and context propagation; decide which fields belong in metrics versus traces.",
+      "Predict the result and failure boundary before running this experiment: Instrument request latency, queue wait, database duration and tool-like downstream calls with trace context.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Introduce missing context and metric-label explosion; detect and repair both in a telemetry review."
+    ]
+  },
+  {
+    "id": "backend-reliability-project",
+    "course_id": "backend-reliability",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Reliability, observability and incident response — integration project",
+    "explanation": "Run a game day against the reservation/job service. Define an SLO, instrument traces and metrics, inject a slow dependency and produce a blameless incident report with a verified corrective change.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Run a game day against the reservation/job service. Define an SLO, instrument traces and metrics, inject a slow dependency and produce a blameless incident report with a verified corrective change. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "An alert detects user-visible budget burn without paging on every transient spike.",
+      "A trace links HTTP request, database work and asynchronous job using propagated context.",
+      "The runbook diagnoses injected failure within ten minutes using bounded-cardinality telemetry."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-otel",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-reliability-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-reliability-l01",
+      "backend-reliability-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "An alert detects user-visible budget burn without paging on every transient spike."
+  },
+  {
+    "id": "backend-testing-l01",
+    "course_id": "backend-testing",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Properties, contracts and realistic test boundaries",
+    "explanation": "A mock verifies the interaction you programmed into it, not a database’s isolation or a broker’s redelivery behavior.",
+    "concepts_in_context": "A mock verifies the interaction you programmed into it, not a database’s isolation or a broker’s redelivery behavior. Use fast unit tests for local logic, contract tests for external shapes and disposable real dependencies for semantics that matter. Property tests explore input spaces, while state-machine tests explore operation sequences and invariants. Deterministic clocks and fault points make recovery tests repeatable; sleeping and hoping for a race makes them flaky.",
+    "why_it_matters": "Use properties, fault injection and measurements to challenge implementation assumptions.",
+    "outcomes": [
+      "Write a state machine that generates reserve, cancel, retry and duplicate commands against a real database.",
+      "Shrinking yields a minimal failing sequence for an intentionally introduced double-cancel bug.",
+      "Add a provider contract fixture and detect an incompatible error response without calling a live service."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-hypothesis",
+        "priority": "required",
+        "reading_focus": "Read strategies and stateful testing; express inventory conservation as an invariant across reserve/cancel sequences.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-testing-l01-lab",
+      "backend-testing-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why does 100% line coverage not prove correct concurrency?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Coverage does not enumerate interleavings, invariants or real dependency behavior; separate semantic tests are required."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Coverage does not enumerate interleavings, invariants or real dependency behavior; separate semantic tests are required."
+    ],
+    "acceptance_focus": "Shrinking yields a minimal failing sequence for an intentionally introduced double-cancel bug.",
+    "study_steps": [
+      "Read strategies and stateful testing; express inventory conservation as an invariant across reserve/cancel sequences.",
+      "Predict the result and failure boundary before running this experiment: Write a state machine that generates reserve, cancel, retry and duplicate commands against a real database.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add a provider contract fixture and detect an incompatible error response without calling a live service."
+    ]
+  },
+  {
+    "id": "backend-testing-l02",
+    "course_id": "backend-testing",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Profiling, load shape and capacity",
+    "explanation": "A profiler attributes observed work; a benchmark determines behavior under a specified workload.",
+    "concepts_in_context": "A profiler attributes observed work; a benchmark determines behavior under a specified workload. CPU profiles miss time spent waiting unless the tool measures it, and a closed-loop load test can reduce offered load exactly when latency rises. Record offered rate, throughput, failures and tail latency independently. Apply one change at a time and retain raw data. Capacity is a boundary under stated resource and reliability constraints, not the largest QPS a process ever briefly reported.",
+    "why_it_matters": "Use properties, fault injection and measurements to challenge implementation assumptions.",
+    "outcomes": [
+      "Profile a serialization-heavy endpoint and compare CPU, allocation and database timing under fixed-rate load.",
+      "The report identifies the limiting resource and shows before/after measurements with identical input distributions.",
+      "Increase payload size tenfold and test whether the previous optimization still helps."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-perf",
+        "priority": "required",
+        "reading_focus": "Read profiler output interpretation; contrast cumulative time with self time before selecting a function to optimize.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-testing-l02-lab",
+      "backend-testing-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why can an apparent p99 improvement be misleading during overload?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "A client may stop issuing requests while waiting, hiding queueing and reducing load. Report arrival behavior and rejected or timed-out work."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "backend-testing-l01"
+    ],
+    "pitfalls": [
+      "A client may stop issuing requests while waiting, hiding queueing and reducing load. Report arrival behavior and rejected or timed-out work."
+    ],
+    "acceptance_focus": "The report identifies the limiting resource and shows before/after measurements with identical input distributions.",
+    "study_steps": [
+      "Read profiler output interpretation; contrast cumulative time with self time before selecting a function to optimize.",
+      "Predict the result and failure boundary before running this experiment: Profile a serialization-heavy endpoint and compare CPU, allocation and database timing under fixed-rate load.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Increase payload size tenfold and test whether the previous optimization still helps."
+    ]
+  },
+  {
+    "id": "backend-testing-project",
+    "course_id": "backend-testing",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Testing, profiling and capacity planning — integration project",
+    "explanation": "Build a repeatable verification suite and capacity report for the transactional service. Combine state-machine tests, real PostgreSQL integration tests and fixed-arrival-rate load tests; diagnose the first bottleneck.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a repeatable verification suite and capacity report for the transactional service. Combine state-machine tests, real PostgreSQL integration tests and fixed-arrival-rate load tests; diagnose the first bottleneck. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "A seeded concurrent failure reproduces in CI and checks business invariants.",
+      "The capacity report states data size, hardware, warmup, workload, percentiles and error rate.",
+      "A profiler-backed change improves the measured bottleneck without invalidating correctness tests."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-perf",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-testing-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-testing-l01",
+      "backend-testing-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "A seeded concurrent failure reproduces in CI and checks business invariants."
+  },
+  {
+    "id": "backend-deployment-l01",
+    "course_id": "backend-deployment",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Reproducible builds, releases and recovery",
+    "explanation": "A container packages userspace dependencies; it does not make application state durable or every build reproducible.",
+    "concepts_in_context": "A container packages userspace dependencies; it does not make application state durable or every build reproducible. Pin dependencies, minimize runtime privileges and separate build-time inputs from secrets. Readiness controls traffic eligibility while liveness asks whether restart is useful; conflating them can restart every instance during a shared database outage. Migrations and messages must support overlapping versions. A backup is only evidence of recoverability after a restore drill checks data and recovery time.",
+    "why_it_matters": "Operate a service through change, recovery and growth with explicit architectural tradeoffs.",
+    "outcomes": [
+      "Create a non-root image, health endpoints and a shutdown sequence; perform a mixed-version rollout.",
+      "No secrets appear in image history; draining completes before the declared grace period.",
+      "Restore PostgreSQL to an isolated environment and measure recovery time and potential data loss."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-docker",
+        "priority": "required",
+        "reading_focus": "Read multi-stage builds, pinning base images and cache; compare build reproducibility with deployment reproducibility.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-deployment-l01-lab",
+      "backend-deployment-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why should liveness avoid depending on a shared database?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "A database outage can make every instance restart simultaneously without repairing the dependency, amplifying failure."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "A database outage can make every instance restart simultaneously without repairing the dependency, amplifying failure."
+    ],
+    "acceptance_focus": "No secrets appear in image history; draining completes before the declared grace period.",
+    "study_steps": [
+      "Read multi-stage builds, pinning base images and cache; compare build reproducibility with deployment reproducibility.",
+      "Predict the result and failure boundary before running this experiment: Create a non-root image, health endpoints and a shutdown sequence; perform a mixed-version rollout.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Restore PostgreSQL to an isolated environment and measure recovery time and potential data loss."
+    ]
+  },
+  {
+    "id": "backend-deployment-l02",
+    "course_id": "backend-deployment",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Architecture, system design and engineering decisions",
+    "explanation": "Architecture allocates responsibilities and failure boundaries.",
+    "concepts_in_context": "Architecture allocates responsibilities and failure boundaries. A modular monolith often gives simpler transactions and operations than prematurely separated services. Split a service when independent scaling, ownership or isolation justifies network and consistency costs. A system design begins with workload, data access, invariants and reliability goals; boxes follow those constraints. Record alternatives and the evidence that would reverse your choice. Infrastructure as code should make changes reviewable and drift detectable, while managed services exchange control for operational support and cost.",
+    "why_it_matters": "Operate a service through change, recovery and growth with explicit architectural tradeoffs.",
+    "outcomes": [
+      "Write an ADR comparing a modular monolith with two services for reservations and billing; estimate peak connections, storage and queue demand.",
+      "The ADR states invariants, failure modes, rough capacity arithmetic and a reversible migration path.",
+      "Describe a regional outage plan with RPO/RTO and test one recoverable component locally."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-azure",
+        "priority": "required",
+        "reading_focus": "Read the five pillars and reliability design principles; evaluate one design against concrete failure and cost assumptions.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-deployment-l02-lab",
+      "backend-deployment-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "What makes an architecture decision stronger than a list of technologies?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "It connects requirements to tradeoffs, rejected alternatives and measurable consequences under failure and growth."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "backend-deployment-l01"
+    ],
+    "pitfalls": [
+      "It connects requirements to tradeoffs, rejected alternatives and measurable consequences under failure and growth."
+    ],
+    "acceptance_focus": "The ADR states invariants, failure modes, rough capacity arithmetic and a reversible migration path.",
+    "study_steps": [
+      "Read the five pillars and reliability design principles; evaluate one design against concrete failure and cost assumptions.",
+      "Predict the result and failure boundary before running this experiment: Write an ADR comparing a modular monolith with two services for reservations and billing; estimate peak connections, storage and queue demand.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Describe a regional outage plan with RPO/RTO and test one recoverable component locally."
+    ]
+  },
+  {
+    "id": "backend-deployment-project",
+    "course_id": "backend-deployment",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Deployment, infrastructure and architecture — integration project",
+    "explanation": "Production backend capstone: deliver a tenant-aware reservation and durable-job platform with PostgreSQL, cache and broker. Use containers and reproducible infrastructure; include load testing, telemetry, rollback, backup restoration and an architecture review.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Production backend capstone: deliver a tenant-aware reservation and durable-job platform with PostgreSQL, cache and broker. Use containers and reproducible infrastructure; include load testing, telemetry, rollback, backup restoration and an architecture review. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "A clean environment starts from documented commands with no embedded credentials.",
+      "Restore a backup into an empty database and verify inventory and job invariants.",
+      "During a rolling deployment, in-flight requests drain and mixed-version workers process compatible messages.",
+      "Meet a declared SLO at a measured offered load, then demonstrate controlled overload and recovery.",
+      "Submit threat model, ADRs, operational runbooks, traces and a cost/capacity estimate."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-azure",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-deployment-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-deployment-l01",
+      "backend-deployment-l02"
+    ],
+    "estimated_hours": 20,
+    "status": "authored",
+    "acceptance_focus": "A clean environment starts from documented commands with no embedded credentials."
+  },
+  {
+    "id": "backend-consensus-l01",
+    "course_id": "backend-consensus",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Consensus and replicated state machines",
+    "explanation": "Replicating bytes is not enough to agree which commands are committed.",
+    "concepts_in_context": "Replicating bytes is not enough to agree which commands are committed. Raft separates leader election, log replication and safety rules so a majority can agree despite some failures. Terms distinguish leadership epochs; a stale leader must not continue deciding commits. Consensus assumes a particular failure model and durable state, and does not make arbitrary external side effects deterministic. Use a simulator to inspect histories before attempting networking.",
+    "why_it_matters": "Study consensus, replication and coordination beyond client-side retry patterns.",
+    "outcomes": [
+      "Simulate an election and a leader crash with an uncommitted suffix.",
+      "A new leader preserves committed entries while conflicting uncommitted entries are resolved.",
+      "Add duplicate client requests and separate request deduplication from log agreement."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-raft",
+        "priority": "required",
+        "reading_focus": "Read sections 5 and 8, Figure 2 and the election restriction; annotate each persistent field.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-consensus-l01-lab",
+      "backend-consensus-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Can consensus make an external email send exactly once?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "No. The replicated decision still needs an idempotent or reconcilable external effect."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "No. The replicated decision still needs an idempotent or reconcilable external effect."
+    ],
+    "acceptance_focus": "A new leader preserves committed entries while conflicting uncommitted entries are resolved.",
+    "study_steps": [
+      "Read sections 5 and 8, Figure 2 and the election restriction; annotate each persistent field.",
+      "Predict the result and failure boundary before running this experiment: Simulate an election and a leader crash with an uncommitted suffix.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add duplicate client requests and separate request deduplication from log agreement."
+    ]
+  },
+  {
+    "id": "backend-consensus-project",
+    "course_id": "backend-consensus",
+    "ordinal": 2,
+    "type": "checkpoint",
+    "title": "Advanced distributed systems — integration project",
+    "explanation": "Implement a deterministic three-node Raft teaching simulator with election, replicated commands and crash/restart. It is a learning artifact, not a production consensus library.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Implement a deterministic three-node Raft teaching simulator with election, replicated commands and crash/restart. It is a learning artifact, not a production consensus library. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "A seeded partition/restart trace preserves committed-prefix agreement.",
+      "Uncommitted entries cannot be exposed as committed state.",
+      "Document omitted production concerns and compare with the paper’s safety argument."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-raft",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-consensus-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-consensus-l01"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "A seeded partition/restart trace preserves committed-prefix agreement."
+  },
+  {
+    "id": "backend-database-l01",
+    "course_id": "backend-database",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Storage engines and recovery contracts",
+    "explanation": "A storage engine must define when an acknowledged write survives a crash.",
+    "concepts_in_context": "A storage engine must define when an acknowledged write survives a crash. Writing to a userspace buffer, kernel page cache and durable media are different boundaries. Append-only records simplify sequential writes but require indexing and compaction; checksums detect corruption rather than repair it. Replication adds another durability boundary and asynchronous followers can lag. State which failures the design tolerates instead of using durable as an unqualified adjective.",
+    "why_it_matters": "Explore storage, recovery, replication and operational database design.",
+    "outcomes": [
+      "Write length/checksum-framed records and crash during append and compaction.",
+      "Restart returns only complete acknowledged records under the documented fsync policy.",
+      "Measure batching throughput versus acknowledgement latency and possible loss window."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-wal",
+        "priority": "required",
+        "reading_focus": "Read WAL reliability and checkpoints; distinguish flushing a log from flushing every data page.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-database-l01-lab",
+      "backend-database-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why does a replica not replace backups?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Accidental deletes or corruption may replicate. Independent recovery history protects a different failure class."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Accidental deletes or corruption may replicate. Independent recovery history protects a different failure class."
+    ],
+    "acceptance_focus": "Restart returns only complete acknowledged records under the documented fsync policy.",
+    "study_steps": [
+      "Read WAL reliability and checkpoints; distinguish flushing a log from flushing every data page.",
+      "Predict the result and failure boundary before running this experiment: Write length/checksum-framed records and crash during append and compaction.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Measure batching throughput versus acknowledgement latency and possible loss window."
+    ]
+  },
+  {
+    "id": "backend-database-project",
+    "course_id": "backend-database",
+    "ordinal": 2,
+    "type": "checkpoint",
+    "title": "Database engineering — integration project",
+    "explanation": "Build a miniature append-only key/value engine with checksummed records, crash recovery and compaction; compare its guarantees with PostgreSQL WAL and replication.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a miniature append-only key/value engine with checksummed records, crash recovery and compaction; compare its guarantees with PostgreSQL WAL and replication. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Recovery ignores or rejects a truncated final record without inventing data.",
+      "Compaction preserves the latest committed value across restart.",
+      "A write-amplification report explains the difference from a production database."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-wal",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-database-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-database-l01"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Recovery ignores or rejects a truncated final record without inventing data."
+  },
+  {
+    "id": "backend-platform-l01",
+    "course_id": "backend-platform",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Scheduling, autoscaling and platform boundaries",
+    "explanation": "A scheduler places workloads using declared requests; a limit constrains resource usage and may throttle or kill a process.",
+    "concepts_in_context": "A scheduler places workloads using declared requests; a limit constrains resource usage and may throttle or kill a process. Autoscaling needs a signal that tracks demand and enough startup headroom to react before queues explode. Pod count alone cannot overcome a saturated database. A platform should supply paved paths for configuration, identity, telemetry and recovery while making application-specific responsibilities explicit. Infrastructure changes need preview, review and rollback just like code.",
+    "why_it_matters": "Turn deployment knowledge into safe automation and multi-service operations.",
+    "outcomes": [
+      "Deploy two replicas, then simulate CPU pressure and a failing readiness check.",
+      "Observe scheduling, throttling and traffic removal separately; retain rollout events.",
+      "Define an Azure deployment alternative and compare operational responsibility and monthly cost assumptions."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-k8s",
+        "priority": "required",
+        "reading_focus": "Read Deployments, Pod lifecycle, resource management and probes; draw rollout and termination timing.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-platform-l01-lab",
+      "backend-platform-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why may scaling workers reduce total throughput?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Shared dependencies can saturate; more workers increase contention and connection pressure without increasing useful capacity."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Shared dependencies can saturate; more workers increase contention and connection pressure without increasing useful capacity."
+    ],
+    "acceptance_focus": "Observe scheduling, throttling and traffic removal separately; retain rollout events.",
+    "study_steps": [
+      "Read Deployments, Pod lifecycle, resource management and probes; draw rollout and termination timing.",
+      "Predict the result and failure boundary before running this experiment: Deploy two replicas, then simulate CPU pressure and a failing readiness check.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Define an Azure deployment alternative and compare operational responsibility and monthly cost assumptions."
+    ]
+  },
+  {
+    "id": "backend-platform-project",
+    "course_id": "backend-platform",
+    "ordinal": 2,
+    "type": "checkpoint",
+    "title": "Cloud and platform engineering — integration project",
+    "explanation": "Create a disposable Kubernetes deployment and infrastructure plan for the capstone with resource requests, autoscaling assumptions, secret references and rollback.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Create a disposable Kubernetes deployment and infrastructure plan for the capstone with resource requests, autoscaling assumptions, secret references and rollback. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "A rollout with a bad readiness probe stops without taking all healthy replicas offline.",
+      "Resource limits and disruption settings have a recorded failure experiment.",
+      "The plan includes cleanup, cost bounds and drift detection without committing credentials."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-k8s",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-platform-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-platform-l01"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "A rollout with a bad readiness probe stops without taking all healthy replicas offline."
+  },
+  {
+    "id": "backend-appsec-l01",
+    "course_id": "backend-appsec",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Threat models and secure operations",
+    "explanation": "A threat model starts with assets, principals, entry points and trust boundaries rather than a generic checklist.",
+    "concepts_in_context": "A threat model starts with assets, principals, entry points and trust boundaries rather than a generic checklist. Controls must bind to an enforcement point the attacker cannot bypass. SSRF defenses require resolving and validating destinations, controlling redirects and considering rebinding or proxy behavior. Dependency integrity, secret rotation and least-privilege runtime identity reduce blast radius when prevention fails. Security evidence should include negative tests and operational recovery, not only a scanner score.",
+    "why_it_matters": "Go deeper into threat models, abuse resistance and verification of trust boundaries.",
+    "outcomes": [
+      "Draw the capstone data-flow diagram and implement regression tests for cross-tenant access, oversized work and private-network fetches.",
+      "Each attack fails at a named boundary and produces redacted diagnostic evidence.",
+      "Perform a dependency and container privilege review and remove one unnecessary permission."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-owasp",
+        "priority": "required",
+        "reading_focus": "Read unsafe consumption of APIs and SSRF, then trace an authenticated user’s data through downstream services.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-appsec-l01-lab",
+      "backend-appsec-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why is input validation alone insufficient for authorization?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Well-formed data can still name an unauthorized resource; identity and policy must be checked for the specific operation."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Well-formed data can still name an unauthorized resource; identity and policy must be checked for the specific operation."
+    ],
+    "acceptance_focus": "Each attack fails at a named boundary and produces redacted diagnostic evidence.",
+    "study_steps": [
+      "Read unsafe consumption of APIs and SSRF, then trace an authenticated user’s data through downstream services.",
+      "Predict the result and failure boundary before running this experiment: Draw the capstone data-flow diagram and implement regression tests for cross-tenant access, oversized work and private-network fetches.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Perform a dependency and container privilege review and remove one unnecessary permission."
+    ]
+  },
+  {
+    "id": "backend-appsec-project",
+    "course_id": "backend-appsec",
+    "ordinal": 2,
+    "type": "checkpoint",
+    "title": "Security engineering — integration project",
+    "explanation": "Conduct an adversarial review of the capstone with a data-flow threat model, an authorization matrix and a prioritized remediation patch.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Conduct an adversarial review of the capstone with a data-flow threat model, an authorization matrix and a prioritized remediation patch. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Every trust boundary names an attacker-controlled input and an enforcement point.",
+      "At least three reproducible abuse cases become regression tests.",
+      "Secret rotation and incident credential revocation are rehearsed on disposable credentials."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-owasp",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-appsec-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-appsec-l01"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Every trust boundary names an attacker-controlled input and an enforcement point."
+  },
+  {
+    "id": "backend-performance-l01",
+    "course_id": "backend-performance",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Contention, batching and memory costs",
+    "explanation": "Optimization moves costs rather than making them disappear.",
+    "concepts_in_context": "Optimization moves costs rather than making them disappear. Batching amortizes per-call overhead while increasing waiting time and failure scope. More concurrency can improve utilization until shared locks, cache lines, allocation or I/O become bottlenecks. Python object overhead and copying can dominate a byte-processing pipeline even when algorithmic complexity looks acceptable. Benchmark representative payload distributions and distinguish a microbenchmark improvement from end-to-end user value.",
+    "why_it_matters": "Study contention, memory locality and efficient I/O with controlled experiments.",
+    "outcomes": [
+      "Measure batch sizes 1, 10 and 100 across serialization plus database insertion.",
+      "Report throughput, p99, peak memory and rollback behavior for a failed batch.",
+      "Try zero-copy or streaming input and record whether it changes the actual bottleneck."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-perf",
+        "priority": "required",
+        "reading_focus": "Read profiler limitations and statistics interpretation; compare wall-clock and CPU accounting.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-performance-l01-lab",
+      "backend-performance-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "When is a larger batch the wrong optimization?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "When added latency, memory, transaction duration or retry blast radius violates the workload’s constraints."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "When added latency, memory, transaction duration or retry blast radius violates the workload’s constraints."
+    ],
+    "acceptance_focus": "Report throughput, p99, peak memory and rollback behavior for a failed batch.",
+    "study_steps": [
+      "Read profiler limitations and statistics interpretation; compare wall-clock and CPU accounting.",
+      "Predict the result and failure boundary before running this experiment: Measure batch sizes 1, 10 and 100 across serialization plus database insertion.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Try zero-copy or streaming input and record whether it changes the actual bottleneck."
+    ]
+  },
+  {
+    "id": "backend-performance-project",
+    "course_id": "backend-performance",
+    "ordinal": 2,
+    "type": "checkpoint",
+    "title": "Performance engineering — integration project",
+    "explanation": "Build a performance dossier comparing batching, serialization formats and worker/pool sizes for one representative backend workload.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a performance dossier comparing batching, serialization formats and worker/pool sizes for one representative backend workload. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Use repeated runs with confidence ranges or variability reporting.",
+      "Include peak memory, CPU and tail latency alongside throughput.",
+      "A proposed optimization identifies its correctness and operational tradeoffs."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-perf",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-performance-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-performance-l01"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Use repeated runs with confidence ranges or variability reporting."
+  },
+  {
+    "id": "backend-evolution-l01",
+    "course_id": "backend-evolution",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Events, projections and semantic versioning",
+    "explanation": "An event records a domain fact that has already happened; a command requests a decision.",
+    "concepts_in_context": "An event records a domain fact that has already happened; a command requests a decision. Event sourcing makes the event log authoritative, so evolution must preserve the meaning of historical records. Projections are replaceable derived views but can lag, duplicate or fail. CQRS can separate read and write models without requiring event sourcing or microservices. Choose it for auditability or reconstruction requirements, not because a broker already exists.",
+    "why_it_matters": "Explore event-based models only when history and reconstruction justify their complexity.",
+    "outcomes": [
+      "Implement versioned order events and a projection that resumes from a stored offset.",
+      "A crash between projection write and checkpoint cannot double-apply the event.",
+      "Add a new event version and rebuild a second projection using only historical fixtures."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-kafka",
+        "priority": "required",
+        "reading_focus": "Read log compaction and consumer offset design; distinguish broker retention from domain history guarantees.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "backend-evolution-l01-lab",
+      "backend-evolution-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why is a queue not automatically an event store?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Retention, ordering scope, replay access and schema guarantees may not meet the domain’s permanent-history requirements."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Retention, ordering scope, replay access and schema guarantees may not meet the domain’s permanent-history requirements."
+    ],
+    "acceptance_focus": "A crash between projection write and checkpoint cannot double-apply the event.",
+    "study_steps": [
+      "Read log compaction and consumer offset design; distinguish broker retention from domain history guarantees.",
+      "Predict the result and failure boundary before running this experiment: Implement versioned order events and a projection that resumes from a stored offset.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add a new event version and rebuild a second projection using only historical fixtures."
+    ]
+  },
+  {
+    "id": "backend-evolution-project",
+    "course_id": "backend-evolution",
+    "ordinal": 2,
+    "type": "checkpoint",
+    "title": "Architecture evolution and event sourcing — integration project",
+    "explanation": "Build a versioned event-sourced order model and replayable projection, then compare it with the core relational implementation.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a versioned event-sourced order model and replayable projection, then compare it with the core relational implementation. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Replay from zero reconstructs the same state as incremental processing.",
+      "Old event fixtures remain interpretable after a schema change.",
+      "Document consistency lag, repair procedures and why event sourcing may be rejected."
+    ],
+    "reading": [
+      {
+        "resource_id": "backend-res-kafka",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "backend-evolution-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "backend-evolution-l01"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Replay from zero reconstructs the same state as incremental processing."
+  }
+]

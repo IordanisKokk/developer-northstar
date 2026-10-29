@@ -1,0 +1,2139 @@
+[
+  {
+    "id": "ai-foundations-l01",
+    "course_id": "ai-foundations",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Tokens, attention and next-token prediction",
+    "explanation": "A language model maps a token prefix to a distribution over next tokens.",
+    "concepts_in_context": "A language model maps a token prefix to a distribution over next tokens. Tokens are encoding units, not words, and different encodings change length and cost. Attention lets a position combine information from accessible positions; it is not a database lookup with guaranteed recall. Training adjusts parameters across examples, while inference uses fixed parameters to generate a continuation. A plausible continuation can be false because likelihood of text is not a verified claim about the world.",
+    "why_it_matters": "Explain token generation and model limits well enough to debug applications without treating the model as an oracle.",
+    "outcomes": [
+      "Tokenize English, Greek, JSON and source code; compare character counts with token counts for the actual chosen model.",
+      "The artifact records tokenizer identity and identifies a case where characters poorly predict tokens.",
+      "Create minimal prompt pairs differing in one relevant fact and inspect response changes."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-transformer",
+        "priority": "required",
+        "reading_focus": "Read embeddings, positional encoding, attention and decoder output; sketch one generation step before studying the paper.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-foundations-l01-lab",
+      "ai-foundations-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Does a longer context window guarantee use of every supplied fact?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "No. Capacity limits accepted input; reliable use depends on model behavior, position and task. Evaluate evidence retrieval separately."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "No. Capacity limits accepted input; reliable use depends on model behavior, position and task. Evaluate evidence retrieval separately."
+    ],
+    "acceptance_focus": "The artifact records tokenizer identity and identifies a case where characters poorly predict tokens.",
+    "study_steps": [
+      "Read embeddings, positional encoding, attention and decoder output; sketch one generation step before studying the paper.",
+      "Predict the result and failure boundary before running this experiment: Tokenize English, Greek, JSON and source code; compare character counts with token counts for the actual chosen model.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Create minimal prompt pairs differing in one relevant fact and inspect response changes."
+    ]
+  },
+  {
+    "id": "ai-foundations-l02",
+    "course_id": "ai-foundations",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Decoding, inference cost and uncertainty",
+    "explanation": "Prefill processes the input context; decoding generates output incrementally and often has different performance characteristics.",
+    "concepts_in_context": "Prefill processes the input context; decoding generates output incrementally and often has different performance characteristics. Temperature changes distribution sharpness and top-p restricts candidate mass, but neither is a calibrated confidence score. Greedy generation can still vary across runtimes and model revisions. KV caching avoids recomputing some attention work while consuming memory proportional to active sequences and context. Compare task success, latency and cost under fixed workloads before choosing settings.",
+    "why_it_matters": "Explain token generation and model limits well enough to debug applications without treating the model as an oracle.",
+    "outcomes": [
+      "Run a fixed extraction task 20 times at two supported sampling settings and measure validity and exact-match success.",
+      "Report failures, token usage, time to first token and full completion latency separately.",
+      "Increase context length while holding output size fixed and explain the latency/memory trend."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-hf",
+        "priority": "required",
+        "reading_focus": "Read greedy decoding and multinomial sampling; identify which options the selected model actually supports.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-foundations-l02-lab",
+      "ai-foundations-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why can temperature zero still fail repeatability across deployments?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Model revisions, kernels, batching and numerical differences can change outputs. Reproducibility requires pinned artifacts and recorded environment."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "ai-foundations-l01"
+    ],
+    "pitfalls": [
+      "Model revisions, kernels, batching and numerical differences can change outputs. Reproducibility requires pinned artifacts and recorded environment."
+    ],
+    "acceptance_focus": "Report failures, token usage, time to first token and full completion latency separately.",
+    "study_steps": [
+      "Read greedy decoding and multinomial sampling; identify which options the selected model actually supports.",
+      "Predict the result and failure boundary before running this experiment: Run a fixed extraction task 20 times at two supported sampling settings and measure validity and exact-match success.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Increase context length while holding output size fixed and explain the latency/memory trend."
+    ]
+  },
+  {
+    "id": "ai-foundations-project",
+    "course_id": "ai-foundations",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "LLM fundamentals and inference — integration project",
+    "explanation": "Build an inference notebook and CLI using a small local model or a fixture-backed provider adapter. Measure tokenization, sampling variability, context sensitivity and a baseline task set.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build an inference notebook and CLI using a small local model or a fixture-backed provider adapter. Measure tokenization, sampling variability, context sensitivity and a baseline task set. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Record model revision, generation settings, prompt bytes and token usage.",
+      "Compare at least 20 fixed tasks across two decoding configurations.",
+      "Demonstrate a confident incorrect response and explain why likelihood is not factual confidence."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-hf",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-foundations-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-foundations-l01",
+      "ai-foundations-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Record model revision, generation settings, prompt bytes and token usage."
+  },
+  {
+    "id": "ai-interfaces-l01",
+    "course_id": "ai-interfaces",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Typed requests and validated results",
+    "explanation": "A provider response is a protocol object containing content, termination information and usage, not just a string.",
+    "concepts_in_context": "A provider response is a protocol object containing content, termination information and usage, not just a string. Structured output constrains shape but cannot ensure that values are correct or authorized. Refusals, length limits and incomplete tool arguments must remain visible to the caller. Normalize providers into a small internal model without discarding information needed for recovery, and validate untrusted JSON at the boundary before executing anything derived from it.",
+    "why_it_matters": "Create a typed provider boundary that handles partial responses and failure honestly.",
+    "outcomes": [
+      "Implement a fake and one provider adapter for a typed extraction request.",
+      "Fixtures cover text success, tool request, refusal, length stop, invalid JSON and missing required fields.",
+      "Add semantic validation for dates and amounts after schema validation."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-api",
+        "priority": "required",
+        "reading_focus": "Read request/response examples, stop_reason and usage; map each into an internal typed event or result.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-interfaces-l01-lab",
+      "ai-interfaces-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Can schema-valid output authorize a payment?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "No. Schema validity checks structure; application policy and user authority must independently approve the effect."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "No. Schema validity checks structure; application policy and user authority must independently approve the effect."
+    ],
+    "acceptance_focus": "Fixtures cover text success, tool request, refusal, length stop, invalid JSON and missing required fields.",
+    "study_steps": [
+      "Read request/response examples, stop_reason and usage; map each into an internal typed event or result.",
+      "Predict the result and failure boundary before running this experiment: Implement a fake and one provider adapter for a typed extraction request.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add semantic validation for dates and amounts after schema validation."
+    ]
+  },
+  {
+    "id": "ai-interfaces-l02",
+    "course_id": "ai-interfaces",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Streaming is an event protocol",
+    "explanation": "A text stream is not a sequence of complete messages, and a tool-argument delta is not independently valid JSON.",
+    "concepts_in_context": "A text stream is not a sequence of complete messages, and a tool-argument delta is not independently valid JSON. Accumulate fragments by the provider’s block or call identifiers and validate only at the appropriate completion boundary. Errors can occur after a successful HTTP status and after visible output. Distinguish provisional display from committed conversation history; cancellation should close the transport and mark the partial turn rather than silently saving it as complete.",
+    "why_it_matters": "Create a typed provider boundary that handles partial responses and failure honestly.",
+    "outcomes": [
+      "Parse a recorded event stream split across arbitrary byte boundaries, including partial JSON tool arguments.",
+      "No tool executes before its complete validated arguments; a midstream error preserves an incomplete status.",
+      "Add client cancellation and a maximum buffered tool-argument size."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-stream",
+        "priority": "required",
+        "reading_focus": "Read event order, content block deltas and errors during streaming; trace one tool-use stream.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-interfaces-l02-lab",
+      "ai-interfaces-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why should a UI not treat first text as final success?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Generation can later stop with an error, truncation or tool request; visible tokens are provisional until termination is interpreted."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "ai-interfaces-l01"
+    ],
+    "pitfalls": [
+      "Generation can later stop with an error, truncation or tool request; visible tokens are provisional until termination is interpreted."
+    ],
+    "acceptance_focus": "No tool executes before its complete validated arguments; a midstream error preserves an incomplete status.",
+    "study_steps": [
+      "Read event order, content block deltas and errors during streaming; trace one tool-use stream.",
+      "Predict the result and failure boundary before running this experiment: Parse a recorded event stream split across arbitrary byte boundaries, including partial JSON tool arguments.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add client cancellation and a maximum buffered tool-argument size."
+    ]
+  },
+  {
+    "id": "ai-interfaces-project",
+    "course_id": "ai-interfaces",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Model APIs, structured output and streaming — integration project",
+    "explanation": "Build a provider-independent Python completion interface with one real provider adapter and a scripted fake. Support text, tool calls, usage, stop reasons and streaming events.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a provider-independent Python completion interface with one real provider adapter and a scripted fake. Support text, tool calls, usage, stop reasons and streaming events. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Malformed output, refusal, rate limit and truncated stream have distinct typed outcomes.",
+      "A stream can be cancelled without leaving an open response.",
+      "Contract tests run offline and a separately marked live smoke test records the model identifier."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-stream",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-interfaces-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-interfaces-l01",
+      "ai-interfaces-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Malformed output, refusal, rate limit and truncated stream have distinct typed outcomes."
+  },
+  {
+    "id": "ai-tools-l01",
+    "course_id": "ai-tools",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Schemas are contracts, tool calls are proposals",
+    "explanation": "The model selects a tool name and arguments, but application code owns discovery, validation, authorization and execution.",
+    "concepts_in_context": "The model selects a tool name and arguments, but application code owns discovery, validation, authorization and execution. Tool descriptions influence selection and are not trusted policy. A registry should map names to schemas, implementation and explicit effects rather than executing arbitrary names through eval. Preserve call IDs so concurrent results are associated with the correct request. Validate outputs as well as inputs, and separate an ordinary tool failure from a broken transport or harness bug.",
+    "why_it_matters": "Build a controlled bridge from model proposals to deterministic application operations.",
+    "outcomes": [
+      "Create a registry with typed arguments, explicit result envelopes and no dynamic code evaluation.",
+      "Unknown tools and invalid argument fields fail before side effects; every result retains its call ID.",
+      "Fuzz nested and oversized arguments and apply depth/size limits before expensive processing."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-schema",
+        "priority": "required",
+        "reading_focus": "Read required, additionalProperties and composition; design a closed schema for a mock transfer request.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-tools-l01-lab",
+      "ai-tools-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why can a tool named read_file still be dangerous?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Names and annotations are claims, not enforcement. The implementation and permissions determine accessible paths and effects."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Names and annotations are claims, not enforcement. The implementation and permissions determine accessible paths and effects."
+    ],
+    "acceptance_focus": "Unknown tools and invalid argument fields fail before side effects; every result retains its call ID.",
+    "study_steps": [
+      "Read required, additionalProperties and composition; design a closed schema for a mock transfer request.",
+      "Predict the result and failure boundary before running this experiment: Create a registry with typed arguments, explicit result envelopes and no dynamic code evaluation.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Fuzz nested and oversized arguments and apply depth/size limits before expensive processing."
+    ]
+  },
+  {
+    "id": "ai-tools-l02",
+    "course_id": "ai-tools",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Dispatch, permissions and execution budgets",
+    "explanation": "Tool execution crosses a trust boundary and consumes finite time, output space and external authority.",
+    "concepts_in_context": "Tool execution crosses a trust boundary and consumes finite time, output space and external authority. Give each call a deadline, concurrency limit and result-size budget. Parallelize independent reads, but serialize dependent operations and writes unless the domain supports safe concurrency. A retry policy must classify side effects: a timed-out write may have completed. A permission decision should bind to normalized arguments and the current principal so it cannot be reused for a different action.",
+    "why_it_matters": "Build a controlled bridge from model proposals to deterministic application operations.",
+    "outcomes": [
+      "Dispatch three independent read tools with per-call budgets and a policy-gated mock write.",
+      "One timed-out read does not mislabel another result; denied writes never invoke the implementation.",
+      "Simulate a write that commits then times out and require reconciliation rather than blind retry."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-async",
+        "priority": "required",
+        "reading_focus": "Read TaskGroup and timeout behavior; define cancellation ownership between a run and a tool task.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-tools-l02-lab",
+      "ai-tools-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why does validating arguments twice help?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Normalize and validate before policy evaluation, then ensure the executed arguments are exactly those authorized; avoid mutation or substitution between stages."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "ai-tools-l01"
+    ],
+    "pitfalls": [
+      "Normalize and validate before policy evaluation, then ensure the executed arguments are exactly those authorized; avoid mutation or substitution between stages."
+    ],
+    "acceptance_focus": "One timed-out read does not mislabel another result; denied writes never invoke the implementation.",
+    "study_steps": [
+      "Read TaskGroup and timeout behavior; define cancellation ownership between a run and a tool task.",
+      "Predict the result and failure boundary before running this experiment: Dispatch three independent read tools with per-call budgets and a policy-gated mock write.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Simulate a write that commits then times out and require reconciliation rather than blind retry."
+    ]
+  },
+  {
+    "id": "ai-tools-project",
+    "course_id": "ai-tools",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Tool calling and dispatch from primitives — integration project",
+    "explanation": "Implement a typed tool registry and dispatcher for calculator, document search and a mock write operation. Run an adversarial fixture suite without relying on a model.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Implement a typed tool registry and dispatcher for calculator, document search and a mock write operation. Run an adversarial fixture suite without relying on a model. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Unknown names, malformed inputs and oversized results cannot reach tool implementation.",
+      "Read-only tools can run concurrently with stable result-to-call association.",
+      "Write operations pass an independent authorization gate and return bounded, redacted results."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-async",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-tools-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-tools-l01",
+      "ai-tools-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Unknown names, malformed inputs and oversized results cannot reach tool implementation."
+  },
+  {
+    "id": "ai-loop-l01",
+    "course_id": "ai-loop",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "The agent is a state machine",
+    "explanation": "An agent harness repeatedly prepares context, asks a model for a next action, validates the response, executes permitted tools and appends observations.",
+    "concepts_in_context": "An agent harness repeatedly prepares context, asks a model for a next action, validates the response, executes permitted tools and appends observations. The model does not own the loop. Represent states such as ready, awaiting_model, awaiting_tools, awaiting_approval, completed and failed explicitly. Stop reasons and budgets determine transitions; a nonempty string alone is not a termination signal. Persist enough evidence to explain why each action happened and test the loop with scripted model responses before live calls.",
+    "why_it_matters": "Implement the loop yourself and make each transition inspectable.",
+    "outcomes": [
+      "Implement the state machine with a fake model returning two tool rounds followed by an answer.",
+      "A transition log accounts for every call, result, error and terminal reason with deterministic fixture replay.",
+      "Inject malformed model actions and a repeating tool cycle; stop with typed errors and bounded attempts."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-json",
+        "priority": "required",
+        "reading_focus": "Read request identifiers and error objects, then define internal events that are independent of any provider protocol.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-loop-l01-lab",
+      "ai-loop-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "What turns a chatbot with tools into an agent loop?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Application-controlled repeated action/observation transitions with state and termination policy, rather than a single completion."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Application-controlled repeated action/observation transitions with state and termination policy, rather than a single completion."
+    ],
+    "acceptance_focus": "A transition log accounts for every call, result, error and terminal reason with deterministic fixture replay.",
+    "study_steps": [
+      "Read request identifiers and error objects, then define internal events that are independent of any provider protocol.",
+      "Predict the result and failure boundary before running this experiment: Implement the state machine with a fake model returning two tool rounds followed by an answer.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Inject malformed model actions and a repeating tool cycle; stop with typed errors and bounded attempts."
+    ]
+  },
+  {
+    "id": "ai-loop-l02",
+    "course_id": "ai-loop",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Context is a budgeted working set",
+    "explanation": "Context should contain the minimum reliable evidence needed for the next decision: instructions, current goal, relevant history and tool observations.",
+    "concepts_in_context": "Context should contain the minimum reliable evidence needed for the next decision: instructions, current goal, relevant history and tool observations. Trimming arbitrary messages can orphan tool results or delete user constraints. Summaries are lossy derived data and should retain provenance to original events. Reserve output and tool-result headroom before calling the model, and estimate with the actual tokenizer when available. Separate durable event history from the selected prompt view so compression never destroys the audit trail.",
+    "why_it_matters": "Implement the loop yourself and make each transition inspectable.",
+    "outcomes": [
+      "Implement a context selector that keeps instructions, recent complete turns and tool-call/result groups within a token budget.",
+      "A small-context test never leaves orphan results and always retains the latest user goal.",
+      "Add a summary with source event IDs and compare task success before and after compression."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-hf",
+        "priority": "required",
+        "reading_focus": "Read generation max_new_tokens and input length behavior; inspect the chosen provider’s context accounting rules.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-loop-l02-lab",
+      "ai-loop-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why should the event log be larger than the prompt?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "The log preserves evidence and replay; the prompt is a bounded, derived working set optimized for the next inference."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "ai-loop-l01"
+    ],
+    "pitfalls": [
+      "The log preserves evidence and replay; the prompt is a bounded, derived working set optimized for the next inference."
+    ],
+    "acceptance_focus": "A small-context test never leaves orphan results and always retains the latest user goal.",
+    "study_steps": [
+      "Read generation max_new_tokens and input length behavior; inspect the chosen provider’s context accounting rules.",
+      "Predict the result and failure boundary before running this experiment: Implement a context selector that keeps instructions, recent complete turns and tool-call/result groups within a token budget.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add a summary with source event IDs and compare task success before and after compression."
+    ]
+  },
+  {
+    "id": "ai-loop-project",
+    "course_id": "ai-loop",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Agent execution loops and context management — integration project",
+    "explanation": "Build a framework-independent agent loop over the provider and dispatcher interfaces. Support multiple tool rounds, explicit terminal states, bounded context and a replayable fake model.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a framework-independent agent loop over the provider and dispatcher interfaces. Support multiple tool rounds, explicit terminal states, bounded context and a replayable fake model. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Fixtures cover text termination, multi-tool rounds, tool errors and repeated identical calls.",
+      "The loop terminates on step, elapsed-time, token or cost budget exhaustion.",
+      "Tool-call/result pairs remain intact during context trimming."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-hf",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-loop-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-loop-l01",
+      "ai-loop-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Fixtures cover text termination, multi-tool rounds, tool errors and repeated identical calls."
+  },
+  {
+    "id": "ai-mcp-l01",
+    "course_id": "ai-mcp",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Hosts, clients, servers and protocol revisions",
+    "explanation": "The host owns model interaction and user policy; an MCP client communicates with a server exposing tools, resources or prompts.",
+    "concepts_in_context": "The host owns model interaction and user policy; an MCP client communicates with a server exposing tools, resources or prompts. MCP is not the model provider’s tool-call protocol: an adapter must map between them. The 2026-07-28 baseline uses per-request protocol and capability metadata and server/discover capability discovery, whereas older revisions used a connection-scoped initialize handshake. Result types and compatibility behavior also differ. Pin the intended revision and SDK support explicitly; a current specification and an installed SDK may target different protocol eras.",
+    "why_it_matters": "Learn the actual protocol boundary and integrate tools without confusing MCP with model tool calling.",
+    "outcomes": [
+      "Create transcripts for tools/list and tools/call under the pinned revision and validate metadata and IDs.",
+      "Tests distinguish a protocol error, a tool execution error and an unsupported revision.",
+      "Add an older supported revision behind an explicit adapter rather than mixing wire shapes."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-mcpbase",
+        "priority": "required",
+        "reading_focus": "Read messages, request metadata, resultType and version compatibility alongside the transport overview. Compare with an older revision only in a labeled compatibility fixture.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-mcp-l01-lab",
+      "ai-mcp-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why is MCP discovery not permission to execute a tool?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Discovery describes available capabilities; host policy must still authorize the specific operation and arguments."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Discovery describes available capabilities; host policy must still authorize the specific operation and arguments."
+    ],
+    "acceptance_focus": "Tests distinguish a protocol error, a tool execution error and an unsupported revision.",
+    "study_steps": [
+      "Read messages, request metadata, resultType and version compatibility alongside the transport overview. Compare with an older revision only in a labeled compatibility fixture.",
+      "Predict the result and failure boundary before running this experiment: Create transcripts for tools/list and tools/call under the pinned revision and validate metadata and IDs.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add an older supported revision behind an explicit adapter rather than mixing wire shapes."
+    ]
+  },
+  {
+    "id": "ai-mcp-l02",
+    "course_id": "ai-mcp",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Transport, tool discovery and authentication",
+    "explanation": "stdio frames messages over a launched subprocess and must keep diagnostics off the protocol stream.",
+    "concepts_in_context": "stdio frames messages over a launched subprocess and must keep diagnostics off the protocol stream. Streamable HTTP binds messages to POST requests and may stream responses; framing and cancellation differ from stdio. In the 2026-07-28 baseline, per-request metadata is authoritative and HTTP mirrors selected fields in headers. Tool lists can be paginated and vary with request authorization. HTTP authorization uses protected-resource and authorization-server discovery; do not forward arbitrary upstream tokens to a server or assume stdio follows the same OAuth flow.",
+    "why_it_matters": "Learn the actual protocol boundary and integrate tools without confusing MCP with model tool calling.",
+    "outcomes": [
+      "Launch a local MCP server, enumerate all tool pages and invoke a bounded read tool through the harness adapter.",
+      "stderr logs cannot corrupt framing; a broken subprocess and a cancelled request leave no hanging run.",
+      "Mock expired HTTP credentials and metadata/header mismatch; verify failure without leaking tokens."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-mcptransport",
+        "priority": "required",
+        "reading_focus": "Read both transport binding links, request metadata, cancellation and backward compatibility. Then read pinned tools and authorization pages in the additional resources.",
+        "estimated_minutes": 45
+      },
+      {
+        "resource_id": "ai-res-mcptools",
+        "priority": "required",
+        "reading_focus": "Read Listing, pagination, calling, schemas and errors. Write a revision-labeled transcript and identify which requirements are transport-specific before implementing the adapter.",
+        "estimated_minutes": 35
+      },
+      {
+        "resource_id": "ai-res-mcpauth",
+        "priority": "required",
+        "reading_focus": "Read HTTP discovery, resource-bound tokens and scope selection. Write a revision-labeled transcript and identify which requirements are transport-specific before implementing the adapter.",
+        "estimated_minutes": 35
+      },
+      {
+        "resource_id": "ai-res-mcp",
+        "priority": "required",
+        "reading_focus": "Read Pinned normative baseline; distinguish current core from older revisions. Write a revision-labeled transcript and identify which requirements are transport-specific before implementing the adapter.",
+        "estimated_minutes": 35
+      }
+    ],
+    "assignments": [
+      "ai-mcp-l02-lab",
+      "ai-mcp-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Can a named-pipe bridge call itself standard MCP transport automatically?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "No. A custom transport must document framing and preserve the protocol’s message and metadata rules; local IPC alone does not establish conformance."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "ai-mcp-l01"
+    ],
+    "pitfalls": [
+      "No. A custom transport must document framing and preserve the protocol’s message and metadata rules; local IPC alone does not establish conformance."
+    ],
+    "acceptance_focus": "stderr logs cannot corrupt framing; a broken subprocess and a cancelled request leave no hanging run.",
+    "study_steps": [
+      "Read both transport binding links, request metadata, cancellation and backward compatibility. Then read pinned tools and authorization pages in the additional resources.",
+      "Predict the result and failure boundary before running this experiment: Launch a local MCP server, enumerate all tool pages and invoke a bounded read tool through the harness adapter.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Mock expired HTTP credentials and metadata/header mismatch; verify failure without leaking tokens."
+    ]
+  },
+  {
+    "id": "ai-mcp-project",
+    "course_id": "ai-mcp",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "MCP architecture and versioned interoperability — integration project",
+    "explanation": "Add an MCP adapter to the harness using a supported official SDK revision or a small explicitly limited client. Integrate a disposable local server and a recorded HTTP server fixture.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Add an MCP adapter to the harness using a supported official SDK revision or a small explicitly limited client. Integrate a disposable local server and a recorded HTTP server fixture. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Declare supported protocol revisions and retain compatibility transcripts for each.",
+      "List tools across pagination and map MCP schemas/results without losing error distinctions.",
+      "Cancellation closes or cancels the request according to the selected transport and revision.",
+      "No legacy initialize/session assumptions are silently applied to the 2026-07-28 baseline."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-mcptransport",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-mcp-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-mcp-l01",
+      "ai-mcp-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Declare supported protocol revisions and retain compatibility transcripts for each."
+  },
+  {
+    "id": "ai-durability-l01",
+    "course_id": "ai-durability",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Event history, checkpoints and replay",
+    "explanation": "A checkpoint records sufficient state to continue a run; an event log explains how it got there.",
+    "concepts_in_context": "A checkpoint records sufficient state to continue a run; an event log explains how it got there. Persist model decisions and tool intents before executing effects, then record outcomes separately. A crash between external completion and local recording leaves uncertainty that local transactions cannot erase. Replay should use recorded model/tool outputs by default, not silently call live services again. Version stored schemas and retain migration tests for old runs.",
+    "why_it_matters": "Make runs resumable without duplicating external actions.",
+    "outcomes": [
+      "Build append-only run events plus a projected current-state table in one transaction.",
+      "After restart, the projection reconstructs the same terminal state from events.",
+      "Inject a crash after a write and require deduplication or an operator reconciliation record."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-sqlite",
+        "priority": "required",
+        "reading_focus": "Read transaction modes and rollback behavior; draw durable boundaries for model response, intent, effect and result.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-durability-l01-lab",
+      "ai-durability-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why does saving after every step not guarantee exactly-once effects?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "The external effect and local checkpoint are separate commits; a crash between them leaves an ambiguous outcome."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "The external effect and local checkpoint are separate commits; a crash between them leaves an ambiguous outcome."
+    ],
+    "acceptance_focus": "After restart, the projection reconstructs the same terminal state from events.",
+    "study_steps": [
+      "Read transaction modes and rollback behavior; draw durable boundaries for model response, intent, effect and result.",
+      "Predict the result and failure boundary before running this experiment: Build append-only run events plus a projected current-state table in one transaction.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Inject a crash after a write and require deduplication or an operator reconciliation record."
+    ]
+  },
+  {
+    "id": "ai-durability-l02",
+    "course_id": "ai-durability",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Workflows before open-ended autonomy",
+    "explanation": "A deterministic workflow makes known transitions explicit; an agent delegates selected decisions to a model.",
+    "concepts_in_context": "A deterministic workflow makes known transitions explicit; an agent delegates selected decisions to a model. Use workflows for stable business rules and agents where the action sequence depends on evolving evidence. Durable orchestration adds retries, waiting states and human input, but framework persistence does not automatically make tool side effects replay-safe. After implementing your state machine, inspect a framework’s checkpoint and replay rules and map them to the same failure windows.",
+    "why_it_matters": "Make runs resumable without duplicating external actions.",
+    "outcomes": [
+      "Implement an approval wait and a two-stage retrieve/verify workflow without a framework.",
+      "Waiting consumes no worker loop; restart preserves the pending action and approval identity.",
+      "Port only the orchestration layer to LangGraph and compare replay behavior with the primitive implementation."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-langgraph",
+        "priority": "required",
+        "reading_focus": "Read threads, checkpoints, pending writes and replay; compare each to your event-log design.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-durability-l02-lab",
+      "ai-durability-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "When should an agent decision become deterministic code?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "When the rule is stable, testable and required for correctness or policy; keep probabilistic choice outside that enforcement boundary."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "ai-durability-l01"
+    ],
+    "pitfalls": [
+      "When the rule is stable, testable and required for correctness or policy; keep probabilistic choice outside that enforcement boundary."
+    ],
+    "acceptance_focus": "Waiting consumes no worker loop; restart preserves the pending action and approval identity.",
+    "study_steps": [
+      "Read threads, checkpoints, pending writes and replay; compare each to your event-log design.",
+      "Predict the result and failure boundary before running this experiment: Implement an approval wait and a two-stage retrieve/verify workflow without a framework.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Port only the orchestration layer to LangGraph and compare replay behavior with the primitive implementation."
+    ]
+  },
+  {
+    "id": "ai-durability-project",
+    "course_id": "ai-durability",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Durable state and recoverable orchestration — integration project",
+    "explanation": "Persist runs, events, tool intents and outcomes in SQLite or PostgreSQL. Resume an interrupted agent execution and support a manual approval state.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Persist runs, events, tool intents and outcomes in SQLite or PostgreSQL. Resume an interrupted agent execution and support a manual approval state. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Crash injection at every persistence boundary yields an explicit recoverable or uncertain state.",
+      "A committed mock write is not repeated after restart.",
+      "Pending approval resumes only for the same principal, tool and normalized arguments."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-langgraph",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-durability-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-durability-l01",
+      "ai-durability-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Crash injection at every persistence boundary yields an explicit recoverable or uncertain state."
+  },
+  {
+    "id": "ai-retrieval-l01",
+    "course_id": "ai-retrieval",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Indexing, chunking and retrieval evaluation",
+    "explanation": "Retrieval selects evidence from a corpus; generation synthesizes an answer from that evidence.",
+    "concepts_in_context": "Retrieval selects evidence from a corpus; generation synthesizes an answer from that evidence. Chunk boundaries trade local relevance against missing context, and embeddings encode similarity rather than truth. Begin with lexical search as a baseline, then compare dense and hybrid retrieval using labeled queries. Keep document versions and offsets so evidence can be inspected. Access filters belong inside retrieval, not only in the final prompt, because leaked chunks already cross the boundary.",
+    "why_it_matters": "Build a measurable search pipeline before adding agentic retrieval complexity.",
+    "outcomes": [
+      "Index a small technical corpus with heading-aware chunks and build a 30-query relevance set.",
+      "The report includes lexical baseline recall@5 and at least five inspected failure cases.",
+      "Compare fixed-size chunks with section chunks using the same queries and corpus version."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-ir",
+        "priority": "required",
+        "reading_focus": "Read ranked retrieval and evaluation chapters; define relevance judgments and recall@k before choosing embeddings.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-retrieval-l01-lab",
+      "ai-retrieval-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why is answer quality insufficient to evaluate retrieval?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "A model can answer from prior knowledge or guess. Retrieval needs its own evidence-selection metrics and labels."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "A model can answer from prior knowledge or guess. Retrieval needs its own evidence-selection metrics and labels."
+    ],
+    "acceptance_focus": "The report includes lexical baseline recall@5 and at least five inspected failure cases.",
+    "study_steps": [
+      "Read ranked retrieval and evaluation chapters; define relevance judgments and recall@k before choosing embeddings.",
+      "Predict the result and failure boundary before running this experiment: Index a small technical corpus with heading-aware chunks and build a 30-query relevance set.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Compare fixed-size chunks with section chunks using the same queries and corpus version."
+    ]
+  },
+  {
+    "id": "ai-retrieval-l02",
+    "course_id": "ai-retrieval",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Hybrid search, reranking and grounded generation",
+    "explanation": "Lexical retrieval preserves exact names while dense retrieval helps with semantic paraphrases.",
+    "concepts_in_context": "Lexical retrieval preserves exact names while dense retrieval helps with semantic paraphrases. Hybrid ranking combines candidate lists; a reranker can improve precision at additional latency and cost. Approximate vector indexes trade recall for efficiency and filtering can change observed behavior. Return compact evidence with provenance and require the answer to distinguish supported claims from uncertainty. A citation is useful only if it points to an accessible source passage that supports the nearby claim.",
+    "why_it_matters": "Build a measurable search pipeline before adding agentic retrieval complexity.",
+    "outcomes": [
+      "Compare lexical, dense and hybrid top-k results, then add a reranking stage with a fixed candidate budget.",
+      "Report retrieval quality and latency by stage; every generated citation resolves to a supporting indexed passage.",
+      "Create an unanswerable query set and require abstention when evidence is insufficient."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-azuresearch",
+        "priority": "required",
+        "reading_focus": "Read hybrid retrieval and reciprocal rank fusion; compare with pgvector exact versus approximate search and filtering.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-retrieval-l02-lab",
+      "ai-retrieval-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Can a reranker recover a document missing from all candidate lists?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "No. Candidate recall is an upstream ceiling; reranking only reorders what it receives."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "ai-retrieval-l01"
+    ],
+    "pitfalls": [
+      "No. Candidate recall is an upstream ceiling; reranking only reorders what it receives."
+    ],
+    "acceptance_focus": "Report retrieval quality and latency by stage; every generated citation resolves to a supporting indexed passage.",
+    "study_steps": [
+      "Read hybrid retrieval and reciprocal rank fusion; compare with pgvector exact versus approximate search and filtering.",
+      "Predict the result and failure boundary before running this experiment: Compare lexical, dense and hybrid top-k results, then add a reranking stage with a fixed candidate budget.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Create an unanswerable query set and require abstention when evidence is insufficient."
+    ]
+  },
+  {
+    "id": "ai-retrieval-project",
+    "course_id": "ai-retrieval",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Retrieval and grounded answers — integration project",
+    "explanation": "Build a document retrieval service with lexical and vector baselines, provenance-bearing chunks and a held-out query set. Integrate it as a harness tool.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a document retrieval service with lexical and vector baselines, provenance-bearing chunks and a held-out query set. Integrate it as a harness tool. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Evaluate at least 30 queries with relevance labels and report recall@k and ranking quality.",
+      "Every returned chunk records document ID, version, offsets and access scope.",
+      "Cross-tenant queries and deleted documents never appear in results."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-azuresearch",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-retrieval-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-retrieval-l01",
+      "ai-retrieval-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Evaluate at least 30 queries with relevance labels and report recall@k and ranking quality."
+  },
+  {
+    "id": "ai-memory-l01",
+    "course_id": "ai-memory",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "History, working memory and long-term records",
+    "explanation": "Conversation history is evidence of prior interaction, not automatically a set of durable facts.",
+    "concepts_in_context": "Conversation history is evidence of prior interaction, not automatically a set of durable facts. Working memory is the selected context for one decision, while long-term memory stores reusable records with provenance and lifecycle rules. Model-generated summaries can be wrong and should not silently become authoritative user preferences. Separate an observation from an inference and record source event IDs. A memory write policy should decide what deserves retention, who may read it and when it expires.",
+    "why_it_matters": "Separate searchable memory from raw artifacts and enforce retention and provenance.",
+    "outcomes": [
+      "Implement typed memory records for observation, preference and derived summary with provenance and scope.",
+      "A corrected preference supersedes the old record without losing the audit relation.",
+      "Add TTL and user deletion, then test search and prompt construction after expiry."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-ir",
+        "priority": "required",
+        "reading_focus": "Read classification and retrieval evaluation sections; define a memory query set separately from document search.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-memory-l01-lab",
+      "ai-memory-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why should every model response not become permanent memory?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "It creates noise, reinforces hallucinations and retains unnecessary private data. Retention should have purpose and verification rules."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "It creates noise, reinforces hallucinations and retains unnecessary private data. Retention should have purpose and verification rules."
+    ],
+    "acceptance_focus": "A corrected preference supersedes the old record without losing the audit relation.",
+    "study_steps": [
+      "Read classification and retrieval evaluation sections; define a memory query set separately from document search.",
+      "Predict the result and failure boundary before running this experiment: Implement typed memory records for observation, preference and derived summary with provenance and scope.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add TTL and user deletion, then test search and prompt construction after expiry."
+    ]
+  },
+  {
+    "id": "ai-memory-l02",
+    "course_id": "ai-memory",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Artifacts, hydration and consistency",
+    "explanation": "A searchable artifact record can contain a caption, extracted text, MIME type, checksum and storage locator while leaving raw bytes outside prompt history.",
+    "concepts_in_context": "A searchable artifact record can contain a caption, extracted text, MIME type, checksum and storage locator while leaving raw bytes outside prompt history. Retrieval returns descriptors; an explicit hydration step fetches bytes only when needed and within a size budget. Database metadata and blob storage do not share a transaction, so use staged creation and reconciliation for orphaned or missing blobs. Keep access checks at both search and hydration to prevent a previously discovered locator becoming a permanent capability.",
+    "why_it_matters": "Separate searchable memory from raw artifacts and enforce retention and provenance.",
+    "outcomes": [
+      "Store image/file bytes separately from searchable descriptors and expose search_memory and fetch_artifact tools.",
+      "Search does not fetch bytes; hydration rejects revoked access and oversized content.",
+      "Crash between blob upload and metadata commit and implement an orphan reconciliation job."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-pgvector",
+        "priority": "required",
+        "reading_focus": "Read storing vectors with relational metadata and filtering; design an artifact table with checksum, state and access scope.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-memory-l02-lab",
+      "ai-memory-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why recheck permissions during hydration?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Access may have changed since search, and a locator alone should not authorize raw-data retrieval."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "ai-memory-l01"
+    ],
+    "pitfalls": [
+      "Access may have changed since search, and a locator alone should not authorize raw-data retrieval."
+    ],
+    "acceptance_focus": "Search does not fetch bytes; hydration rejects revoked access and oversized content.",
+    "study_steps": [
+      "Read storing vectors with relational metadata and filtering; design an artifact table with checksum, state and access scope.",
+      "Predict the result and failure boundary before running this experiment: Store image/file bytes separately from searchable descriptors and expose search_memory and fetch_artifact tools.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Crash between blob upload and metadata commit and implement an orphan reconciliation job."
+    ]
+  },
+  {
+    "id": "ai-memory-project",
+    "course_id": "ai-memory",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Memory and context lifecycle — integration project",
+    "explanation": "Add an artifact-backed memory service to the harness: metadata and searchable text in a database, binary payloads behind an explicit fetch operation. Implement deletion and provenance.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Add an artifact-backed memory service to the harness: metadata and searchable text in a database, binary payloads behind an explicit fetch operation. Implement deletion and provenance. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Search results do not silently hydrate large binaries into model context.",
+      "A deleted record and its derived chunks become unavailable to subsequent retrieval.",
+      "Memory writes preserve origin, timestamp, scope and confidence or verification status."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-pgvector",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-memory-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-memory-l01",
+      "ai-memory-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Search results do not silently hydrate large binaries into model context."
+  },
+  {
+    "id": "ai-evaluation-l01",
+    "course_id": "ai-evaluation",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Datasets, scorers and experimental discipline",
+    "explanation": "An evaluation defines tasks, environment, allowed actions and a scoring procedure.",
+    "concepts_in_context": "An evaluation defines tasks, environment, allowed actions and a scoring procedure. Separate development tasks from a held-out set so prompt iteration does not overfit the benchmark. Deterministic assertions can verify final state and forbidden effects more reliably than prose similarity. A model judge can assess nuanced answers but introduces bias, variance and prompt-injection risk. Record dataset, model and harness versions and inspect failures by category rather than reporting one average score.",
+    "why_it_matters": "Measure task success and failure modes with repeatable datasets rather than impressive demos.",
+    "outcomes": [
+      "Create JSONL tasks with expected tool effects, answer evidence and policy constraints.",
+      "The runner exports per-task artifacts and detects a deliberately introduced cross-tenant tool bug.",
+      "Blind-label ten outputs and compare human judgments with a model judge’s decisions."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-evals",
+        "priority": "required",
+        "reading_focus": "Read datasets, solvers, scorers and logs; map your harness into these roles without adopting the framework yet.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-evaluation-l01-lab",
+      "ai-evaluation-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why can a higher average score be a regression?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "A critical subgroup or safety invariant can worsen while easy cases improve. Report category outcomes and hard violation counts."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "A critical subgroup or safety invariant can worsen while easy cases improve. Report category outcomes and hard violation counts."
+    ],
+    "acceptance_focus": "The runner exports per-task artifacts and detects a deliberately introduced cross-tenant tool bug.",
+    "study_steps": [
+      "Read datasets, solvers, scorers and logs; map your harness into these roles without adopting the framework yet.",
+      "Predict the result and failure boundary before running this experiment: Create JSONL tasks with expected tool effects, answer evidence and policy constraints.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Blind-label ten outputs and compare human judgments with a model judge’s decisions."
+    ]
+  },
+  {
+    "id": "ai-evaluation-l02",
+    "course_id": "ai-evaluation",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Stochasticity, replay and adversarial regression",
+    "explanation": "Live evaluations measure a model/system combination; replay evaluations isolate application logic using recorded decisions.",
+    "concepts_in_context": "Live evaluations measure a model/system combination; replay evaluations isolate application logic using recorded decisions. Both are useful but answer different questions. Repeated trials estimate variability and should report uncertainty, not imply a single run proves superiority. Tool environments need resettable state and deterministic failure injection. Adversarial tasks should test unauthorized actions and misleading tool output, not merely ask the model to say it is safe.",
+    "why_it_matters": "Measure task success and failure modes with repeatable datasets rather than impressive demos.",
+    "outcomes": [
+      "Run baseline and candidate policies on identical task fixtures with multiple trials and fixed budgets.",
+      "Report per-category deltas, variability and all unauthorized-effect failures.",
+      "Turn the three worst failures into minimized regression fixtures that run without network access."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-evals",
+        "priority": "required",
+        "reading_focus": "Read task state, epochs and evaluation logs; distinguish rerunning inference from replaying a stored trace.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-evaluation-l02-lab",
+      "ai-evaluation-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "When is replay insufficient to approve a prompt change?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Recorded decisions bypass the changed model interaction. Live or newly generated evaluations are needed to measure the new policy."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "ai-evaluation-l01"
+    ],
+    "pitfalls": [
+      "Recorded decisions bypass the changed model interaction. Live or newly generated evaluations are needed to measure the new policy."
+    ],
+    "acceptance_focus": "Report per-category deltas, variability and all unauthorized-effect failures.",
+    "study_steps": [
+      "Read task state, epochs and evaluation logs; distinguish rerunning inference from replaying a stored trace.",
+      "Predict the result and failure boundary before running this experiment: Run baseline and candidate policies on identical task fixtures with multiple trials and fixed budgets.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Turn the three worst failures into minimized regression fixtures that run without network access."
+    ]
+  },
+  {
+    "id": "ai-evaluation-project",
+    "course_id": "ai-evaluation",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Evaluation and regression engineering — integration project",
+    "explanation": "Create an offline harness evaluation runner with scripted tools, held-out tasks, budget scoring and adversarial cases. Compare two prompt or context policies.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Create an offline harness evaluation runner with scripted tools, held-out tasks, budget scoring and adversarial cases. Compare two prompt or context policies. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "At least 40 tasks include normal, unanswerable, tool-failure and malicious-input cases.",
+      "Reports separate task success, policy violations, cost, latency and tool correctness.",
+      "Any model-judged score is calibrated against a human-labeled subset and does not replace deterministic checks."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-evals",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-evaluation-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-evaluation-l01",
+      "ai-evaluation-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "At least 40 tasks include normal, unanswerable, tool-failure and malicious-input cases."
+  },
+  {
+    "id": "ai-security-l01",
+    "course_id": "ai-security",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Prompt injection and the confused deputy",
+    "explanation": "A model can be influenced by instructions embedded in retrieved text, tool results or repository files.",
+    "concepts_in_context": "A model can be influenced by instructions embedded in retrieved text, tool results or repository files. Labeling data as untrusted helps interpretation but is not an enforcement boundary. The harness must check principal, resource, operation and normalized arguments independently of model intent. Tool annotations and descriptions are untrusted claims. Approval must bind to an exact effect and expire or invalidate when arguments, identity or relevant policy changes.",
+    "why_it_matters": "Enforce authority in code and contain untrusted tool inputs and outputs.",
+    "outcomes": [
+      "Inject a document asking the agent to export secrets and call a write tool outside the requested scope.",
+      "The model may propose the action, but policy blocks it and records a redacted reason before execution.",
+      "Add a time-of-check/time-of-use test that mutates arguments after approval."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-agentsec",
+        "priority": "required",
+        "reading_focus": "Read prompt injection and excessive agency; trace an attack from a document to an attempted privileged tool call.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-security-l01-lab",
+      "ai-security-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why is a system prompt not a permission system?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "It influences model behavior but cannot guarantee enforcement. Privileged effects must be controlled by deterministic code."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "It influences model behavior but cannot guarantee enforcement. Privileged effects must be controlled by deterministic code."
+    ],
+    "acceptance_focus": "The model may propose the action, but policy blocks it and records a redacted reason before execution.",
+    "study_steps": [
+      "Read prompt injection and excessive agency; trace an attack from a document to an attempted privileged tool call.",
+      "Predict the result and failure boundary before running this experiment: Inject a document asking the agent to export secrets and call a write tool outside the requested scope.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add a time-of-check/time-of-use test that mutates arguments after approval."
+    ]
+  },
+  {
+    "id": "ai-security-l02",
+    "course_id": "ai-security",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Sandbox boundaries and credential scope",
+    "explanation": "A sandbox constrains effects even if generated code behaves maliciously.",
+    "concepts_in_context": "A sandbox constrains effects even if generated code behaves maliciously. A subprocess is not a sandbox by itself, and filesystem isolation does not prevent network exfiltration. Combine resource limits, restricted filesystem, process isolation and outbound network policy appropriate to the threat model. Keep provider and service credentials outside generated-code environments. Audit what remains shared, including mounts, sockets, kernel surface and inherited environment, and use disposable test data when validating containment.",
+    "why_it_matters": "Enforce authority in code and contain untrusted tool inputs and outputs.",
+    "outcomes": [
+      "Run an untrusted script under a documented container or OS sandbox with denied network and a writable scratch directory only.",
+      "Tests attempt parent-path reads, network egress, fork growth and timeout escape; each has an observed enforced result.",
+      "Add per-tool scoped credentials through a broker rather than the sandbox environment."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-sandbox",
+        "priority": "required",
+        "reading_focus": "Read seccomp filtering, limitations and privilege requirements; identify what it does not isolate.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-security-l02-lab",
+      "ai-security-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Does seccomp alone isolate the filesystem?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "No. It filters system calls; filesystem visibility, credentials, mounts and network policy need separate controls."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "ai-security-l01"
+    ],
+    "pitfalls": [
+      "No. It filters system calls; filesystem visibility, credentials, mounts and network policy need separate controls."
+    ],
+    "acceptance_focus": "Tests attempt parent-path reads, network egress, fork growth and timeout escape; each has an observed enforced result.",
+    "study_steps": [
+      "Read seccomp filtering, limitations and privilege requirements; identify what it does not isolate.",
+      "Predict the result and failure boundary before running this experiment: Run an untrusted script under a documented container or OS sandbox with denied network and a writable scratch directory only.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add per-tool scoped credentials through a broker rather than the sandbox environment."
+    ]
+  },
+  {
+    "id": "ai-security-project",
+    "course_id": "ai-security",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Permissions, prompt injection and sandboxing — integration project",
+    "explanation": "Add a permission engine, approval records and a sandboxed execution boundary to the harness. Run an attack suite using malicious retrieved documents and tool descriptions.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Add a permission engine, approval records and a sandboxed execution boundary to the harness. Run an attack suite using malicious retrieved documents and tool descriptions. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Retrieved instructions cannot grant a tool permission or change an approved argument.",
+      "Denied network, file and subprocess operations fail at an enforcement boundary.",
+      "Credentials are absent from prompts, exported traces and sandbox environments unless explicitly required."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-sandbox",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-security-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-security-l01",
+      "ai-security-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Retrieved instructions cannot grant a tool permission or change an approved argument."
+  },
+  {
+    "id": "ai-operations-l01",
+    "course_id": "ai-operations",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Tracing runs and controlling cost",
+    "explanation": "An agent run spans model calls, tool execution, queue waits and user approvals.",
+    "concepts_in_context": "An agent run spans model calls, tool execution, queue waits and user approvals. Trace these as distinct spans linked by stable run and call IDs. Record model revision, token usage, cache information when available and outcome categories, while redacting private content. Cost budgets require a conservative estimate before a call and reconciliation afterward; providers may return usage late or incompletely on interruption. Do not let a dashboard’s success label hide a budget stop or a denied action.",
+    "why_it_matters": "Operate agent runs as budgeted distributed workloads with partial failures.",
+    "outcomes": [
+      "Emit a trace for a multi-round run with one failed tool and one retry.",
+      "The trace accounts for wall time and estimated/actual usage and contains no fixture secret.",
+      "Add a canary secret and verify redaction across logs, spans and persisted evaluation artifacts."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-otel",
+        "priority": "required",
+        "reading_focus": "Read traces, span context and sampling; define an agent span vocabulary without putting run IDs in metric labels.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-operations-l01-lab",
+      "ai-operations-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why is tokens per request insufficient for agent cost?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "One user request can create many model rounds, tools and retries. Cost must be aggregated at run and workload levels."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "One user request can create many model rounds, tools and retries. Cost must be aggregated at run and workload levels."
+    ],
+    "acceptance_focus": "The trace accounts for wall time and estimated/actual usage and contains no fixture secret.",
+    "study_steps": [
+      "Read traces, span context and sampling; define an agent span vocabulary without putting run IDs in metric labels.",
+      "Predict the result and failure boundary before running this experiment: Emit a trace for a multi-round run with one failed tool and one retry.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add a canary secret and verify redaction across logs, spans and persisted evaluation artifacts."
+    ]
+  },
+  {
+    "id": "ai-operations-l02",
+    "course_id": "ai-operations",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Latency budgets, routing and graceful failure",
+    "explanation": "Time to first token matters for interaction, but total completion time includes tool rounds and queued work.",
+    "concepts_in_context": "Time to first token matters for interaction, but total completion time includes tool rounds and queued work. Parallel independent reads can reduce latency; parallel writes can violate causality or increase blast radius. Routing easy tasks to cheaper models needs evaluation of failure and escalation rates, not just token prices. Propagate deadlines, bound retries and distinguish a resumable interruption from a completed answer. A fallback model may require different tool schema and context capabilities, so fallback is a tested adapter path.",
+    "why_it_matters": "Operate agent runs as budgeted distributed workloads with partial failures.",
+    "outcomes": [
+      "Simulate provider rate limits, delayed tools and missing usage; enforce a run deadline and maximum spend.",
+      "No run exceeds the configured step limit; uncertain cost is surfaced and retries share the original deadline.",
+      "Compare a cheap-first router with one strong model on the same held-out task set."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-design",
+        "priority": "required",
+        "reading_focus": "Read timeout and retry articles; allocate a run budget across provider, tools, queueing and cleanup.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-operations-l02-lab",
+      "ai-operations-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "When can a cheap model cost more overall?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Lower per-call price can be outweighed by extra rounds, retries, longer outputs or expensive escalations."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "ai-operations-l01"
+    ],
+    "pitfalls": [
+      "Lower per-call price can be outweighed by extra rounds, retries, longer outputs or expensive escalations."
+    ],
+    "acceptance_focus": "No run exceeds the configured step limit; uncertain cost is surfaced and retries share the original deadline.",
+    "study_steps": [
+      "Read timeout and retry articles; allocate a run budget across provider, tools, queueing and cleanup.",
+      "Predict the result and failure boundary before running this experiment: Simulate provider rate limits, delayed tools and missing usage; enforce a run deadline and maximum spend.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Compare a cheap-first router with one strong model on the same held-out task set."
+    ]
+  },
+  {
+    "id": "ai-operations-project",
+    "course_id": "ai-operations",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Latency, observability and production reliability — integration project",
+    "explanation": "Instrument the harness and run a dependency-failure game day. Compare serial and safe parallel tool scheduling, context policies and model-routing decisions.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Instrument the harness and run a dependency-failure game day. Compare serial and safe parallel tool scheduling, context policies and model-routing decisions. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "A trace explains model time, tool time, queueing, retries, token usage and terminal reason.",
+      "A provider outage does not create an unbounded retry or spending loop.",
+      "Prompt and trace redaction is tested before telemetry leaves the process."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-design",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-operations-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-operations-l01",
+      "ai-operations-l02"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "A trace explains model time, tool time, queueing, retries, token usage and terminal reason."
+  },
+  {
+    "id": "ai-capstone-l01",
+    "course_id": "ai-capstone",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Designing the harness boundaries",
+    "explanation": "Keep the model provider, context selector, tool registry, policy engine, persistence and scheduler behind small interfaces with explicit ownership.",
+    "concepts_in_context": "Keep the model provider, context selector, tool registry, policy engine, persistence and scheduler behind small interfaces with explicit ownership. The core loop should depend on those contracts rather than a provider’s raw JSON or an SDK’s global client. Pure transition functions and scripted fakes make failures reproducible. Durable events should describe domain actions rather than incidental Python objects so stored runs survive refactoring. Favor a narrow, understandable harness over a general plugin system without a concrete use case.",
+    "why_it_matters": "Integrate primitives into a reliable Python harness and compare it with established implementations.",
+    "outcomes": [
+      "Write interface contracts and a vertical slice from user input through model/tool round to persisted answer.",
+      "The same run executes using fake providers/tools without network and real adapters without changing loop code.",
+      "Replace one persistence or provider adapter and rerun all contract tests."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-mcpsdk",
+        "priority": "required",
+        "reading_focus": "Inspect client examples and supported revisions; identify the adapter boundary rather than copying SDK internals into the loop.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-capstone-l01-lab",
+      "ai-capstone-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Which code must never be delegated to the model?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Authorization, validation, resource limits, durable transition rules and enforcement of side-effect policy remain deterministic application responsibilities."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Authorization, validation, resource limits, durable transition rules and enforcement of side-effect policy remain deterministic application responsibilities."
+    ],
+    "acceptance_focus": "The same run executes using fake providers/tools without network and real adapters without changing loop code.",
+    "study_steps": [
+      "Inspect client examples and supported revisions; identify the adapter boundary rather than copying SDK internals into the loop.",
+      "Predict the result and failure boundary before running this experiment: Write interface contracts and a vertical slice from user input through model/tool round to persisted answer.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Replace one persistence or provider adapter and rerun all contract tests."
+    ]
+  },
+  {
+    "id": "ai-capstone-l02",
+    "course_id": "ai-capstone",
+    "ordinal": 2,
+    "type": "lesson",
+    "title": "Release review and framework comparison",
+    "explanation": "A harness is ready for a bounded use case when its guarantees, unsupported behaviors and operating limits are explicit and verified.",
+    "concepts_in_context": "A harness is ready for a bounded use case when its guarantees, unsupported behaviors and operating limits are explicit and verified. Review failure recovery and policy boundaries before polishing a demo. Frameworks can supply useful scheduling and persistence, but adopting one transfers assumptions that must be understood. Compare the same workflow and failure fixtures in your harness and one established framework, then decide which abstraction reduces work without obscuring critical behavior. Keep protocol and model dependency updates behind regression evaluations.",
+    "why_it_matters": "Integrate primitives into a reliable Python harness and compare it with established implementations.",
+    "outcomes": [
+      "Perform a release review using the full capstone criteria, then port a small workflow to LangGraph for comparison.",
+      "The review links each claim to a test, trace or reproducible command and lists unsupported cases honestly.",
+      "Have another engineer follow the runbook or perform a cold-start self-review without relying on shell history."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-langgraph",
+        "priority": "required",
+        "reading_focus": "Revisit persistence and fault-tolerance documentation; map each guarantee to a passing fixture or an explicit limitation.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-capstone-l02-lab",
+      "ai-capstone-l02-challenge"
+    ],
+    "knowledge_check": {
+      "question": "What evidence would justify replacing the custom loop with a framework?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Equivalent or stronger tested semantics for the target workload, lower maintenance burden and visible policy/replay behavior, rather than feature count alone."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [
+      "ai-capstone-l01"
+    ],
+    "pitfalls": [
+      "Equivalent or stronger tested semantics for the target workload, lower maintenance burden and visible policy/replay behavior, rather than feature count alone."
+    ],
+    "acceptance_focus": "The review links each claim to a test, trace or reproducible command and lists unsupported cases honestly.",
+    "study_steps": [
+      "Revisit persistence and fault-tolerance documentation; map each guarantee to a passing fixture or an explicit limitation.",
+      "Predict the result and failure boundary before running this experiment: Perform a release review using the full capstone criteria, then port a small workflow to LangGraph for comparison.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Have another engineer follow the runbook or perform a cold-start self-review without relying on shell history."
+    ]
+  },
+  {
+    "id": "ai-capstone-project",
+    "course_id": "ai-capstone",
+    "ordinal": 3,
+    "type": "checkpoint",
+    "title": "Independent agent harness capstone — integration project",
+    "explanation": "Deliver a framework-independent Python agent harness for a technical-document assistant. Include typed model adapters, streaming, tool dispatch, MCP integration, durable event state, retrieval, artifact memory, policy enforcement, budgets, traces and repeatable evaluations. Do not use an orchestration framework inside the core loop.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Deliver a framework-independent Python agent harness for a technical-document assistant. Include typed model adapters, streaming, tool dispatch, MCP integration, durable event state, retrieval, artifact memory, policy enforcement, budgets, traces and repeatable evaluations. Do not use an orchestration framework inside the core loop. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "A clean checkout runs offline fixture evaluations with one documented command.",
+      "At least 40 held-out tasks include tool failures, denial, malicious evidence and unanswerable questions.",
+      "Crash/restart preserves completed effects and surfaces ambiguous writes for reconciliation.",
+      "Integrate one real MCP server with declared supported revisions and no embedded credentials.",
+      "Provide a budget/latency report, threat model, architecture decisions, runbook and trace examples.",
+      "Compare one framework implementation against the primitive harness and explain replay, context and permission differences."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-langgraph",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-capstone-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-capstone-l01",
+      "ai-capstone-l02"
+    ],
+    "estimated_hours": 20,
+    "status": "authored",
+    "acceptance_focus": "A clean checkout runs offline fixture evaluations with one documented command."
+  },
+  {
+    "id": "ai-multiagent-l01",
+    "course_id": "ai-multiagent",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Coordination, handoffs and shared state",
+    "explanation": "Multiple agents add communication and state-management problems as well as additional reasoning opportunities.",
+    "concepts_in_context": "Multiple agents add communication and state-management problems as well as additional reasoning opportunities. Roles alone do not create independent evidence when all agents share the same misleading context. Define ownership of subtasks, message schemas, completion conditions and shared artifacts. Bound delegation depth and aggregate budgets at the root run. Prefer a deterministic fan-out when tasks are known and independent; use dynamic delegation only when the task requires it and evaluation shows benefit.",
+    "why_it_matters": "Evaluate whether decomposition improves a task enough to justify coordination overhead.",
+    "outcomes": [
+      "Implement two workers producing evidence-bearing reports and a supervisor that resolves disagreement.",
+      "Every claim retains source provenance; budget accounting includes all child runs.",
+      "Add a malicious worker message and verify it cannot expand permissions or overwrite the root goal."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-evals",
+        "priority": "required",
+        "reading_focus": "Read multi-agent evaluation examples if available; otherwise map multiple solvers to a single task state and scoring contract.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-multiagent-l01-lab",
+      "ai-multiagent-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why can agreement between agents be weak evidence?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "They may share model biases, prompts and sources; correlated errors are not independent confirmation."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "They may share model biases, prompts and sources; correlated errors are not independent confirmation."
+    ],
+    "acceptance_focus": "Every claim retains source provenance; budget accounting includes all child runs.",
+    "study_steps": [
+      "Read multi-agent evaluation examples if available; otherwise map multiple solvers to a single task state and scoring contract.",
+      "Predict the result and failure boundary before running this experiment: Implement two workers producing evidence-bearing reports and a supervisor that resolves disagreement.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add a malicious worker message and verify it cannot expand permissions or overwrite the root goal."
+    ]
+  },
+  {
+    "id": "ai-multiagent-project",
+    "course_id": "ai-multiagent",
+    "ordinal": 2,
+    "type": "checkpoint",
+    "title": "Multi-agent systems — integration project",
+    "explanation": "Build a bounded supervisor/worker experiment comparing one agent, a deterministic workflow and two specialized agents on the same tasks.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a bounded supervisor/worker experiment comparing one agent, a deterministic workflow and two specialized agents on the same tasks. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Compare at least 20 held-out tasks for success, cost, latency and disagreement.",
+      "Workers cannot recursively create unbounded workers or inherit broader permissions.",
+      "A failed worker leaves an inspectable partial result and a bounded recovery path."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-evals",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-multiagent-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-multiagent-l01"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Compare at least 20 held-out tasks for success, cost, latency and disagreement."
+  },
+  {
+    "id": "ai-ragdeep-l01",
+    "course_id": "ai-ragdeep",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Retrieval planning and temporal truth",
+    "explanation": "Query rewriting can improve recall while drifting from the user’s intent.",
+    "concepts_in_context": "Query rewriting can improve recall while drifting from the user’s intent. Multi-hop retrieval adds another opportunity for unsupported intermediate conclusions. Temporal memory must distinguish when a fact was valid from when it was recorded, and updates need explicit supersession rather than accumulating contradictory snippets. Evaluate each added stage independently so a sophisticated pipeline does not hide a weak candidate set. Use provenance and held-out temporal queries to detect stale or invented evidence.",
+    "why_it_matters": "Explore retrieval planning, temporal memory and ablation-driven improvements.",
+    "outcomes": [
+      "Create documents with revisions and evaluate current-state and historical questions separately.",
+      "Ablation results show whether rewriting, reranking and memory each help their intended query category.",
+      "Implement a two-hop query planner with a fixed retrieval budget and evidence for each hop."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-pgvector",
+        "priority": "required",
+        "reading_focus": "Read exact/approximate filtering and index tuning; design a temporal relevance dataset before tuning.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-ragdeep-l01-lab",
+      "ai-ragdeep-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why can more retrieved context reduce quality?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "It can dilute relevant evidence, introduce contradictions, increase cost and create additional injection surface."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "It can dilute relevant evidence, introduce contradictions, increase cost and create additional injection surface."
+    ],
+    "acceptance_focus": "Ablation results show whether rewriting, reranking and memory each help their intended query category.",
+    "study_steps": [
+      "Read exact/approximate filtering and index tuning; design a temporal relevance dataset before tuning.",
+      "Predict the result and failure boundary before running this experiment: Create documents with revisions and evaluate current-state and historical questions separately.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Implement a two-hop query planner with a fixed retrieval budget and evidence for each hop."
+    ]
+  },
+  {
+    "id": "ai-ragdeep-project",
+    "course_id": "ai-ragdeep",
+    "ordinal": 2,
+    "type": "checkpoint",
+    "title": "Advanced RAG and memory — integration project",
+    "explanation": "Compare query rewriting, hybrid retrieval, reranking and memory policies through controlled ablations on a versioned corpus.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Compare query rewriting, hybrid retrieval, reranking and memory policies through controlled ablations on a versioned corpus. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Each stage has a quality/latency/cost delta against the same baseline.",
+      "Temporal queries resolve the correct document version.",
+      "Deleted or revoked records disappear from both candidates and hydrated evidence."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-pgvector",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-ragdeep-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-ragdeep-l01"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Each stage has a quality/latency/cost delta against the same baseline."
+  },
+  {
+    "id": "ai-local-l01",
+    "course_id": "ai-local",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Quantization, batching and KV memory",
+    "explanation": "Quantization reduces representation precision to save memory and bandwidth, but task quality can change and not every layer or runtime behaves identically.",
+    "concepts_in_context": "Quantization reduces representation precision to save memory and bandwidth, but task quality can change and not every layer or runtime behaves identically. Continuous batching improves hardware utilization while scheduling requests with different lengths. KV cache memory grows with active sequence context, so long requests can reduce concurrency even when model weights fit. A local server still needs admission control, licensing review, telemetry and a security boundary. Compare total operating cost and latency with hosted inference for the actual workload.",
+    "why_it_matters": "Understand serving, quantization and hardware tradeoffs without assuming local means free.",
+    "outcomes": [
+      "Run one model at two quantization levels and two context sizes using identical task prompts.",
+      "The report includes task accuracy, memory peak, TTFT and throughput at concurrency 1 and 4.",
+      "Add an admission limit and reject oversized contexts before allocation."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-vllm",
+        "priority": "required",
+        "reading_focus": "Read serving configuration, memory utilization and quantization support; compare with llama.cpp supported formats.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-local-l01-lab",
+      "ai-local-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why does fitting model weights in VRAM not guarantee serving capacity?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "KV cache, activations, runtime buffers and concurrent sequences also consume memory."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "KV cache, activations, runtime buffers and concurrent sequences also consume memory."
+    ],
+    "acceptance_focus": "The report includes task accuracy, memory peak, TTFT and throughput at concurrency 1 and 4.",
+    "study_steps": [
+      "Read serving configuration, memory utilization and quantization support; compare with llama.cpp supported formats.",
+      "Predict the result and failure boundary before running this experiment: Run one model at two quantization levels and two context sizes using identical task prompts.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add an admission limit and reject oversized contexts before allocation."
+    ]
+  },
+  {
+    "id": "ai-local-project",
+    "course_id": "ai-local",
+    "ordinal": 2,
+    "type": "checkpoint",
+    "title": "Local models and inference systems — integration project",
+    "explanation": "Serve a local model behind the harness provider interface and compare quantization, batching and context sizes under a fixed task workload.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Serve a local model behind the harness provider interface and compare quantization, batching and context sizes under a fixed task workload. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Record model license, revision, quantization, hardware, memory and serving configuration.",
+      "Measure time to first token, throughput and task success under concurrent requests.",
+      "OOM and overload fail predictably without corrupting harness state."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-vllm",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-local-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-local-l01"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Record model license, revision, quantization, hardware, memory and serving configuration."
+  },
+  {
+    "id": "ai-multimodal-l01",
+    "course_id": "ai-multimodal",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Media content blocks and evidence",
+    "explanation": "Multimodal messages contain ordered content parts whose meaning depends on the provider’s schema and preprocessing.",
+    "concepts_in_context": "Multimodal messages contain ordered content parts whose meaning depends on the provider’s schema and preprocessing. An image is not a reliable substitute for exact structured data: small text, spatial judgments and ambiguous scenes can fail. Keep original bytes and provenance separate from resized inference representations. Validate MIME type, decoded dimensions and byte size, and make hydration explicit so search does not flood context with media. Never infer a capability or limit from a different model’s documentation.",
+    "why_it_matters": "Add images and other artifacts while preserving ordering, provenance and bounded hydration.",
+    "outcomes": [
+      "Persist a message containing text, two images and a follow-up question, then replay it through the provider adapter.",
+      "Replayed content preserves order and source references; oversized and corrupt image fixtures are rejected.",
+      "Compare original and downscaled images on a labeled small-text task and report errors."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-vision",
+        "priority": "required",
+        "reading_focus": "Read image content blocks, supported formats, size limits and limitations for the exact selected model.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-multimodal-l01-lab",
+      "ai-multimodal-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why must image preprocessing be versioned in evaluations?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Resizing, cropping and encoding alter the evidence the model sees and can change accuracy independently of the prompt."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Resizing, cropping and encoding alter the evidence the model sees and can change accuracy independently of the prompt."
+    ],
+    "acceptance_focus": "Replayed content preserves order and source references; oversized and corrupt image fixtures are rejected.",
+    "study_steps": [
+      "Read image content blocks, supported formats, size limits and limitations for the exact selected model.",
+      "Predict the result and failure boundary before running this experiment: Persist a message containing text, two images and a follow-up question, then replay it through the provider adapter.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Compare original and downscaled images on a labeled small-text task and report errors."
+    ]
+  },
+  {
+    "id": "ai-multimodal-project",
+    "course_id": "ai-multimodal",
+    "ordinal": 2,
+    "type": "checkpoint",
+    "title": "Multimodal agents — integration project",
+    "explanation": "Build an image-aware inspection assistant that retrieves artifact descriptors, explicitly hydrates selected images and answers with source references.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build an image-aware inspection assistant that retrieves artifact descriptors, explicitly hydrates selected images and answers with source references. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Image order and source identity survive persistence and replay.",
+      "Corrupt, oversized and unsupported media fail before model submission.",
+      "Evaluation includes unreadable images and visually ambiguous cases requiring abstention."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-vision",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-multimodal-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-multimodal-l01"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Image order and source identity survive persistence and replay."
+  },
+  {
+    "id": "ai-sandboxing-l01",
+    "course_id": "ai-sandboxing",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Isolation as defense in depth",
+    "explanation": "No single isolation mechanism covers every threat.",
+    "concepts_in_context": "No single isolation mechanism covers every threat. Containers share a kernel; language-level restrictions are often bypassable; network allowlists must consider DNS, redirects and proxies. Treat execution as hostile and minimize inherited descriptors, environment and mounts. Limits on output and process descendants matter as much as a wall-clock timeout. Design the broker so privileged credentials are never available to arbitrary code and validate returned artifacts before consuming them.",
+    "why_it_matters": "Test containment against concrete generated-code and tool abuse scenarios.",
+    "outcomes": [
+      "Run fork, output-growth, path-escape and egress attempts in a disposable restricted runner.",
+      "Each attempt has a recorded enforced denial or a documented unsupported boundary; cleanup leaves no descendants.",
+      "Add a narrowly scoped credential broker and demonstrate that code cannot request a different resource."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-sandbox",
+        "priority": "required",
+        "reading_focus": "Read seccomp restrictions and caveats, then map filesystem and network isolation to separate mechanisms.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-sandboxing-l01-lab",
+      "ai-sandboxing-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why is a timeout around subprocess.wait insufficient?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "It may stop waiting without killing descendants, closing descriptors or cleaning resources; lifecycle enforcement must cover the process tree."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "It may stop waiting without killing descendants, closing descriptors or cleaning resources; lifecycle enforcement must cover the process tree."
+    ],
+    "acceptance_focus": "Each attempt has a recorded enforced denial or a documented unsupported boundary; cleanup leaves no descendants.",
+    "study_steps": [
+      "Read seccomp restrictions and caveats, then map filesystem and network isolation to separate mechanisms.",
+      "Predict the result and failure boundary before running this experiment: Run fork, output-growth, path-escape and egress attempts in a disposable restricted runner.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Add a narrowly scoped credential broker and demonstrate that code cannot request a different resource."
+    ]
+  },
+  {
+    "id": "ai-sandboxing-project",
+    "course_id": "ai-sandboxing",
+    "ordinal": 2,
+    "type": "checkpoint",
+    "title": "Agent security and isolation engineering — integration project",
+    "explanation": "Build a disposable execution service with filesystem, process, CPU, memory and network restrictions plus per-request audit records.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Build a disposable execution service with filesystem, process, CPU, memory and network restrictions plus per-request audit records. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "An adversarial fixture suite cannot access host secrets or unrestricted network.",
+      "Timeout cleanup removes descendant processes and temporary artifacts.",
+      "The threat model states kernel and infrastructure trust assumptions."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-sandbox",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-sandboxing-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-sandboxing-l01"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "An adversarial fixture suite cannot access host secrets or unrestricted network."
+  },
+  {
+    "id": "ai-models-l01",
+    "course_id": "ai-models",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Training objectives, LoRA and data quality",
+    "explanation": "Pretraining learns broad next-token structure while supervised adaptation changes behavior on a narrower distribution.",
+    "concepts_in_context": "Pretraining learns broad next-token structure while supervised adaptation changes behavior on a narrower distribution. LoRA trains low-rank updates rather than all model weights, reducing trainable state but not removing data and evaluation requirements. Fine-tuning is often appropriate for stable style or task behavior, while frequently changing knowledge belongs in retrieval. Deduplicate and split data by source so near-identical examples do not inflate held-out scores. A lower training loss does not establish better user outcomes.",
+    "why_it_matters": "Learn when fine-tuning is justified and how to evaluate it against prompting and retrieval.",
+    "outcomes": [
+      "Train a small LoRA adapter on a narrow structured-output task with a licensed dataset and a source-level split.",
+      "Compare prompt-only and adapted model performance on held-out tasks and report malformed outputs.",
+      "Introduce a distribution-shift test and inspect whether adaptation worsens unrelated tasks."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-peft",
+        "priority": "required",
+        "reading_focus": "Read conceptual guides on adapters and LoRA; identify trainable parameters and inference merge behavior.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-models-l01-lab",
+      "ai-models-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why can validation accuracy be misleading after random row splitting?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "Near-duplicate or source-correlated examples can leak across splits, making memorization look like generalization."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "Near-duplicate or source-correlated examples can leak across splits, making memorization look like generalization."
+    ],
+    "acceptance_focus": "Compare prompt-only and adapted model performance on held-out tasks and report malformed outputs.",
+    "study_steps": [
+      "Read conceptual guides on adapters and LoRA; identify trainable parameters and inference merge behavior.",
+      "Predict the result and failure boundary before running this experiment: Train a small LoRA adapter on a narrow structured-output task with a licensed dataset and a source-level split.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Introduce a distribution-shift test and inspect whether adaptation worsens unrelated tasks."
+    ]
+  },
+  {
+    "id": "ai-models-project",
+    "course_id": "ai-models",
+    "ordinal": 2,
+    "type": "checkpoint",
+    "title": "Model engineering and adaptation — integration project",
+    "explanation": "Run a small adapter-training experiment or a fully specified low-cost reproducible training configuration with a real small-model trial. Compare with a prompt-only baseline.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Run a small adapter-training experiment or a fully specified low-cost reproducible training configuration with a real small-model trial. Compare with a prompt-only baseline. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Training, validation and held-out data are split by source/task to reduce leakage.",
+      "A real training run records model revision, seed, configuration and resource use.",
+      "Report quality, safety regressions and whether adaptation is worth maintaining."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-peft",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-models-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-models-l01"
+    ],
+    "estimated_hours": 20,
+    "status": "authored",
+    "acceptance_focus": "Training, validation and held-out data are split by source/task to reduce leakage."
+  },
+  {
+    "id": "ai-evalsystems-l01",
+    "course_id": "ai-evalsystems",
+    "ordinal": 1,
+    "type": "lesson",
+    "title": "Evaluation as a production data pipeline",
+    "explanation": "Evaluation infrastructure must version inputs, reset environments, attribute results and preserve enough artifacts for review.",
+    "concepts_in_context": "Evaluation infrastructure must version inputs, reset environments, attribute results and preserve enough artifacts for review. Parallel execution changes rate limits and can contaminate state if tasks share mutable resources. Store run metadata immutably and separate scorer versions from model versions. Statistical uncertainty and subgroup regressions should be visible in comparisons. Protect held-out data from accidental training or prompt-development leakage, and track human overrides as review records rather than silently editing scores.",
+    "why_it_matters": "Build scalable, reviewable evaluation operations and protect benchmark integrity.",
+    "outcomes": [
+      "Implement resumable evaluation batches with isolated task stores and deterministic result identifiers.",
+      "Restart does not duplicate completed task effects; candidate comparisons use identical dataset/scorer versions.",
+      "Bootstrap paired score differences and display confidence ranges alongside critical failure counts."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-evals",
+        "priority": "required",
+        "reading_focus": "Read parallelism, sandboxing and log structure; define immutable identifiers for dataset, solver and scorer.",
+        "estimated_minutes": 45
+      }
+    ],
+    "assignments": [
+      "ai-evalsystems-l01-lab",
+      "ai-evalsystems-l01-challenge"
+    ],
+    "knowledge_check": {
+      "question": "Why should scorer changes trigger a new report version?",
+      "self_review": "Answer before revealing guidance. Use a concrete execution trace or counterexample.",
+      "answer_guidance": "They change the measurement instrument; old and new scores are not directly comparable unless both candidates are rescored."
+    },
+    "estimated_hours": 5,
+    "status": "authored",
+    "prerequisite_lesson_ids": [],
+    "pitfalls": [
+      "They change the measurement instrument; old and new scores are not directly comparable unless both candidates are rescored."
+    ],
+    "acceptance_focus": "Restart does not duplicate completed task effects; candidate comparisons use identical dataset/scorer versions.",
+    "study_steps": [
+      "Read parallelism, sandboxing and log structure; define immutable identifiers for dataset, solver and scorer.",
+      "Predict the result and failure boundary before running this experiment: Implement resumable evaluation batches with isolated task stores and deterministic result identifiers.",
+      "Compare observed behavior with your prediction; keep the raw trace or measurement.",
+      "Bootstrap paired score differences and display confidence ranges alongside critical failure counts."
+    ]
+  },
+  {
+    "id": "ai-evalsystems-project",
+    "course_id": "ai-evalsystems",
+    "ordinal": 2,
+    "type": "checkpoint",
+    "title": "Evaluation infrastructure — integration project",
+    "explanation": "Create an evaluation service or CLI pipeline with dataset versioning, isolated task state, parallel workers, result comparison and reviewable reports.",
+    "concepts_in_context": "Integrate the course concepts into an independently designed artifact. Create an evaluation service or CLI pipeline with dataset versioning, isolated task state, parallel workers, result comparison and reviewable reports. Start by writing the invariants and failure assumptions. Keep a short decision record for rejected alternatives, then demonstrate recovery as well as the happy path.",
+    "outcomes": [
+      "Interrupted runs resume without silently mixing candidate versions.",
+      "Worker concurrency preserves task isolation and root budgets.",
+      "Reports include per-task evidence and uncertainty rather than only a leaderboard."
+    ],
+    "reading": [
+      {
+        "resource_id": "ai-res-evals",
+        "priority": "optional",
+        "reading_focus": "Use the previously assigned reference to verify the guarantees your project claims; do not copy its example architecture without checking the failure assumptions.",
+        "estimated_minutes": 30
+      }
+    ],
+    "assignments": [
+      "ai-evalsystems-project-build"
+    ],
+    "knowledge_check": {
+      "question": "Which claimed guarantee has the weakest evidence in this project, and what experiment would challenge it?",
+      "self_review": "Review your acceptance evidence before marking complete.",
+      "answer_guidance": "Name a specific invariant, its enforcement boundary and a reproducible failure test. State remaining limitations and what would invalidate the design."
+    },
+    "prerequisite_lesson_ids": [
+      "ai-evalsystems-l01"
+    ],
+    "estimated_hours": 8,
+    "status": "authored",
+    "acceptance_focus": "Interrupted runs resume without silently mixing candidate versions."
+  }
+]

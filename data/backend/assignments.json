@@ -1,0 +1,1192 @@
+[
+  {
+    "id": "backend-python-l01-lab",
+    "lesson_id": "backend-python-l01",
+    "course_id": "backend-python",
+    "kind": "guided",
+    "title": "Laboratory: Execution, ownership and the interpreter",
+    "instructions": "Trace a shared mutable default, a late-bound closure and a file handle escaping a context manager; repair all three.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Tests show independent per-call state, the intended closure values and a closed handle after an exception.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why can two threads race even when a GIL exists?"
+  },
+  {
+    "id": "backend-python-l01-challenge",
+    "lesson_id": "backend-python-l01",
+    "course_id": "backend-python",
+    "kind": "independent",
+    "title": "Independent: Execution, ownership and the interpreter",
+    "instructions": "Compare a CPU loop with a native hashing operation in a thread pool; record Python build and CPU utilization.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Record wall time and CPU utilization for both workloads with one and four threads; distinguish measured native parallelism from Python bytecode execution.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why can two threads race even when a GIL exists?"
+  },
+  {
+    "id": "backend-python-l02-lab",
+    "lesson_id": "backend-python-l02",
+    "course_id": "backend-python",
+    "kind": "guided",
+    "title": "Laboratory: Structured concurrency and backpressure",
+    "instructions": "Implement a bounded producer/consumer pipeline with a TaskGroup, queue capacity 20 and five workers.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Queue depth never exceeds 20; a worker failure cancels siblings and closes all resources.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why is a semaphore alone insufficient during overload?"
+  },
+  {
+    "id": "backend-python-l02-challenge",
+    "lesson_id": "backend-python-l02",
+    "course_id": "backend-python",
+    "kind": "independent",
+    "title": "Independent: Structured concurrency and backpressure",
+    "instructions": "Add a 200 ms end-to-end deadline and a deliberately blocking function; detect scheduler delay with a heartbeat.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The heartbeat detects the introduced blocking interval; all tasks finish or cancel within the shared 200 ms budget plus a documented cleanup allowance.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why is a semaphore alone insufficient during overload?"
+  },
+  {
+    "id": "backend-python-project-build",
+    "lesson_id": "backend-python-project",
+    "course_id": "backend-python",
+    "kind": "course_project",
+    "title": "Python execution and concurrency project",
+    "instructions": "Concurrency laboratory: build a CLI that runs the same CPU-heavy checksum and delayed HTTP workload sequentially, in threads, in processes and with asyncio. Add cancellation and bounded admission; publish measured throughput, memory and tail latency.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "For 1, 10 and 100 in-flight jobs, retain raw timings and explain the saturation point.",
+      "Cancel a run halfway through: no child process, socket or task remains after shutdown.",
+      "A CPU-bound task cannot silently block the asynchronous scheduler; demonstrate detection and isolation."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-linux-l01-lab",
+    "lesson_id": "backend-linux-l01",
+    "course_id": "backend-linux",
+    "kind": "guided",
+    "title": "Laboratory: Processes, virtual memory and resource limits",
+    "instructions": "Compare RSS and descriptor counts while repeatedly allocating buffers and opening files, then closing and releasing them.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Record PID, RSS, virtual size and descriptor count before/after; explain which changes persist.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why does adding four workers increase database connections?"
+  },
+  {
+    "id": "backend-linux-l01-challenge",
+    "lesson_id": "backend-linux-l01",
+    "course_id": "backend-linux",
+    "kind": "independent",
+    "title": "Independent: Processes, virtual memory and resource limits",
+    "instructions": "Run the workload under a low descriptor limit and a memory limit, then make failure recoverable.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Descriptor exhaustion and memory-limit termination are reproduced separately; the supervisor reports each cause and cleans up the disposable workload.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why does adding four workers increase database connections?"
+  },
+  {
+    "id": "backend-linux-l02-lab",
+    "lesson_id": "backend-linux-l02",
+    "course_id": "backend-linux",
+    "kind": "guided",
+    "title": "Laboratory: Diagnosing blocked work on Linux",
+    "instructions": "Use strace with elapsed syscall timing and ss to distinguish a sleeping worker from a connection stall.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "A timestamped trace identifies the blocking syscall or wait; SIGTERM drains a running request within five seconds.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "What can a high load average with low CPU mean?"
+  },
+  {
+    "id": "backend-linux-l02-challenge",
+    "lesson_id": "backend-linux-l02",
+    "course_id": "backend-linux",
+    "kind": "independent",
+    "title": "Independent: Diagnosing blocked work on Linux",
+    "instructions": "Introduce a lock convoy and diagnose it without inserting print statements into every function.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "A captured stack or syscall trace identifies the contended lock and the owning thread; the proposed change reduces measured waiting time.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "What can a high load average with low CPU mean?"
+  },
+  {
+    "id": "backend-linux-project-build",
+    "lesson_id": "backend-linux-project",
+    "course_id": "backend-linux",
+    "kind": "course_project",
+    "title": "Operating systems and Linux diagnosis project",
+    "instructions": "Build a Linux incident laboratory with reproducible modes for CPU saturation, leaked descriptors, growing resident memory and blocked I/O. Supply a diagnostic runbook using proc, ps, ss and strace.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Identify the correct failure using evidence from two independent OS signals.",
+      "Each failure has a bounded trigger and a cleanup command.",
+      "Distinguish virtual memory, resident memory and container memory limits in the report."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-network-l01-lab",
+    "lesson_id": "backend-network-l01",
+    "course_id": "backend-network",
+    "kind": "guided",
+    "title": "Laboratory: TCP, DNS, TLS and connection budgets",
+    "instructions": "Write a length-prefixed echo client/server that fragments each write and enforces maximum frame length.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Tests split the header and body at every byte boundary and reject oversized frames before allocation.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why is a successful send not evidence the request committed?"
+  },
+  {
+    "id": "backend-network-l01-challenge",
+    "lesson_id": "backend-network-l01",
+    "course_id": "backend-network",
+    "kind": "independent",
+    "title": "Independent: TCP, DNS, TLS and connection budgets",
+    "instructions": "Add DNS delay and a slow peer; report which phase consumes the deadline.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "A phase-timing report distinguishes injected DNS delay from read delay and shows the shared deadline prevents their budgets from accumulating.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why is a successful send not evidence the request committed?"
+  },
+  {
+    "id": "backend-network-l02-lab",
+    "lesson_id": "backend-network-l02",
+    "course_id": "backend-network",
+    "kind": "guided",
+    "title": "Laboratory: HTTP semantics, proxies and safe retries",
+    "instructions": "Implement ETag/If-Match updates and an idempotency-key POST over a small inventory resource.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Two clients using one ETag cannot both overwrite the resource; a duplicate key returns the original result.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Does idempotent mean identical response bytes?"
+  },
+  {
+    "id": "backend-network-l02-challenge",
+    "lesson_id": "backend-network-l02",
+    "course_id": "backend-network",
+    "kind": "independent",
+    "title": "Independent: HTTP semantics, proxies and safe retries",
+    "instructions": "Drop the response after commit and retry; reject the same key with a different payload.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Response loss after commit followed by a retry produces one effect; reusing the key with changed payload returns a documented conflict.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Does idempotent mean identical response bytes?"
+  },
+  {
+    "id": "backend-network-project-build",
+    "lesson_id": "backend-network-project",
+    "course_id": "backend-network",
+    "kind": "course_project",
+    "title": "Networking and HTTP under failure project",
+    "instructions": "Build an instrumented reverse-proxy experiment around an existing Flask service. Simulate slow reads, dropped connections and duplicate POSTs; implement explicit connection/read budgets and conditional updates.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "A fragmented request body is decoded without assuming one recv returns one message.",
+      "A retried operation uses an idempotency key with a persisted result.",
+      "A stale If-Match update is rejected and proxy timeout behavior is documented."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-security-l01-lab",
+    "lesson_id": "backend-security-l01",
+    "course_id": "backend-security",
+    "kind": "guided",
+    "title": "Laboratory: Authentication is not object authorization",
+    "instructions": "Create a two-tenant fixture and test every object endpoint using the other tenant’s IDs.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "The authorization matrix covers owner, collaborator, outsider and revoked membership for reads and writes.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why is filtering only the list endpoint insufficient?"
+  },
+  {
+    "id": "backend-security-l01-challenge",
+    "lesson_id": "backend-security-l01",
+    "course_id": "backend-security",
+    "kind": "independent",
+    "title": "Independent: Authentication is not object authorization",
+    "instructions": "Add an export job and prove its worker rechecks access rather than trusting queued IDs.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "A queued export created before membership revocation fails authorization at execution time and exposes no document bytes.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why is filtering only the list endpoint insufficient?"
+  },
+  {
+    "id": "backend-security-l02-lab",
+    "lesson_id": "backend-security-l02",
+    "course_id": "backend-security",
+    "kind": "guided",
+    "title": "Laboratory: Tokens, sessions and downstream trust",
+    "instructions": "Build a token-validation test matrix and a URL-fetch policy with scheme, destination and redirect restrictions.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Wrong audience, expired tokens and redirects to private IP space all fail closed.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why should an API not accept a token issued for a different service?"
+  },
+  {
+    "id": "backend-security-l02-challenge",
+    "lesson_id": "backend-security-l02",
+    "course_id": "backend-security",
+    "kind": "independent",
+    "title": "Independent: Tokens, sessions and downstream trust",
+    "instructions": "Rotate signing keys while concurrent requests continue; document cache refresh and failure policy.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Old and new signing keys overlap during the rotation window; unknown keys fail closed and no request accepts a token for the wrong audience.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why should an API not accept a token issued for a different service?"
+  },
+  {
+    "id": "backend-security-project-build",
+    "lesson_id": "backend-security-project",
+    "course_id": "backend-security",
+    "kind": "course_project",
+    "title": "API security and trust boundaries project",
+    "instructions": "Threat-model a multi-tenant document API. Implement object-level authorization, resource budgets and token validation; test cross-tenant access, SSRF-like inputs and leaked-secret handling.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Every read/write checks tenant membership using server-derived identity.",
+      "Invalid issuer, audience and expired credentials are rejected.",
+      "Tests prove URL validation blocks internal destinations after resolution and redirect handling."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-transactions-l01-lab",
+    "lesson_id": "backend-transactions-l01",
+    "course_id": "backend-transactions",
+    "kind": "guided",
+    "title": "Laboratory: Constraints, isolation and write anomalies",
+    "instructions": "Run two sessions that try to reserve the final stock unit using check-then-write, then repair with a conditional UPDATE.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "A barrier-controlled test reproduces overselling before the fix and prevents it afterward.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why is retrying only the failed SQL statement wrong after serialization failure?"
+  },
+  {
+    "id": "backend-transactions-l01-challenge",
+    "lesson_id": "backend-transactions-l01",
+    "course_id": "backend-transactions",
+    "kind": "independent",
+    "title": "Independent: Constraints, isolation and write anomalies",
+    "instructions": "Implement an alternative serializable transaction with bounded full-transaction retries.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Under a barrier-controlled conflict, the serializable implementation retries the complete transaction within a bounded attempt count and preserves stock.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why is retrying only the failed SQL statement wrong after serialization failure?"
+  },
+  {
+    "id": "backend-transactions-l02-lab",
+    "lesson_id": "backend-transactions-l02",
+    "course_id": "backend-transactions",
+    "kind": "guided",
+    "title": "Laboratory: Schema evolution and transaction boundaries",
+    "instructions": "Migrate a populated orders table to a normalized currency/amount representation without a flag-day deployment.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Old and new writers coexist during backfill; invalid amounts fail at the database boundary.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Where should an external side effect occur relative to commit?"
+  },
+  {
+    "id": "backend-transactions-l02-challenge",
+    "lesson_id": "backend-transactions-l02",
+    "course_id": "backend-transactions",
+    "kind": "independent",
+    "title": "Independent: Schema evolution and transaction boundaries",
+    "instructions": "Add payment intent and reconciliation states without holding a transaction during a remote call.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "A stalled payment dependency does not hold an open business transaction; restart reconciles pending intents without double charging the mock ledger.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Where should an external side effect occur relative to commit?"
+  },
+  {
+    "id": "backend-transactions-project-build",
+    "lesson_id": "backend-transactions-project",
+    "course_id": "backend-transactions",
+    "kind": "course_project",
+    "title": "Relational design and transactional APIs project",
+    "instructions": "Build a reservation API in PostgreSQL with stock limits, cancellation and idempotent commands. Include a concurrent test driver and schema migration; no overselling is permitted.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "100 concurrent requests for ten units yield exactly ten reservations.",
+      "A retried command cannot create a second reservation or charge record.",
+      "Document isolation, lock ordering and the transaction boundary with rollback tests."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-postgres-l01-lab",
+    "lesson_id": "backend-postgres-l01",
+    "course_id": "backend-postgres",
+    "kind": "guided",
+    "title": "Laboratory: Plans, indexes and cardinality",
+    "instructions": "Load skewed events and compare tenant/time queries before and after composite indexes and ANALYZE.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Retain plans, row estimates, buffer counts, data size and insert throughput for each index variant.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why can the planner reject an available index?"
+  },
+  {
+    "id": "backend-postgres-l01-challenge",
+    "lesson_id": "backend-postgres-l01",
+    "course_id": "backend-postgres",
+    "kind": "independent",
+    "title": "Independent: Plans, indexes and cardinality",
+    "instructions": "Introduce a correlated predicate that misleads estimates and evaluate extended statistics.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Before/after plans quantify row-estimate error for correlated predicates and explain whether extended statistics changed the chosen plan.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why can the planner reject an available index?"
+  },
+  {
+    "id": "backend-postgres-l02-lab",
+    "lesson_id": "backend-postgres-l02",
+    "course_id": "backend-postgres",
+    "kind": "guided",
+    "title": "Laboratory: MVCC, vacuum, WAL and connection pools",
+    "instructions": "Hold an old transaction while updating a table repeatedly; observe stats, table size, vacuum and pool waiting.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Release the snapshot and explain what vacuum reclaims versus what it returns to the OS.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why does increasing the pool sometimes make latency worse?"
+  },
+  {
+    "id": "backend-postgres-l02-challenge",
+    "lesson_id": "backend-postgres-l02",
+    "course_id": "backend-postgres",
+    "kind": "independent",
+    "title": "Independent: MVCC, vacuum, WAL and connection pools",
+    "instructions": "Crash/restart a disposable database during writes and inspect recovery logs and acknowledged transaction survival.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "After a controlled crash, every acknowledged transaction required by the declared durability policy is present; recovery log timestamps are retained.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why does increasing the pool sometimes make latency worse?"
+  },
+  {
+    "id": "backend-postgres-project-build",
+    "lesson_id": "backend-postgres-project",
+    "course_id": "backend-postgres",
+    "kind": "course_project",
+    "title": "PostgreSQL internals and query performance project",
+    "instructions": "Create a million-row event workload with skewed tenants. Diagnose one slow query, one update-heavy table and one pool-saturation incident; publish before/after plans and maintenance decisions.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Capture EXPLAIN ANALYZE with buffers for cold and warm runs and acknowledge measurement effects.",
+      "Explain estimated versus actual row-count mismatch and choose an index with write-cost evidence.",
+      "Demonstrate dead-tuple growth and recovery after a long transaction is released."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-distributed-l01-lab",
+    "lesson_id": "backend-distributed-l01",
+    "course_id": "backend-distributed",
+    "kind": "guided",
+    "title": "Laboratory: Partial failure, clocks and consistency",
+    "instructions": "Simulate two replicas with delayed messages and record reads around a leader write.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "A history identifies one stale read, its ordering and the promised contract it violates or satisfies.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Does eventual consistency imply a bounded staleness interval?"
+  },
+  {
+    "id": "backend-distributed-l01-challenge",
+    "lesson_id": "backend-distributed-l01",
+    "course_id": "backend-distributed",
+    "kind": "independent",
+    "title": "Independent: Partial failure, clocks and consistency",
+    "instructions": "Add a partition and compare refusing writes with accepting divergent writes.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The partition experiment records availability and divergent state for both policies and states how reconciliation resolves conflicting writes.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Does eventual consistency imply a bounded staleness interval?"
+  },
+  {
+    "id": "backend-distributed-l02-lab",
+    "lesson_id": "backend-distributed-l02",
+    "course_id": "backend-distributed",
+    "kind": "guided",
+    "title": "Laboratory: Retries, idempotency and coordination",
+    "instructions": "Build a client that retries transient failures against a deduplicating ledger, including response loss after commit.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Each command changes the ledger once; attempts, elapsed time and retry reasons are visible.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why can a lease expire while the old worker still writes?"
+  },
+  {
+    "id": "backend-distributed-l02-challenge",
+    "lesson_id": "backend-distributed-l02",
+    "course_id": "backend-distributed",
+    "kind": "independent",
+    "title": "Independent: Retries, idempotency and coordination",
+    "instructions": "Simulate an expired lease owner resuming and enforce monotonic fencing at the storage boundary.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "A resumed stale lease holder is rejected by the protected resource using an older fencing token; the current holder still completes its write.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why can a lease expire while the old worker still writes?"
+  },
+  {
+    "id": "backend-distributed-project-build",
+    "lesson_id": "backend-distributed-project",
+    "course_id": "backend-distributed",
+    "kind": "course_project",
+    "title": "Distributed systems and failure semantics project",
+    "instructions": "Build a fault-injected replicated key/value simulator with delayed, duplicated and dropped messages. Compare leader reads and stale replica reads; design an idempotent command layer.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "A deterministic seed reproduces every reported divergence.",
+      "Record histories showing stale reads and explain the consistency contract.",
+      "A bounded retry policy uses deadlines, backoff and deduplication under ambiguous completion."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-cache-l01-lab",
+    "lesson_id": "backend-cache-l01",
+    "course_id": "backend-cache",
+    "kind": "guided",
+    "title": "Laboratory: Cache-aside, invalidation and stale data",
+    "instructions": "Reproduce stale repopulation with barriers around read, update, invalidate and cache fill.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "A test deterministically exposes the race; the chosen mitigation states its remaining staleness window.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Does deleting a cache entry after update guarantee freshness?"
+  },
+  {
+    "id": "backend-cache-l01-challenge",
+    "lesson_id": "backend-cache-l01",
+    "course_id": "backend-cache",
+    "kind": "independent",
+    "title": "Independent: Cache-aside, invalidation and stale data",
+    "instructions": "Add negative caching and tenant scoping, then test object creation and permission revocation.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Negative entries stop masking a newly created object within the declared freshness window; revoked access cannot use a cached tenant result.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Does deleting a cache entry after update guarantee freshness?"
+  },
+  {
+    "id": "backend-cache-l02-lab",
+    "lesson_id": "backend-cache-l02",
+    "course_id": "backend-cache",
+    "kind": "guided",
+    "title": "Laboratory: Stampedes, queueing and measurement",
+    "instructions": "Run a fixed-rate load generator through a synchronized expiry with and without single-flight.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "The report separates offered load, completed throughput, rejected requests and percentile latency.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why can a cache improve averages while worsening p99?"
+  },
+  {
+    "id": "backend-cache-l02-challenge",
+    "lesson_id": "backend-cache-l02",
+    "course_id": "backend-cache",
+    "kind": "independent",
+    "title": "Independent: Stampedes, queueing and measurement",
+    "instructions": "Implement stale-while-revalidate with a maximum stale age and a bounded refresh queue.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Stale responses never exceed the declared maximum age and at most one refresh per key occupies the bounded refresh queue.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why can a cache improve averages while worsening p99?"
+  },
+  {
+    "id": "backend-cache-project-build",
+    "lesson_id": "backend-cache-project",
+    "course_id": "backend-cache",
+    "kind": "course_project",
+    "title": "Caching and performance experiments project",
+    "instructions": "Build a cache-performance experiment for an expensive catalog query: compare no cache, cache-aside, single-flight and stale-while-revalidate under a synchronized expiration burst.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Measure hit ratio, origin QPS, p50/p95/p99 and error rate with identical workload seeds.",
+      "A hot-key expiration does not produce one origin request per caller.",
+      "An update race and a cache outage have explicit, tested freshness and fallback behavior."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-messaging-l01-lab",
+    "lesson_id": "backend-messaging-l01",
+    "course_id": "backend-messaging",
+    "kind": "guided",
+    "title": "Laboratory: Acknowledgements, duplicates and the outbox",
+    "instructions": "Implement an outbox publisher and an inbox-protected account projection; kill each process at every boundary.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "No committed event disappears and replayed messages do not double-apply the projection.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why does the outbox not remove consumer deduplication?"
+  },
+  {
+    "id": "backend-messaging-l01-challenge",
+    "lesson_id": "backend-messaging-l01",
+    "course_id": "backend-messaging",
+    "kind": "independent",
+    "title": "Independent: Acknowledgements, duplicates and the outbox",
+    "instructions": "Add broker outage recovery without holding business transactions open on publish.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Business commits succeed while the broker is unavailable; after recovery every committed outbox event reaches the deduplicating projection.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why does the outbox not remove consumer deduplication?"
+  },
+  {
+    "id": "backend-messaging-l02-lab",
+    "lesson_id": "backend-messaging-l02",
+    "course_id": "backend-messaging",
+    "kind": "guided",
+    "title": "Laboratory: Ordering, retries and long-running jobs",
+    "instructions": "Implement a job state machine with ready, leased, retry_wait, succeeded and dead states.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "A frozen worker cannot finalize a job after lease ownership changes; retries retain attempt history.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "When is a dead-letter queue insufficient?"
+  },
+  {
+    "id": "backend-messaging-l02-challenge",
+    "lesson_id": "backend-messaging-l02",
+    "course_id": "backend-messaging",
+    "kind": "independent",
+    "title": "Independent: Ordering, retries and long-running jobs",
+    "instructions": "Process ordered account events with one missing sequence number and define reconciliation behavior.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "A missing sequence number prevents out-of-order mutation for the affected account while unrelated accounts continue; reconciliation resumes the blocked account.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "When is a dead-letter queue insufficient?"
+  },
+  {
+    "id": "backend-messaging-project-build",
+    "lesson_id": "backend-messaging-project",
+    "course_id": "backend-messaging",
+    "kind": "course_project",
+    "title": "Durable jobs, messaging and workflows project",
+    "instructions": "Build a durable job-processing system with PostgreSQL outbox, a broker and independent workers. Include retry scheduling, dead-letter inspection, poison-job handling and restart recovery.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Kill a worker after its external effect but before acknowledgement; replay causes no duplicate effect.",
+      "A committed business change eventually produces an event after publisher restart.",
+      "Poison jobs stop retrying after a bounded policy and can be inspected and replayed deliberately."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-reliability-l01-lab",
+    "lesson_id": "backend-reliability-l01",
+    "course_id": "backend-reliability",
+    "kind": "guided",
+    "title": "Laboratory: SLIs, SLOs and overload control",
+    "instructions": "Specify an availability/latency SLI and replay a synthetic hour containing errors, slow successes and rejected requests.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "The computed error budget includes the intended user failures and excludes only documented non-service traffic.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why can queue length be a better early warning than error rate?"
+  },
+  {
+    "id": "backend-reliability-l01-challenge",
+    "lesson_id": "backend-reliability-l01",
+    "course_id": "backend-reliability",
+    "kind": "independent",
+    "title": "Independent: SLIs, SLOs and overload control",
+    "instructions": "Add admission control and graceful degradation for a nonessential recommendation dependency.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Failure of the optional recommendation dependency leaves reservation correctness intact; overload rejections are bounded and included in the declared SLI.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why can queue length be a better early warning than error rate?"
+  },
+  {
+    "id": "backend-reliability-l02-lab",
+    "lesson_id": "backend-reliability-l02",
+    "course_id": "backend-reliability",
+    "kind": "guided",
+    "title": "Laboratory: Metrics, traces and useful logs",
+    "instructions": "Instrument request latency, queue wait, database duration and tool-like downstream calls with trace context.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "One failed job can be followed from request through retry without storing credentials or document bodies.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why is baggage a poor place for secrets?"
+  },
+  {
+    "id": "backend-reliability-l02-challenge",
+    "lesson_id": "backend-reliability-l02",
+    "course_id": "backend-reliability",
+    "kind": "independent",
+    "title": "Independent: Metrics, traces and useful logs",
+    "instructions": "Introduce missing context and metric-label explosion; detect and repair both in a telemetry review.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "A broken propagation link becomes visible in a trace review; request identifiers are removed from metric labels and the resulting series count is bounded.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why is baggage a poor place for secrets?"
+  },
+  {
+    "id": "backend-reliability-project-build",
+    "lesson_id": "backend-reliability-project",
+    "course_id": "backend-reliability",
+    "kind": "course_project",
+    "title": "Reliability, observability and incident response project",
+    "instructions": "Run a game day against the reservation/job service. Define an SLO, instrument traces and metrics, inject a slow dependency and produce a blameless incident report with a verified corrective change.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "An alert detects user-visible budget burn without paging on every transient spike.",
+      "A trace links HTTP request, database work and asynchronous job using propagated context.",
+      "The runbook diagnoses injected failure within ten minutes using bounded-cardinality telemetry."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-testing-l01-lab",
+    "lesson_id": "backend-testing-l01",
+    "course_id": "backend-testing",
+    "kind": "guided",
+    "title": "Laboratory: Properties, contracts and realistic test boundaries",
+    "instructions": "Write a state machine that generates reserve, cancel, retry and duplicate commands against a real database.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Shrinking yields a minimal failing sequence for an intentionally introduced double-cancel bug.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why does 100% line coverage not prove correct concurrency?"
+  },
+  {
+    "id": "backend-testing-l01-challenge",
+    "lesson_id": "backend-testing-l01",
+    "course_id": "backend-testing",
+    "kind": "independent",
+    "title": "Independent: Properties, contracts and realistic test boundaries",
+    "instructions": "Add a provider contract fixture and detect an incompatible error response without calling a live service.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The offline contract test fails on the incompatible fixture and passes on the supported shape without making any network request.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why does 100% line coverage not prove correct concurrency?"
+  },
+  {
+    "id": "backend-testing-l02-lab",
+    "lesson_id": "backend-testing-l02",
+    "course_id": "backend-testing",
+    "kind": "guided",
+    "title": "Laboratory: Profiling, load shape and capacity",
+    "instructions": "Profile a serialization-heavy endpoint and compare CPU, allocation and database timing under fixed-rate load.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "The report identifies the limiting resource and shows before/after measurements with identical input distributions.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why can an apparent p99 improvement be misleading during overload?"
+  },
+  {
+    "id": "backend-testing-l02-challenge",
+    "lesson_id": "backend-testing-l02",
+    "course_id": "backend-testing",
+    "kind": "independent",
+    "title": "Independent: Profiling, load shape and capacity",
+    "instructions": "Increase payload size tenfold and test whether the previous optimization still helps.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "At tenfold payload size, the report repeats throughput, p99, memory and error measurements and identifies whether the limiting resource changed.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why can an apparent p99 improvement be misleading during overload?"
+  },
+  {
+    "id": "backend-testing-project-build",
+    "lesson_id": "backend-testing-project",
+    "course_id": "backend-testing",
+    "kind": "course_project",
+    "title": "Testing, profiling and capacity planning project",
+    "instructions": "Build a repeatable verification suite and capacity report for the transactional service. Combine state-machine tests, real PostgreSQL integration tests and fixed-arrival-rate load tests; diagnose the first bottleneck.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "A seeded concurrent failure reproduces in CI and checks business invariants.",
+      "The capacity report states data size, hardware, warmup, workload, percentiles and error rate.",
+      "A profiler-backed change improves the measured bottleneck without invalidating correctness tests."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-deployment-l01-lab",
+    "lesson_id": "backend-deployment-l01",
+    "course_id": "backend-deployment",
+    "kind": "guided",
+    "title": "Laboratory: Reproducible builds, releases and recovery",
+    "instructions": "Create a non-root image, health endpoints and a shutdown sequence; perform a mixed-version rollout.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "No secrets appear in image history; draining completes before the declared grace period.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why should liveness avoid depending on a shared database?"
+  },
+  {
+    "id": "backend-deployment-l01-challenge",
+    "lesson_id": "backend-deployment-l01",
+    "course_id": "backend-deployment",
+    "kind": "independent",
+    "title": "Independent: Reproducible builds, releases and recovery",
+    "instructions": "Restore PostgreSQL to an isolated environment and measure recovery time and potential data loss.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The isolated restore verifies reservation and job invariants and records elapsed restore time and the newest recoverable transaction timestamp.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why should liveness avoid depending on a shared database?"
+  },
+  {
+    "id": "backend-deployment-l02-lab",
+    "lesson_id": "backend-deployment-l02",
+    "course_id": "backend-deployment",
+    "kind": "guided",
+    "title": "Laboratory: Architecture, system design and engineering decisions",
+    "instructions": "Write an ADR comparing a modular monolith with two services for reservations and billing; estimate peak connections, storage and queue demand.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "The ADR states invariants, failure modes, rough capacity arithmetic and a reversible migration path.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "What makes an architecture decision stronger than a list of technologies?"
+  },
+  {
+    "id": "backend-deployment-l02-challenge",
+    "lesson_id": "backend-deployment-l02",
+    "course_id": "backend-deployment",
+    "kind": "independent",
+    "title": "Independent: Architecture, system design and engineering decisions",
+    "instructions": "Describe a regional outage plan with RPO/RTO and test one recoverable component locally.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The regional recovery plan declares numerical RPO/RTO targets and one local component drill measures achieved recovery against those targets.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "What makes an architecture decision stronger than a list of technologies?"
+  },
+  {
+    "id": "backend-deployment-project-build",
+    "lesson_id": "backend-deployment-project",
+    "course_id": "backend-deployment",
+    "kind": "course_project",
+    "title": "Deployment, infrastructure and architecture project",
+    "instructions": "Production backend capstone: deliver a tenant-aware reservation and durable-job platform with PostgreSQL, cache and broker. Use containers and reproducible infrastructure; include load testing, telemetry, rollback, backup restoration and an architecture review.",
+    "hours": 20,
+    "acceptance_criteria": [
+      "A clean environment starts from documented commands with no embedded credentials.",
+      "Restore a backup into an empty database and verify inventory and job invariants.",
+      "During a rolling deployment, in-flight requests drain and mixed-version workers process compatible messages.",
+      "Meet a declared SLO at a measured offered load, then demonstrate controlled overload and recovery.",
+      "Submit threat model, ADRs, operational runbooks, traces and a cost/capacity estimate."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-consensus-l01-lab",
+    "lesson_id": "backend-consensus-l01",
+    "course_id": "backend-consensus",
+    "kind": "guided",
+    "title": "Laboratory: Consensus and replicated state machines",
+    "instructions": "Simulate an election and a leader crash with an uncommitted suffix.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "A new leader preserves committed entries while conflicting uncommitted entries are resolved.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Can consensus make an external email send exactly once?"
+  },
+  {
+    "id": "backend-consensus-l01-challenge",
+    "lesson_id": "backend-consensus-l01",
+    "course_id": "backend-consensus",
+    "kind": "independent",
+    "title": "Independent: Consensus and replicated state machines",
+    "instructions": "Add duplicate client requests and separate request deduplication from log agreement.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Duplicate client commands appear once in the applied state despite multiple log entries or retries; the report separates this rule from Raft log agreement.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Can consensus make an external email send exactly once?"
+  },
+  {
+    "id": "backend-consensus-project-build",
+    "lesson_id": "backend-consensus-project",
+    "course_id": "backend-consensus",
+    "kind": "course_project",
+    "title": "Advanced distributed systems project",
+    "instructions": "Implement a deterministic three-node Raft teaching simulator with election, replicated commands and crash/restart. It is a learning artifact, not a production consensus library.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "A seeded partition/restart trace preserves committed-prefix agreement.",
+      "Uncommitted entries cannot be exposed as committed state.",
+      "Document omitted production concerns and compare with the paper’s safety argument."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-database-l01-lab",
+    "lesson_id": "backend-database-l01",
+    "course_id": "backend-database",
+    "kind": "guided",
+    "title": "Laboratory: Storage engines and recovery contracts",
+    "instructions": "Write length/checksum-framed records and crash during append and compaction.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Restart returns only complete acknowledged records under the documented fsync policy.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why does a replica not replace backups?"
+  },
+  {
+    "id": "backend-database-l01-challenge",
+    "lesson_id": "backend-database-l01",
+    "course_id": "backend-database",
+    "kind": "independent",
+    "title": "Independent: Storage engines and recovery contracts",
+    "instructions": "Measure batching throughput versus acknowledgement latency and possible loss window.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Each batch configuration records throughput, acknowledgement latency and the maximum acknowledged-data loss allowed by its flush policy.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why does a replica not replace backups?"
+  },
+  {
+    "id": "backend-database-project-build",
+    "lesson_id": "backend-database-project",
+    "course_id": "backend-database",
+    "kind": "course_project",
+    "title": "Database engineering project",
+    "instructions": "Build a miniature append-only key/value engine with checksummed records, crash recovery and compaction; compare its guarantees with PostgreSQL WAL and replication.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Recovery ignores or rejects a truncated final record without inventing data.",
+      "Compaction preserves the latest committed value across restart.",
+      "A write-amplification report explains the difference from a production database."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-platform-l01-lab",
+    "lesson_id": "backend-platform-l01",
+    "course_id": "backend-platform",
+    "kind": "guided",
+    "title": "Laboratory: Scheduling, autoscaling and platform boundaries",
+    "instructions": "Deploy two replicas, then simulate CPU pressure and a failing readiness check.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Observe scheduling, throttling and traffic removal separately; retain rollout events.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why may scaling workers reduce total throughput?"
+  },
+  {
+    "id": "backend-platform-l01-challenge",
+    "lesson_id": "backend-platform-l01",
+    "course_id": "backend-platform",
+    "kind": "independent",
+    "title": "Independent: Scheduling, autoscaling and platform boundaries",
+    "instructions": "Define an Azure deployment alternative and compare operational responsibility and monthly cost assumptions.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The Azure alternative names managed versus application responsibilities and estimates monthly cost using explicit traffic, storage and availability assumptions.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why may scaling workers reduce total throughput?"
+  },
+  {
+    "id": "backend-platform-project-build",
+    "lesson_id": "backend-platform-project",
+    "course_id": "backend-platform",
+    "kind": "course_project",
+    "title": "Cloud and platform engineering project",
+    "instructions": "Create a disposable Kubernetes deployment and infrastructure plan for the capstone with resource requests, autoscaling assumptions, secret references and rollback.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "A rollout with a bad readiness probe stops without taking all healthy replicas offline.",
+      "Resource limits and disruption settings have a recorded failure experiment.",
+      "The plan includes cleanup, cost bounds and drift detection without committing credentials."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-appsec-l01-lab",
+    "lesson_id": "backend-appsec-l01",
+    "course_id": "backend-appsec",
+    "kind": "guided",
+    "title": "Laboratory: Threat models and secure operations",
+    "instructions": "Draw the capstone data-flow diagram and implement regression tests for cross-tenant access, oversized work and private-network fetches.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Each attack fails at a named boundary and produces redacted diagnostic evidence.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why is input validation alone insufficient for authorization?"
+  },
+  {
+    "id": "backend-appsec-l01-challenge",
+    "lesson_id": "backend-appsec-l01",
+    "course_id": "backend-appsec",
+    "kind": "independent",
+    "title": "Independent: Threat models and secure operations",
+    "instructions": "Perform a dependency and container privilege review and remove one unnecessary permission.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The review removes one unnecessary container capability or dependency permission and reruns the relevant abuse fixture to prove required behavior still works.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why is input validation alone insufficient for authorization?"
+  },
+  {
+    "id": "backend-appsec-project-build",
+    "lesson_id": "backend-appsec-project",
+    "course_id": "backend-appsec",
+    "kind": "course_project",
+    "title": "Security engineering project",
+    "instructions": "Conduct an adversarial review of the capstone with a data-flow threat model, an authorization matrix and a prioritized remediation patch.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Every trust boundary names an attacker-controlled input and an enforcement point.",
+      "At least three reproducible abuse cases become regression tests.",
+      "Secret rotation and incident credential revocation are rehearsed on disposable credentials."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-performance-l01-lab",
+    "lesson_id": "backend-performance-l01",
+    "course_id": "backend-performance",
+    "kind": "guided",
+    "title": "Laboratory: Contention, batching and memory costs",
+    "instructions": "Measure batch sizes 1, 10 and 100 across serialization plus database insertion.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Report throughput, p99, peak memory and rollback behavior for a failed batch.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "When is a larger batch the wrong optimization?"
+  },
+  {
+    "id": "backend-performance-l01-challenge",
+    "lesson_id": "backend-performance-l01",
+    "course_id": "backend-performance",
+    "kind": "independent",
+    "title": "Independent: Contention, batching and memory costs",
+    "instructions": "Try zero-copy or streaming input and record whether it changes the actual bottleneck.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Streaming input reduces or explains the absence of a reduction in peak allocation; end-to-end throughput and p99 are compared with the original pipeline.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "When is a larger batch the wrong optimization?"
+  },
+  {
+    "id": "backend-performance-project-build",
+    "lesson_id": "backend-performance-project",
+    "course_id": "backend-performance",
+    "kind": "course_project",
+    "title": "Performance engineering project",
+    "instructions": "Build a performance dossier comparing batching, serialization formats and worker/pool sizes for one representative backend workload.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Use repeated runs with confidence ranges or variability reporting.",
+      "Include peak memory, CPU and tail latency alongside throughput.",
+      "A proposed optimization identifies its correctness and operational tradeoffs."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "backend-evolution-l01-lab",
+    "lesson_id": "backend-evolution-l01",
+    "course_id": "backend-evolution",
+    "kind": "guided",
+    "title": "Laboratory: Events, projections and semantic versioning",
+    "instructions": "Implement versioned order events and a projection that resumes from a stored offset.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "A crash between projection write and checkpoint cannot double-apply the event.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why is a queue not automatically an event store?"
+  },
+  {
+    "id": "backend-evolution-l01-challenge",
+    "lesson_id": "backend-evolution-l01",
+    "course_id": "backend-evolution",
+    "kind": "independent",
+    "title": "Independent: Events, projections and semantic versioning",
+    "instructions": "Add a new event version and rebuild a second projection using only historical fixtures.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Historical event fixtures rebuild both projections from zero; schema-version changes preserve the meaning of older records without editing history.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why is a queue not automatically an event store?"
+  },
+  {
+    "id": "backend-evolution-project-build",
+    "lesson_id": "backend-evolution-project",
+    "course_id": "backend-evolution",
+    "kind": "course_project",
+    "title": "Architecture evolution and event sourcing project",
+    "instructions": "Build a versioned event-sourced order model and replayable projection, then compare it with the core relational implementation.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Replay from zero reconstructs the same state as incremental processing.",
+      "Old event fixtures remain interpretable after a schema change.",
+      "Document consistency lag, repair procedures and why event sourcing may be rejected."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "id": "northstar-ai",
+  "title": "AI & Agent Engineering",
+  "subtitle": "Build and understand an independent agent harness",
+  "audience": "Experienced Python backend engineer; no introductory syntax or CRUD prerequisites",
+  "core_course_ids": [
+    "ai-foundations",
+    "ai-interfaces",
+    "ai-tools",
+    "ai-loop",
+    "ai-mcp",
+    "ai-durability",
+    "ai-retrieval",
+    "ai-memory",
+    "ai-evaluation",
+    "ai-security",
+    "ai-operations",
+    "ai-capstone"
+  ],
+  "optional_course_ids": [
+    "ai-multiagent",
+    "ai-ragdeep",
+    "ai-local",
+    "ai-multimodal",
+    "ai-sandboxing",
+    "ai-models",
+    "ai-evalsystems"
+  ],
+  "first_assignment_id": "ai-foundations-l01-lab",
+  "first_lesson_id": "ai-foundations-l01",
+  "weekly_target_hours": 5,
+  "learning_policy": "Read, predict, experiment, implement independently and review evidence. Optional branches never gate core completion.",
+  "notes_on_time": "Estimates are study budgets, not deadlines. Capstones and unfamiliar infrastructure can take substantially longer.",
+  "course_count": 19
+}

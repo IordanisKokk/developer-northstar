@@ -1,0 +1,207 @@
+[
+  {
+    "id": "ai-res-agentsec",
+    "title": "OWASP GenAI security project",
+    "url": "https://genai.owasp.org/",
+    "recommended_section": "Prompt injection, excessive agency and sensitive-data exposure",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-api",
+    "title": "Anthropic Messages API",
+    "url": "https://platform.claude.com/docs/en/api/messages",
+    "recommended_section": "Request/response structure, usage and stop reasons",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-async",
+    "title": "Python asyncio tasks",
+    "url": "https://docs.python.org/3/library/asyncio-task.html",
+    "recommended_section": "Task groups, cancellation and timeouts",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-azuresearch",
+    "title": "Azure AI Search hybrid search",
+    "url": "https://learn.microsoft.com/en-us/azure/search/hybrid-search-overview",
+    "recommended_section": "Parallel lexical/vector retrieval and reciprocal rank fusion",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-design",
+    "title": "AWS Builders Library",
+    "url": "https://aws.amazon.com/builders-library/",
+    "recommended_section": "Timeouts, retries, backoff, idempotency and overload",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-evals",
+    "title": "Inspect AI evaluation framework",
+    "url": "https://inspect.aisi.org.uk/",
+    "recommended_section": "Datasets, solvers, scorers and evaluation logs",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-hf",
+    "title": "Hugging Face generation strategies",
+    "url": "https://huggingface.co/docs/transformers/generation_strategies",
+    "recommended_section": "Sampling, greedy decoding and configuration",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-ir",
+    "title": "Introduction to Information Retrieval",
+    "url": "https://nlp.stanford.edu/IR-book/",
+    "recommended_section": "Indexing, ranked retrieval and evaluation chapters",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-json",
+    "title": "JSON-RPC 2.0 specification",
+    "url": "https://www.jsonrpc.org/specification",
+    "recommended_section": "IDs, notifications and errors",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-langgraph",
+    "title": "LangGraph persistence",
+    "url": "https://docs.langchain.com/oss/python/langgraph/persistence",
+    "recommended_section": "Threads, checkpoints, pending writes and replay",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-mcpbase",
+    "title": "MCP base protocol 2026-07-28",
+    "url": "https://modelcontextprotocol.io/specification/2026-07-28/basic",
+    "recommended_section": "Per-request metadata, result types and compatibility",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-mcpsdk",
+    "title": "Official MCP Python SDK",
+    "url": "https://github.com/modelcontextprotocol/python-sdk",
+    "recommended_section": "Inspect supported protocol revisions before choosing an SDK release",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-mcptransport",
+    "title": "MCP transports 2026-07-28",
+    "url": "https://modelcontextprotocol.io/specification/2026-07-28/basic/transports",
+    "recommended_section": "stdio versus Streamable HTTP; cancellation and compatibility",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-otel",
+    "title": "OpenTelemetry concepts",
+    "url": "https://opentelemetry.io/docs/concepts/",
+    "recommended_section": "Signals, context propagation and semantic conventions",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-peft",
+    "title": "Hugging Face PEFT",
+    "url": "https://huggingface.co/docs/peft/index",
+    "recommended_section": "Adapters, LoRA and training/inference configuration",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-pgvector",
+    "title": "pgvector implementation and documentation",
+    "url": "https://github.com/pgvector/pgvector",
+    "recommended_section": "Exact search, HNSW, IVFFlat and filtering",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-sandbox",
+    "title": "Linux seccomp",
+    "url": "https://man7.org/linux/man-pages/man2/seccomp.2.html",
+    "recommended_section": "System call filtering and its security boundaries",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-schema",
+    "title": "JSON Schema: object validation",
+    "url": "https://json-schema.org/understanding-json-schema/reference/object",
+    "recommended_section": "Required properties, additional properties and composition",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-sqlite",
+    "title": "SQLite transactions",
+    "url": "https://www.sqlite.org/lang_transaction.html",
+    "recommended_section": "Transaction boundaries and concurrent writers",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-stream",
+    "title": "Anthropic streaming",
+    "url": "https://platform.claude.com/docs/en/build-with-claude/streaming",
+    "recommended_section": "Event types, partial JSON and stream errors",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-transformer",
+    "title": "The Illustrated Transformer",
+    "url": "https://jalammar.github.io/illustrated-transformer/",
+    "recommended_section": "Attention, embeddings, positional information and decoder generation",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-vision",
+    "title": "Anthropic vision documentation",
+    "url": "https://platform.claude.com/docs/en/build-with-claude/vision",
+    "recommended_section": "Image content blocks, size limits and limitations",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-vllm",
+    "title": "vLLM documentation",
+    "url": "https://docs.vllm.ai/en/latest/",
+    "recommended_section": "Serving, memory allocation and supported model configuration",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-mcptools",
+    "title": "MCP tools 2026-07-28",
+    "url": "https://modelcontextprotocol.io/specification/2026-07-28/server/tools",
+    "recommended_section": "Listing, pagination, calling, schemas and errors",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-mcpauth",
+    "title": "MCP authorization 2026-07-28",
+    "url": "https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization",
+    "recommended_section": "HTTP discovery, resource-bound tokens and scope selection",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-mcp",
+    "title": "MCP specification 2026-07-28",
+    "url": "https://modelcontextprotocol.io/specification/2026-07-28",
+    "recommended_section": "Pinned normative baseline; distinguish current core from older revisions",
+    "reviewed_on": "2026-10-29"
+  }
+]

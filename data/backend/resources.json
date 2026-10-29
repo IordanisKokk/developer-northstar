@@ -1,0 +1,194 @@
+[
+  {
+    "id": "backend-res-async",
+    "title": "Python asyncio tasks",
+    "url": "https://docs.python.org/3/library/asyncio-task.html",
+    "recommended_section": "Task groups, cancellation and timeouts",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-azure",
+    "title": "Azure Well-Architected Framework",
+    "url": "https://learn.microsoft.com/en-us/azure/well-architected/",
+    "recommended_section": "Reliability, cost, security and operational excellence",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-design",
+    "title": "AWS Builders Library",
+    "url": "https://aws.amazon.com/builders-library/",
+    "recommended_section": "Timeouts, retries, backoff, idempotency and overload",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-docker",
+    "title": "Docker build best practices",
+    "url": "https://docs.docker.com/build/building/best-practices/",
+    "recommended_section": "Build stages, cache, base images and reproducibility",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-http",
+    "title": "HTTP semantics — RFC 9110",
+    "url": "https://www.rfc-editor.org/rfc/rfc9110.html",
+    "recommended_section": "Methods, status codes, conditional requests and intermediaries",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-hypothesis",
+    "title": "Hypothesis documentation",
+    "url": "https://hypothesis.readthedocs.io/en/latest/",
+    "recommended_section": "Properties, strategies and stateful testing",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-k8s",
+    "title": "Kubernetes workload concepts",
+    "url": "https://kubernetes.io/docs/concepts/workloads/",
+    "recommended_section": "Deployments, probes, resource limits and disruption",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-kafka",
+    "title": "Apache Kafka design",
+    "url": "https://kafka.apache.org/41/design/design/",
+    "recommended_section": "Replication, ordering and delivery guarantees",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-linux",
+    "title": "Linux proc filesystem",
+    "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+    "recommended_section": "Process status, limits and file descriptors",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-net",
+    "title": "Beej’s Guide to Network Programming",
+    "url": "https://beej.us/guide/bgnet/html/split/",
+    "recommended_section": "Sockets, send/receive and partial I/O",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-oauth",
+    "title": "OAuth security best current practice — RFC 9700",
+    "url": "https://www.rfc-editor.org/rfc/rfc9700.html",
+    "recommended_section": "Redirects, PKCE, token replay and audience restrictions",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-os",
+    "title": "Operating Systems: Three Easy Pieces",
+    "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+    "recommended_section": "Processes, address spaces, concurrency and persistence; free chapters",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-otel",
+    "title": "OpenTelemetry concepts",
+    "url": "https://opentelemetry.io/docs/concepts/",
+    "recommended_section": "Signals, context propagation and semantic conventions",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-owasp",
+    "title": "OWASP API Security Top 10",
+    "url": "https://owasp.org/API-Security/editions/2023/en/0x11-t10/",
+    "recommended_section": "Object authorization, authentication and resource consumption",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-perf",
+    "title": "Python profilers",
+    "url": "https://docs.python.org/3/library/profiling.html",
+    "recommended_section": "Sampling versus tracing on Python 3.15+; use the matching version documentation for older runtimes",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-pg",
+    "title": "PostgreSQL concurrency control",
+    "url": "https://www.postgresql.org/docs/current/mvcc.html",
+    "recommended_section": "Isolation, explicit locking, deadlocks and serialization failures",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-plan",
+    "title": "PostgreSQL EXPLAIN",
+    "url": "https://www.postgresql.org/docs/current/using-explain.html",
+    "recommended_section": "Planner estimates, ANALYZE and buffer evidence",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-python",
+    "title": "Python execution model",
+    "url": "https://docs.python.org/3/reference/executionmodel.html",
+    "recommended_section": "Naming, binding and execution frames",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-rabbit",
+    "title": "RabbitMQ acknowledgements and confirms",
+    "url": "https://www.rabbitmq.com/docs/confirms",
+    "recommended_section": "Consumer acknowledgements versus publisher confirms",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-raft",
+    "title": "Raft paper and visual resources",
+    "url": "https://raft.github.io/",
+    "recommended_section": "Leader election, log replication and safety",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-redis",
+    "title": "Redis cache patterns",
+    "url": "https://redis.io/docs/latest/develop/use/client-side-caching/",
+    "recommended_section": "Invalidation, tracking and disconnection handling",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-sre",
+    "title": "Google SRE book",
+    "url": "https://sre.google/sre-book/table-of-contents/",
+    "recommended_section": "Service objectives, monitoring, overload and incident response",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-vacuum",
+    "title": "PostgreSQL routine vacuuming",
+    "url": "https://www.postgresql.org/docs/current/routine-vacuuming.html",
+    "recommended_section": "Dead tuples, freezing and autovacuum",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "backend-res-wal",
+    "title": "PostgreSQL write-ahead logging",
+    "url": "https://www.postgresql.org/docs/current/wal.html",
+    "recommended_section": "WAL reliability, checkpoints and configuration",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  }
+]
