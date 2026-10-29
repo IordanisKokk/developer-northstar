@@ -50,16 +50,16 @@
   {
     "id": "ai-res-hf",
     "title": "Hugging Face generation strategies",
-    "url": "https://huggingface.co/docs/transformers/generation_strategies",
+    "url": "https://huggingface.co/docs/transformers/main/en/generation_strategies",
     "recommended_section": "Sampling, greedy decoding and configuration",
     "source_type": "official or primary educational source",
     "reviewed_on": "2026-10-29"
   },
   {
     "id": "ai-res-ir",
-    "title": "Introduction to Information Retrieval",
-    "url": "https://nlp.stanford.edu/IR-book/",
-    "recommended_section": "Indexing, ranked retrieval and evaluation chapters",
+    "title": "Microsoft retrieval design and evaluation",
+    "url": "https://learn.microsoft.com/azure/architecture/ai-ml/guide/rag/rag-information-retrieval",
+    "recommended_section": "Retrieval strategies and Evaluate your search results; precision/recall@k and MRR",
     "source_type": "official or primary educational source",
     "reviewed_on": "2026-10-29"
   },
@@ -108,6 +108,14 @@
     "title": "OpenTelemetry concepts",
     "url": "https://opentelemetry.io/docs/concepts/",
     "recommended_section": "Signals, context propagation and semantic conventions",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
+    "id": "ai-res-paper",
+    "title": "Attention Is All You Need",
+    "url": "https://arxiv.org/abs/1706.03762",
+    "recommended_section": "Sections 3 and 5; architecture and training assumptions",
     "source_type": "official or primary educational source",
     "reviewed_on": "2026-10-29"
   },

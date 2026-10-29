@@ -19,6 +19,12 @@
         "priority": "required",
         "reading_focus": "Read binding, resolution and runtime interaction. Then inspect the runtime documentation for the GIL of your installed interpreter.",
         "estimated_minutes": 45
+      },
+      {
+        "resource_id": "backend-res-process",
+        "priority": "optional",
+        "reading_focus": "Read ThreadPoolExecutor and ProcessPoolExecutor, including deadlocks and shutdown. Compare the documented guarantees with your measured CPU and I/O workloads.",
+        "estimated_minutes": 60
       }
     ],
     "assignments": [
@@ -34,7 +40,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "The GIL does not make a multi-step read/modify/write invariant atomic, nor protect external side effects. Synchronize the invariant or transfer ownership."
+      "Why can two threads race even when a GIL exists? The GIL does not make a multi-step read/modify/write invariant atomic, nor protect external side effects. Synchronize the invariant or transfer ownership."
     ],
     "acceptance_focus": "Tests show independent per-call state, the intended closure values and a closed handle after an exception.",
     "study_steps": [
@@ -81,7 +87,7 @@
       "backend-python-l01"
     ],
     "pitfalls": [
-      "It limits running operations, not the number or memory footprint of waiting callers. Admission must be bounded and rejection explicit."
+      "Why is a semaphore alone insufficient during overload? It limits running operations, not the number or memory footprint of waiting callers. Admission must be bounded and rejection explicit."
     ],
     "acceptance_focus": "Queue depth never exceeds 20; a worker failure cancels siblings and closes all resources.",
     "study_steps": [
@@ -163,7 +169,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Each process normally creates its own pool. Aggregate capacity is workers times per-process pool size plus administrative clients."
+      "Why does adding four workers increase database connections? Each process normally creates its own pool. Aggregate capacity is workers times per-process pool size plus administrative clients."
     ],
     "acceptance_focus": "Record PID, RSS, virtual size and descriptor count before/after; explain which changes persist.",
     "study_steps": [
@@ -210,7 +216,7 @@
       "backend-linux-l01"
     ],
     "pitfalls": [
-      "Runnable work and uninterruptible waits can contribute; inspect process states and I/O rather than assuming CPU saturation."
+      "What can a high load average with low CPU mean? Runnable work and uninterruptible waits can contribute; inspect process states and I/O rather than assuming CPU saturation."
     ],
     "acceptance_focus": "A timestamped trace identifies the blocking syscall or wait; SIGTERM drains a running request within five seconds.",
     "study_steps": [
@@ -292,7 +298,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "It may only mean bytes entered a local buffer. Application acknowledgement and durable server state establish the result."
+      "Why is a successful send not evidence the request committed? It may only mean bytes entered a local buffer. Application acknowledgement and durable server state establish the result."
     ],
     "acceptance_focus": "Tests split the header and body at every byte boundary and reject oversized frames before allocation.",
     "study_steps": [
@@ -339,7 +345,7 @@
       "backend-network-l01"
     ],
     "pitfalls": [
-      "No. It constrains the intended effect of repetition, not every observable response field or access log entry."
+      "Does idempotent mean identical response bytes? No. It constrains the intended effect of repetition, not every observable response field or access log entry."
     ],
     "acceptance_focus": "Two clients using one ETag cannot both overwrite the resource; a duplicate key returns the original result.",
     "study_steps": [
@@ -421,7 +427,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Attackers can call item endpoints or indirect operations directly. Every access path must enforce the same object policy."
+      "Why is filtering only the list endpoint insufficient? Attackers can call item endpoints or indirect operations directly. Every access path must enforce the same object policy."
     ],
     "acceptance_focus": "The authorization matrix covers owner, collaborator, outsider and revoked membership for reads and writes.",
     "study_steps": [
@@ -468,7 +474,7 @@
       "backend-security-l01"
     ],
     "pitfalls": [
-      "Its audience binds authority to the intended resource. Accepting it creates a confused-deputy path across trust boundaries."
+      "Why should an API not accept a token issued for a different service? Its audience binds authority to the intended resource. Accepting it creates a confused-deputy path across trust boundaries."
     ],
     "acceptance_focus": "Wrong audience, expired tokens and redirects to private IP space all fail closed.",
     "study_steps": [
@@ -550,7 +556,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Earlier reads and decisions may no longer be valid. The transaction must restart from a new snapshot."
+      "Why is retrying only the failed SQL statement wrong after serialization failure? Earlier reads and decisions may no longer be valid. The transaction must restart from a new snapshot."
     ],
     "acceptance_focus": "A barrier-controlled test reproduces overselling before the fix and prevents it afterward.",
     "study_steps": [
@@ -597,7 +603,7 @@
       "backend-transactions-l01"
     ],
     "pitfalls": [
-      "It cannot be atomically included in a local transaction by timing alone. Persist intent, use an outbox or reconciliation, and deduplicate the remote action."
+      "Where should an external side effect occur relative to commit? It cannot be atomically included in a local transaction by timing alone. Persist intent, use an outbox or reconciliation, and deduplicate the remote action."
     ],
     "acceptance_focus": "Old and new writers coexist during backfill; invalid amounts fail at the database boundary.",
     "study_steps": [
@@ -679,7 +685,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "For a large fraction of rows, sequential access may be cheaper. Statistics, correlation, cache and random access costs affect the choice."
+      "Why can the planner reject an available index? For a large fraction of rows, sequential access may be cheaper. Statistics, correlation, cache and random access costs affect the choice."
     ],
     "acceptance_focus": "Retain plans, row estimates, buffer counts, data size and insert throughput for each index variant.",
     "study_steps": [
@@ -726,7 +732,7 @@
       "backend-postgres-l01"
     ],
     "pitfalls": [
-      "It adds contention and memory use beyond service capacity. Queueing moves into the database and increases tail latency."
+      "Why does increasing the pool sometimes make latency worse? It adds contention and memory use beyond service capacity. Queueing moves into the database and increases tail latency."
     ],
     "acceptance_focus": "Release the snapshot and explain what vacuum reclaims versus what it returns to the OS.",
     "study_steps": [
@@ -808,7 +814,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "No. A bound requires additional assumptions and mechanisms; eventual convergence alone does not promise a deadline."
+      "Does eventual consistency imply a bounded staleness interval? No. A bound requires additional assumptions and mechanisms; eventual convergence alone does not promise a deadline."
     ],
     "acceptance_focus": "A history identifies one stale read, its ordering and the promised contract it violates or satisfies.",
     "study_steps": [
@@ -855,7 +861,7 @@
       "backend-distributed-l01"
     ],
     "pitfalls": [
-      "A pause or partition may prevent renewal without stopping execution. The resource must reject a stale fencing token."
+      "Why can a lease expire while the old worker still writes? A pause or partition may prevent renewal without stopping execution. The resource must reject a stale fencing token."
     ],
     "acceptance_focus": "Each command changes the ledger once; attempts, elapsed time and retry reasons are visible.",
     "study_steps": [
@@ -937,7 +943,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "No. An in-flight read of old state can refill it afterward unless the design addresses that race."
+      "Does deleting a cache entry after update guarantee freshness? No. An in-flight read of old state can refill it afterward unless the design addresses that race."
     ],
     "acceptance_focus": "A test deterministically exposes the race; the chosen mitigation states its remaining staleness window.",
     "study_steps": [
@@ -984,7 +990,7 @@
       "backend-cache-l01"
     ],
     "pitfalls": [
-      "Rare synchronized misses create bursts and queueing; aggregate averages hide those expensive intervals."
+      "Why can a cache improve averages while worsening p99? Rare synchronized misses create bursts and queueing; aggregate averages hide those expensive intervals."
     ],
     "acceptance_focus": "The report separates offered load, completed throughput, rejected requests and percentile latency.",
     "study_steps": [
@@ -1066,7 +1072,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "The publisher can send successfully and crash before recording delivery, so its next attempt may duplicate the event."
+      "Why does the outbox not remove consumer deduplication? The publisher can send successfully and crash before recording delivery, so its next attempt may duplicate the event."
     ],
     "acceptance_focus": "No committed event disappears and replayed messages do not double-apply the projection.",
     "study_steps": [
@@ -1113,7 +1119,7 @@
       "backend-messaging-l01"
     ],
     "pitfalls": [
-      "When no operator owns inspection, correction and replay. It is storage, not a recovery procedure."
+      "When is a dead-letter queue insufficient? When no operator owns inspection, correction and replay. It is storage, not a recovery procedure."
     ],
     "acceptance_focus": "A frozen worker cannot finalize a job after lease ownership changes; retries retain attempt history.",
     "study_steps": [
@@ -1195,7 +1201,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Requests may wait long before timing out. Growing queues expose demand exceeding capacity while success counters still look healthy."
+      "Why can queue length be a better early warning than error rate? Requests may wait long before timing out. Growing queues expose demand exceeding capacity while success counters still look healthy."
     ],
     "acceptance_focus": "The computed error budget includes the intended user failures and excludes only documented non-service traffic.",
     "study_steps": [
@@ -1242,7 +1248,7 @@
       "backend-reliability-l01"
     ],
     "pitfalls": [
-      "It propagates across service boundaries and may be logged or exported. It is contextual data, not a secure credential channel."
+      "Why is baggage a poor place for secrets? It propagates across service boundaries and may be logged or exported. It is contextual data, not a secure credential channel."
     ],
     "acceptance_focus": "One failed job can be followed from request through retry without storing credentials or document bodies.",
     "study_steps": [
@@ -1324,7 +1330,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Coverage does not enumerate interleavings, invariants or real dependency behavior; separate semantic tests are required."
+      "Why does 100% line coverage not prove correct concurrency? Coverage does not enumerate interleavings, invariants or real dependency behavior; separate semantic tests are required."
     ],
     "acceptance_focus": "Shrinking yields a minimal failing sequence for an intentionally introduced double-cancel bug.",
     "study_steps": [
@@ -1371,7 +1377,7 @@
       "backend-testing-l01"
     ],
     "pitfalls": [
-      "A client may stop issuing requests while waiting, hiding queueing and reducing load. Report arrival behavior and rejected or timed-out work."
+      "Why can an apparent p99 improvement be misleading during overload? A client may stop issuing requests while waiting, hiding queueing and reducing load. Report arrival behavior and rejected or timed-out work."
     ],
     "acceptance_focus": "The report identifies the limiting resource and shows before/after measurements with identical input distributions.",
     "study_steps": [
@@ -1453,7 +1459,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "A database outage can make every instance restart simultaneously without repairing the dependency, amplifying failure."
+      "Why should liveness avoid depending on a shared database? A database outage can make every instance restart simultaneously without repairing the dependency, amplifying failure."
     ],
     "acceptance_focus": "No secrets appear in image history; draining completes before the declared grace period.",
     "study_steps": [
@@ -1500,7 +1506,7 @@
       "backend-deployment-l01"
     ],
     "pitfalls": [
-      "It connects requirements to tradeoffs, rejected alternatives and measurable consequences under failure and growth."
+      "What makes an architecture decision stronger than a list of technologies? It connects requirements to tradeoffs, rejected alternatives and measurable consequences under failure and growth."
     ],
     "acceptance_focus": "The ADR states invariants, failure modes, rough capacity arithmetic and a reversible migration path.",
     "study_steps": [
@@ -1584,7 +1590,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "No. The replicated decision still needs an idempotent or reconcilable external effect."
+      "Can consensus make an external email send exactly once? No. The replicated decision still needs an idempotent or reconcilable external effect."
     ],
     "acceptance_focus": "A new leader preserves committed entries while conflicting uncommitted entries are resolved.",
     "study_steps": [
@@ -1665,7 +1671,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Accidental deletes or corruption may replicate. Independent recovery history protects a different failure class."
+      "Why does a replica not replace backups? Accidental deletes or corruption may replicate. Independent recovery history protects a different failure class."
     ],
     "acceptance_focus": "Restart returns only complete acknowledged records under the documented fsync policy.",
     "study_steps": [
@@ -1746,7 +1752,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Shared dependencies can saturate; more workers increase contention and connection pressure without increasing useful capacity."
+      "Why may scaling workers reduce total throughput? Shared dependencies can saturate; more workers increase contention and connection pressure without increasing useful capacity."
     ],
     "acceptance_focus": "Observe scheduling, throttling and traffic removal separately; retain rollout events.",
     "study_steps": [
@@ -1827,7 +1833,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Well-formed data can still name an unauthorized resource; identity and policy must be checked for the specific operation."
+      "Why is input validation alone insufficient for authorization? Well-formed data can still name an unauthorized resource; identity and policy must be checked for the specific operation."
     ],
     "acceptance_focus": "Each attack fails at a named boundary and produces redacted diagnostic evidence.",
     "study_steps": [
@@ -1908,7 +1914,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "When added latency, memory, transaction duration or retry blast radius violates the workload’s constraints."
+      "When is a larger batch the wrong optimization? When added latency, memory, transaction duration or retry blast radius violates the workload’s constraints."
     ],
     "acceptance_focus": "Report throughput, p99, peak memory and rollback behavior for a failed batch.",
     "study_steps": [
@@ -1989,7 +1995,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Retention, ordering scope, replay access and schema guarantees may not meet the domain’s permanent-history requirements."
+      "Why is a queue not automatically an event store? Retention, ordering scope, replay access and schema guarantees may not meet the domain’s permanent-history requirements."
     ],
     "acceptance_focus": "A crash between projection write and checkpoint cannot double-apply the event.",
     "study_steps": [

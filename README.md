@@ -1,69 +1,57 @@
-# Northstar Game Development — GitHub Pages Edition
+# Northstar — three learning journeys
 
-[Publishing steps](PUBLISHING.md) · Static site served from the root `index.html`.
+[Open Northstar](https://iordaniskokk.github.io/developer-northstar/) · [Quality report](QUALITY_REPORT.md) · [Curriculum coverage](docs/COVERAGE.md) · [Publishing](PUBLISHING.md)
 
-> Public curriculum source only. Personal progress is stored in the browser, not the repository.
+A static, browser-local learning platform for an experienced backend engineer building depth in game development, production systems and agent infrastructure. Each track has an ordered core, a dependency graph, optional specializations, original concept explanations, assigned reading, independent challenges and integration projects.
 
-# Northstar 4.0 — Game Development
+| Track | Core courses | Optional courses | Concept lessons | Projects | Practical assignments |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Game Development v4.0 | 20 | 7 | 136 | 27 | 299 |
+| Backend Engineering v1.0 | 12 | 6 | 30 | 18 | 78 |
+| AI & Agent Engineering v1.0 | 12 | 7 | 31 | 19 | 81 |
 
-A complete **actionable** Godot learning roadmap: 20 sequential core courses, 7 optional specializations, curated external reading, practical exercises and integration projects, and a full independent-game production path. This version is customized for a professional backend engineer learning game development and building an exploration/salvage game. It does not change the Backend or AI Engineering roadmaps.
+New curricula deliberately use fewer, substantial units rather than maximizing lesson counts. A concept lesson contains an original explanation, study outcomes, a focused reading assignment, an experiment, an independent transfer challenge, observable criteria and a knowledge check with review guidance. These are actionable study curricula with external reading, not replacement textbooks. Optional courses are focused depth projects, not gates to core completion.
 
-## Launch
+## Run and edit
 
-- **Fastest:** double-click `northstar-game-standalone.html` in a browser. The app runs without network services. Online access is needed to open external reading links.
-- **Recommended for consistent browser storage:** run `python3 -m http.server 8765 --bind 127.0.0.1` from this folder, then open `http://127.0.0.1:8765`. Or double-click `Launch Northstar.command` on macOS (Python 3 required).
-- To use on Windows, open `Launch Northstar.bat` (Python launcher or Python 3 must be installed).
-- **Backup progress regularly** using `Export progress` in the left sidebar. Import its JSON backup into another browser or copy of Northstar. Local browser storage is not a durable cross-device sync solution and may vary across `file://` URLs. Export before changing versions.
+Serve this directory with `python -m http.server 8765` and open `http://localhost:8765/`. No backend, database, package installation or build service is required to use the committed site. The generated `northstar-game-standalone.html` retains its historical filename and now includes all three tracks for offline local use; external reading still needs network access.
 
-## What's new since 3.1
+Canonical production content lives in `data/*.json` (Game), `data/backend/*.json` and `data/ai/*.json`. Edit those files, then run:
 
-- Preserves every v3.1 course, lesson and assignment identifier so an exported 3.1 progress backup can be imported.
-- Adds **Finish a tiny game** immediately after 2D physics and before the animation and systems courses.
-- Adds movement and physics experiments on inertial ship controls, high-speed asteroid collisions and stable towing joints versus arcade-style constraints.
-- Adds a stress-testing project for many moving asteroids.
-- Adds **Complete the full game — production to release candidate** after vertical-slice validation and before publishing; a vertical slice is not an entire finished product.
-- Expands lesson explanations, highlights misconceptions, adds focused reading, and replaces boilerplate exercise acceptance criteria with practical, topic-specific checks.
-- Lesson reader now shows a study sequence, dedicated pitfalls, self-review guidance and evidence requirements.
-- Maintains the v3.1 wide, fit-to-width dependency map and course-inspector layout.
-
-## The curriculum
-
-- **20 core courses** spanning fundamentals, game development, practical design, systems, a tiny completed game, a larger finished microgame, debugging, production, full capstone production, publishing, and studio fundamentals.
-- **7 optional specializations:** advanced game AI, procedural systems, rendering, 3D, multiplayer, C++/engine development, and narrative systems.
-- **163 learning units**: 136 concept lessons + 27 course integration checkpoints.
-- **299 practical assignments**, including independent variations and 27 integration projects.
-- **84 resource entries**, with 66 distinct resources referenced by lessons. Many links have been selected from official documentation and established teaching materials; not all 84 were individually re-checked live.
-- **First assignment:** Movement Playground (top-down square movement). The spaceship physics assignments happen later, once the relevant concepts are taught.
-
-The roadmap supplies short conceptual teaching, curated references, testable exercises and projects for every course. It is a detailed syllabus, **not 163 textbook-length chapters**. Some source links may change over time. Practical outcomes are earned through implementing, testing, understanding and completing the projects, not by checking boxes alone.
-
-## Canonical editable data
-
-- `data/manifest.json` — track identity, stable primary path and goal.
-- `data/courses.json` — 27 courses, recommended order, phases and prerequisite links.
-- `data/lessons.json` — explanations, reading guides, pitfalls, outcomes, knowledge checks and projects.
-- `data/assignments.json` — guided and independent challenges with observable evaluation criteria.
-- `data/resources.json` — reference URLs and reading annotations.
-- `data/choices.json` — nonexclusive branch decisions.
-- `CURRICULUM.md` — complete generated human-readable syllabus.
-
-Edit the canonical JSON files, run validation, and then regenerate the bundled web data:
-
-```bash
-python3 tests/validate.py
-python3 make_docs.py
-python3 build_site.py
+```sh
+python build_site.py
+python tests/validate.py
+python tests/validate_tracks.py
+node --check assets/app.js
+node tests/progress_test.cjs
 ```
 
-Do **not** run the original v3 curriculum generator on this project: it would overwrite the revised content. The v4 package intentionally omits that generator.
+`build_site.py` bundles every track into `assets/data.js` and the standalone HTML. `authoring/` retains the original new-track authoring source and independent assessment rubrics; `python authoring/curricula.py` regenerates the two new tracks and **overwrites direct JSON edits**, so use it only when deliberately editing that authoring source. It never generates or modifies Game Development JSON.
 
-## Quality checks performed
+Full browser regression tests use a disposable HTTP origin and synthetic data:
 
-- Data integrity test: unique IDs, working references, stable v3.1 progress IDs, acyclic course dependencies, consistent recommended order, 299 topic-specific exercise rubrics.
-- Static JS syntax test, plus injected-document Chromium smoke tests covering graph/course/lesson navigation, storage behavior, notes, assignment search, branch selections, theme switching and progress export.
-- Map fit-width checks at 390, 800, 1024, 1280, 1440 and 1920 pixels.
-- **Limitations:** Chromium tests used a browser-injected HTML document and simulated local storage; this is not a native macOS/Windows launch test. Individual exercises have not all been completed in Godot, and not every URL has been independently live-verified. No curriculum can guarantee commercial success or that a complex game will be completed on a particular timeline.
+```sh
+pip install playwright==1.58.0
+python -m playwright install chromium
+python tests/platform_browser.py
+```
 
-## Goals and provenance
+The GitHub Actions validation workflow runs these checks and Chromium tests at desktop and mobile widths. Legacy `browser_smoke.py` and `map_fit_test.py` are historical single-track tests with environment-specific assumptions; `platform_browser.py` supersedes them.
 
-Northstar combines an Odin Project-style sequential learning experience and externally curated reading with a roadmap.sh-inspired dependency graph and optional specializations. Educational text and assignments here are original, with external resources linked, not copied. The roadmap targets Godot 4.x stable, while official online documentation can evolve and should be checked against the installed engine version.
+## Progress, privacy and portable backups
+
+Progress, exercise completion, proficiency, notes, branch focus and theme stay in this browser. They are **device-, browser- and origin-specific**. There is no account sync. Private browsing, storage clearing and browser eviction can erase them. Local `file://` copies and the GitHub Pages origin may have different storage.
+
+Use **Export progress** separately for each track before changing device, browser or hosting origin. Select the matching track on the destination and use **Import progress**. Import replaces only that track after validating the file and asking for confirmation. A local pre-import recovery snapshot is saved first; **Recover pre-import state** restores it. This is one recovery slot, not a durable backup or version history. Export important notes regularly. Imports are limited to 10 MB, notes to 100,000 characters each.
+
+Game Development retains `northstar-game-v3-progress`, every original curriculum ID and the `northstar-game-progress` backup format. No migration writes or clears the legacy key. Existing v3/v4 exports can be imported while Game Development is selected; absent newer optional fields receive defaults. Backend and AI use `northstar-backend-v1-progress` and `northstar-ai-v1-progress`, with distinct backup types and ID prefixes. Unrecognized legacy Game IDs are retained for portability rather than silently dropped.
+
+Only code and public curriculum belong in Git. Never commit progress exports, personal notes, credentials or model API keys. The website itself makes no model calls and requires no credentials. Course projects that use cloud/model services are separate learner-built applications; use disposable credentials and set spending limits there.
+
+## Learning approach
+
+The Odin Project informs the read → build → review rhythm; roadmap.sh Backend and AI Engineer roadmaps inform coverage and the branching map. All new explanations and assignments are original. Reading is marked required or optional, with specific sections and a question or implementation purpose. Follow the prescribed core order; branch when a project creates a need. Completion records work performed, while proficiency records a separate self-assessment.
+
+MCP material is pinned to the official **2026-07-28** specification reviewed October 29, 2026. It distinguishes that revision’s per-request metadata and discovery from older initialization/session behavior. SDK support must be checked against the chosen revision. Protocol/model dependencies should be revisited with compatibility fixtures, not silently updated from an unversioned tutorial.
+
+[Original Game v4 guide](docs/GAME_V4.md) and [Game curriculum text](CURRICULUM.md) remain available as historical/reference documents.

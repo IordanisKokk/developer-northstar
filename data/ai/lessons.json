@@ -19,6 +19,12 @@
         "priority": "required",
         "reading_focus": "Read embeddings, positional encoding, attention and decoder output; sketch one generation step before studying the paper.",
         "estimated_minutes": 45
+      },
+      {
+        "resource_id": "ai-res-paper",
+        "priority": "optional",
+        "reading_focus": "Optional mathematical deep dive: read sections 3 and 5, draw the attention tensor shapes and distinguish the original encoder-decoder architecture from the decoder-only model used in your experiment.",
+        "estimated_minutes": 60
       }
     ],
     "assignments": [
@@ -34,7 +40,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "No. Capacity limits accepted input; reliable use depends on model behavior, position and task. Evaluate evidence retrieval separately."
+      "Does a longer context window guarantee use of every supplied fact? No. Capacity limits accepted input; reliable use depends on model behavior, position and task. Evaluate evidence retrieval separately."
     ],
     "acceptance_focus": "The artifact records tokenizer identity and identifies a case where characters poorly predict tokens.",
     "study_steps": [
@@ -81,7 +87,7 @@
       "ai-foundations-l01"
     ],
     "pitfalls": [
-      "Model revisions, kernels, batching and numerical differences can change outputs. Reproducibility requires pinned artifacts and recorded environment."
+      "Why can temperature zero still fail repeatability across deployments? Model revisions, kernels, batching and numerical differences can change outputs. Reproducibility requires pinned artifacts and recorded environment."
     ],
     "acceptance_focus": "Report failures, token usage, time to first token and full completion latency separately.",
     "study_steps": [
@@ -163,7 +169,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "No. Schema validity checks structure; application policy and user authority must independently approve the effect."
+      "Can schema-valid output authorize a payment? No. Schema validity checks structure; application policy and user authority must independently approve the effect."
     ],
     "acceptance_focus": "Fixtures cover text success, tool request, refusal, length stop, invalid JSON and missing required fields.",
     "study_steps": [
@@ -210,7 +216,7 @@
       "ai-interfaces-l01"
     ],
     "pitfalls": [
-      "Generation can later stop with an error, truncation or tool request; visible tokens are provisional until termination is interpreted."
+      "Why should a UI not treat first text as final success? Generation can later stop with an error, truncation or tool request; visible tokens are provisional until termination is interpreted."
     ],
     "acceptance_focus": "No tool executes before its complete validated arguments; a midstream error preserves an incomplete status.",
     "study_steps": [
@@ -292,7 +298,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Names and annotations are claims, not enforcement. The implementation and permissions determine accessible paths and effects."
+      "Why can a tool named read_file still be dangerous? Names and annotations are claims, not enforcement. The implementation and permissions determine accessible paths and effects."
     ],
     "acceptance_focus": "Unknown tools and invalid argument fields fail before side effects; every result retains its call ID.",
     "study_steps": [
@@ -339,7 +345,7 @@
       "ai-tools-l01"
     ],
     "pitfalls": [
-      "Normalize and validate before policy evaluation, then ensure the executed arguments are exactly those authorized; avoid mutation or substitution between stages."
+      "Why does validating arguments twice help? Normalize and validate before policy evaluation, then ensure the executed arguments are exactly those authorized; avoid mutation or substitution between stages."
     ],
     "acceptance_focus": "One timed-out read does not mislabel another result; denied writes never invoke the implementation.",
     "study_steps": [
@@ -421,7 +427,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Application-controlled repeated action/observation transitions with state and termination policy, rather than a single completion."
+      "What turns a chatbot with tools into an agent loop? Application-controlled repeated action/observation transitions with state and termination policy, rather than a single completion."
     ],
     "acceptance_focus": "A transition log accounts for every call, result, error and terminal reason with deterministic fixture replay.",
     "study_steps": [
@@ -468,7 +474,7 @@
       "ai-loop-l01"
     ],
     "pitfalls": [
-      "The log preserves evidence and replay; the prompt is a bounded, derived working set optimized for the next inference."
+      "Why should the event log be larger than the prompt? The log preserves evidence and replay; the prompt is a bounded, derived working set optimized for the next inference."
     ],
     "acceptance_focus": "A small-context test never leaves orphan results and always retains the latest user goal.",
     "study_steps": [
@@ -550,7 +556,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Discovery describes available capabilities; host policy must still authorize the specific operation and arguments."
+      "Why is MCP discovery not permission to execute a tool? Discovery describes available capabilities; host policy must still authorize the specific operation and arguments."
     ],
     "acceptance_focus": "Tests distinguish a protocol error, a tool execution error and an unsupported revision.",
     "study_steps": [
@@ -615,7 +621,7 @@
       "ai-mcp-l01"
     ],
     "pitfalls": [
-      "No. A custom transport must document framing and preserve the protocol’s message and metadata rules; local IPC alone does not establish conformance."
+      "Can a named-pipe bridge call itself standard MCP transport automatically? No. A custom transport must document framing and preserve the protocol’s message and metadata rules; local IPC alone does not establish conformance."
     ],
     "acceptance_focus": "stderr logs cannot corrupt framing; a broken subprocess and a cancelled request leave no hanging run.",
     "study_steps": [
@@ -698,7 +704,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "The external effect and local checkpoint are separate commits; a crash between them leaves an ambiguous outcome."
+      "Why does saving after every step not guarantee exactly-once effects? The external effect and local checkpoint are separate commits; a crash between them leaves an ambiguous outcome."
     ],
     "acceptance_focus": "After restart, the projection reconstructs the same terminal state from events.",
     "study_steps": [
@@ -745,7 +751,7 @@
       "ai-durability-l01"
     ],
     "pitfalls": [
-      "When the rule is stable, testable and required for correctness or policy; keep probabilistic choice outside that enforcement boundary."
+      "When should an agent decision become deterministic code? When the rule is stable, testable and required for correctness or policy; keep probabilistic choice outside that enforcement boundary."
     ],
     "acceptance_focus": "Waiting consumes no worker loop; restart preserves the pending action and approval identity.",
     "study_steps": [
@@ -810,7 +816,7 @@
       {
         "resource_id": "ai-res-ir",
         "priority": "required",
-        "reading_focus": "Read ranked retrieval and evaluation chapters; define relevance judgments and recall@k before choosing embeddings.",
+        "reading_focus": "Read retrieval strategies and Evaluate your search results; compute precision/recall@k and MRR on a five-document example before choosing embeddings.",
         "estimated_minutes": 45
       }
     ],
@@ -827,11 +833,11 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "A model can answer from prior knowledge or guess. Retrieval needs its own evidence-selection metrics and labels."
+      "Why is answer quality insufficient to evaluate retrieval? A model can answer from prior knowledge or guess. Retrieval needs its own evidence-selection metrics and labels."
     ],
     "acceptance_focus": "The report includes lexical baseline recall@5 and at least five inspected failure cases.",
     "study_steps": [
-      "Read ranked retrieval and evaluation chapters; define relevance judgments and recall@k before choosing embeddings.",
+      "Read retrieval strategies and Evaluate your search results; compute precision/recall@k and MRR on a five-document example before choosing embeddings.",
       "Predict the result and failure boundary before running this experiment: Index a small technical corpus with heading-aware chunks and build a 30-query relevance set.",
       "Compare observed behavior with your prediction; keep the raw trace or measurement.",
       "Compare fixed-size chunks with section chunks using the same queries and corpus version."
@@ -874,7 +880,7 @@
       "ai-retrieval-l01"
     ],
     "pitfalls": [
-      "No. Candidate recall is an upstream ceiling; reranking only reorders what it receives."
+      "Can a reranker recover a document missing from all candidate lists? No. Candidate recall is an upstream ceiling; reranking only reorders what it receives."
     ],
     "acceptance_focus": "Report retrieval quality and latency by stage; every generated citation resolves to a supporting indexed passage.",
     "study_steps": [
@@ -939,7 +945,7 @@
       {
         "resource_id": "ai-res-ir",
         "priority": "required",
-        "reading_focus": "Read classification and retrieval evaluation sections; define a memory query set separately from document search.",
+        "reading_focus": "Read retrieval evaluation and query scoping; define relevance labels for a memory query set separately from document search.",
         "estimated_minutes": 45
       }
     ],
@@ -956,11 +962,11 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "It creates noise, reinforces hallucinations and retains unnecessary private data. Retention should have purpose and verification rules."
+      "Why should every model response not become permanent memory? It creates noise, reinforces hallucinations and retains unnecessary private data. Retention should have purpose and verification rules."
     ],
     "acceptance_focus": "A corrected preference supersedes the old record without losing the audit relation.",
     "study_steps": [
-      "Read classification and retrieval evaluation sections; define a memory query set separately from document search.",
+      "Read retrieval evaluation and query scoping; define relevance labels for a memory query set separately from document search.",
       "Predict the result and failure boundary before running this experiment: Implement typed memory records for observation, preference and derived summary with provenance and scope.",
       "Compare observed behavior with your prediction; keep the raw trace or measurement.",
       "Add TTL and user deletion, then test search and prompt construction after expiry."
@@ -1003,7 +1009,7 @@
       "ai-memory-l01"
     ],
     "pitfalls": [
-      "Access may have changed since search, and a locator alone should not authorize raw-data retrieval."
+      "Why recheck permissions during hydration? Access may have changed since search, and a locator alone should not authorize raw-data retrieval."
     ],
     "acceptance_focus": "Search does not fetch bytes; hydration rejects revoked access and oversized content.",
     "study_steps": [
@@ -1085,7 +1091,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "A critical subgroup or safety invariant can worsen while easy cases improve. Report category outcomes and hard violation counts."
+      "Why can a higher average score be a regression? A critical subgroup or safety invariant can worsen while easy cases improve. Report category outcomes and hard violation counts."
     ],
     "acceptance_focus": "The runner exports per-task artifacts and detects a deliberately introduced cross-tenant tool bug.",
     "study_steps": [
@@ -1132,7 +1138,7 @@
       "ai-evaluation-l01"
     ],
     "pitfalls": [
-      "Recorded decisions bypass the changed model interaction. Live or newly generated evaluations are needed to measure the new policy."
+      "When is replay insufficient to approve a prompt change? Recorded decisions bypass the changed model interaction. Live or newly generated evaluations are needed to measure the new policy."
     ],
     "acceptance_focus": "Report per-category deltas, variability and all unauthorized-effect failures.",
     "study_steps": [
@@ -1214,7 +1220,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "It influences model behavior but cannot guarantee enforcement. Privileged effects must be controlled by deterministic code."
+      "Why is a system prompt not a permission system? It influences model behavior but cannot guarantee enforcement. Privileged effects must be controlled by deterministic code."
     ],
     "acceptance_focus": "The model may propose the action, but policy blocks it and records a redacted reason before execution.",
     "study_steps": [
@@ -1261,7 +1267,7 @@
       "ai-security-l01"
     ],
     "pitfalls": [
-      "No. It filters system calls; filesystem visibility, credentials, mounts and network policy need separate controls."
+      "Does seccomp alone isolate the filesystem? No. It filters system calls; filesystem visibility, credentials, mounts and network policy need separate controls."
     ],
     "acceptance_focus": "Tests attempt parent-path reads, network egress, fork growth and timeout escape; each has an observed enforced result.",
     "study_steps": [
@@ -1343,7 +1349,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "One user request can create many model rounds, tools and retries. Cost must be aggregated at run and workload levels."
+      "Why is tokens per request insufficient for agent cost? One user request can create many model rounds, tools and retries. Cost must be aggregated at run and workload levels."
     ],
     "acceptance_focus": "The trace accounts for wall time and estimated/actual usage and contains no fixture secret.",
     "study_steps": [
@@ -1390,7 +1396,7 @@
       "ai-operations-l01"
     ],
     "pitfalls": [
-      "Lower per-call price can be outweighed by extra rounds, retries, longer outputs or expensive escalations."
+      "When can a cheap model cost more overall? Lower per-call price can be outweighed by extra rounds, retries, longer outputs or expensive escalations."
     ],
     "acceptance_focus": "No run exceeds the configured step limit; uncertain cost is surfaced and retries share the original deadline.",
     "study_steps": [
@@ -1472,7 +1478,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Authorization, validation, resource limits, durable transition rules and enforcement of side-effect policy remain deterministic application responsibilities."
+      "Which code must never be delegated to the model? Authorization, validation, resource limits, durable transition rules and enforcement of side-effect policy remain deterministic application responsibilities."
     ],
     "acceptance_focus": "The same run executes using fake providers/tools without network and real adapters without changing loop code.",
     "study_steps": [
@@ -1519,7 +1525,7 @@
       "ai-capstone-l01"
     ],
     "pitfalls": [
-      "Equivalent or stronger tested semantics for the target workload, lower maintenance burden and visible policy/replay behavior, rather than feature count alone."
+      "What evidence would justify replacing the custom loop with a framework? Equivalent or stronger tested semantics for the target workload, lower maintenance burden and visible policy/replay behavior, rather than feature count alone."
     ],
     "acceptance_focus": "The review links each claim to a test, trace or reproducible command and lists unsupported cases honestly.",
     "study_steps": [
@@ -1604,7 +1610,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "They may share model biases, prompts and sources; correlated errors are not independent confirmation."
+      "Why can agreement between agents be weak evidence? They may share model biases, prompts and sources; correlated errors are not independent confirmation."
     ],
     "acceptance_focus": "Every claim retains source provenance; budget accounting includes all child runs.",
     "study_steps": [
@@ -1685,7 +1691,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "It can dilute relevant evidence, introduce contradictions, increase cost and create additional injection surface."
+      "Why can more retrieved context reduce quality? It can dilute relevant evidence, introduce contradictions, increase cost and create additional injection surface."
     ],
     "acceptance_focus": "Ablation results show whether rewriting, reranking and memory each help their intended query category.",
     "study_steps": [
@@ -1766,7 +1772,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "KV cache, activations, runtime buffers and concurrent sequences also consume memory."
+      "Why does fitting model weights in VRAM not guarantee serving capacity? KV cache, activations, runtime buffers and concurrent sequences also consume memory."
     ],
     "acceptance_focus": "The report includes task accuracy, memory peak, TTFT and throughput at concurrency 1 and 4.",
     "study_steps": [
@@ -1847,7 +1853,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Resizing, cropping and encoding alter the evidence the model sees and can change accuracy independently of the prompt."
+      "Why must image preprocessing be versioned in evaluations? Resizing, cropping and encoding alter the evidence the model sees and can change accuracy independently of the prompt."
     ],
     "acceptance_focus": "Replayed content preserves order and source references; oversized and corrupt image fixtures are rejected.",
     "study_steps": [
@@ -1928,7 +1934,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "It may stop waiting without killing descendants, closing descriptors or cleaning resources; lifecycle enforcement must cover the process tree."
+      "Why is a timeout around subprocess.wait insufficient? It may stop waiting without killing descendants, closing descriptors or cleaning resources; lifecycle enforcement must cover the process tree."
     ],
     "acceptance_focus": "Each attempt has a recorded enforced denial or a documented unsupported boundary; cleanup leaves no descendants.",
     "study_steps": [
@@ -2009,7 +2015,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "Near-duplicate or source-correlated examples can leak across splits, making memorization look like generalization."
+      "Why can validation accuracy be misleading after random row splitting? Near-duplicate or source-correlated examples can leak across splits, making memorization look like generalization."
     ],
     "acceptance_focus": "Compare prompt-only and adapted model performance on held-out tasks and report malformed outputs.",
     "study_steps": [
@@ -2090,7 +2096,7 @@
     "status": "authored",
     "prerequisite_lesson_ids": [],
     "pitfalls": [
-      "They change the measurement instrument; old and new scores are not directly comparable unless both candidates are rescored."
+      "Why should scorer changes trigger a new report version? They change the measurement instrument; old and new scores are not directly comparable unless both candidates are rescored."
     ],
     "acceptance_focus": "Restart does not duplicate completed task effects; candidate comparisons use identical dataset/scorer versions.",
     "study_steps": [

@@ -136,6 +136,14 @@
     "reviewed_on": "2026-10-29"
   },
   {
+    "id": "backend-res-process",
+    "title": "Python concurrent futures",
+    "url": "https://docs.python.org/3/library/concurrent.futures.html",
+    "recommended_section": "Executor selection and deadlocks",
+    "source_type": "official or primary educational source",
+    "reviewed_on": "2026-10-29"
+  },
+  {
     "id": "backend-res-python",
     "title": "Python execution model",
     "url": "https://docs.python.org/3/reference/executionmodel.html",

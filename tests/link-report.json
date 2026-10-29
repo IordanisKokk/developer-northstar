@@ -1,5 +1,10 @@
 [
   {
+    "url": "https://arxiv.org/abs/1706.03762",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/1706.03762"
+  },
+  {
     "url": "https://aws.amazon.com/builders-library/",
     "status": 200,
     "final_url": "https://aws.amazon.com/builders-library/"
@@ -25,9 +30,14 @@
     "final_url": "https://docs.python.org/3/library/asyncio-task.html"
   },
   {
-    "url": "https://docs.python.org/3/library/profile.html",
+    "url": "https://docs.python.org/3/library/concurrent.futures.html",
     "status": 200,
-    "final_url": "https://docs.python.org/3/library/profile.html"
+    "final_url": "https://docs.python.org/3/library/concurrent.futures.html"
+  },
+  {
+    "url": "https://docs.python.org/3/library/profiling.html",
+    "status": 200,
+    "final_url": "https://docs.python.org/3/library/profiling.html"
   },
   {
     "url": "https://docs.python.org/3/reference/executionmodel.html",
@@ -60,9 +70,9 @@
     "final_url": "https://huggingface.co/docs/peft/index"
   },
   {
-    "url": "https://huggingface.co/docs/transformers/generation_strategies",
+    "url": "https://huggingface.co/docs/transformers/main/en/generation_strategies",
     "status": 200,
-    "final_url": "https://huggingface.co/docs/transformers/generation_strategies"
+    "final_url": "https://huggingface.co/docs/transformers/main/en/generation_strategies"
   },
   {
     "url": "https://hypothesis.readthedocs.io/en/latest/",
@@ -85,14 +95,19 @@
     "final_url": "https://json-schema.org/understanding-json-schema/reference/object"
   },
   {
-    "url": "https://kafka.apache.org/documentation/#design",
+    "url": "https://kafka.apache.org/41/design/design/",
     "status": 200,
-    "final_url": "https://kafka.apache.org/documentation/#design"
+    "final_url": "https://kafka.apache.org/41/design/design/"
   },
   {
     "url": "https://kubernetes.io/docs/concepts/workloads/",
     "status": 200,
     "final_url": "https://kubernetes.io/docs/concepts/workloads/"
+  },
+  {
+    "url": "https://learn.microsoft.com/azure/architecture/ai-ml/guide/rag/rag-information-retrieval",
+    "status": 200,
+    "final_url": "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-information-retrieval"
   },
   {
     "url": "https://learn.microsoft.com/en-us/azure/search/hybrid-search-overview",
@@ -138,10 +153,6 @@
     "url": "https://modelcontextprotocol.io/specification/2026-07-28/server/tools",
     "status": 200,
     "final_url": "https://modelcontextprotocol.io/specification/2026-07-28/server/tools"
-  },
-  {
-    "url": "https://nlp.stanford.edu/IR-book/",
-    "error": "HTTP Error 503: Service Unavailable"
   },
   {
     "url": "https://opentelemetry.io/docs/concepts/",
