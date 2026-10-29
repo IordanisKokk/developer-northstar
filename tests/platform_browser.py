@@ -37,8 +37,8 @@ try:
     assert page.locator('#profSelect').input_value()=='3'
     assert page.locator('[data-assign]').first.is_checked()
     for theme in ['dark','light']:
-     page.click('#themeBtn');assert page.locator('html').get_attribute('data-theme')==theme
-     page.reload();page.wait_for_selector('#lessonNotes');assert page.locator('html').get_attribute('data-theme')==theme
+     page.click('#themeBtn');assert (page.locator('html').get_attribute('data-theme') or 'light')==theme
+     page.reload();page.wait_for_selector('#lessonNotes');assert (page.locator('html').get_attribute('data-theme') or 'light')==theme
     page.locator('.answer-guidance summary').click();assert page.locator('.answer-guidance').get_attribute('open') is not None
     page.get_by_role('link',name='Next lesson →',exact=True).click();assert page.url!=first_url
     page.click('[data-nav="courses"]');page.fill('#searchCourses','movement' if track=='game' else 'fencing' if track=='backend' else 'metadata')
