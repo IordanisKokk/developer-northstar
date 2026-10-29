@@ -1,0 +1,18 @@
+[
+  {
+    "id": "ai-branches",
+    "title": "Choose depth after the core, or branch when useful",
+    "after_course_id": "ai-capstone",
+    "option_course_ids": [
+      "ai-multiagent",
+      "ai-ragdeep",
+      "ai-local",
+      "ai-multimodal",
+      "ai-sandboxing",
+      "ai-models",
+      "ai-evalsystems"
+    ],
+    "recommended_course_id": null,
+    "guidance": "These independent specializations are optional. Check the course prerequisites and select a focus without blocking the core path. Return to another branch whenever a project creates a concrete need."
+  }
+]

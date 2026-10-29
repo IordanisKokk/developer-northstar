@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="color-scheme" content="light dark"><title>Northstar · Game Development</title>
+  <meta name="color-scheme" content="light dark"><title>Northstar · Learning journeys</title>
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 <div class="shell">
   <aside class="sidebar">
     <div class="brand"><span class="brand-symbol">✳</span><div><strong>Northstar</strong><small>Game development / v4.0</small></div></div>
-    <div class="side-label">JOURNEY</div>
+    <label class="side-label" for="trackSelect">LEARNING TRACK</label><select id="trackSelect" class="field"><option value="game">Game Development</option><option value="backend">Backend Engineering</option><option value="ai">AI &amp; Agent Engineering</option></select><div class="side-label">JOURNEY</div>
     <nav class="primary-nav" aria-label="Primary navigation">
+      <a href="#/home" data-nav="home">✳ <span>All tracks</span></a>
       <a href="#/map" data-nav="map">↗ <span>Roadmap</span></a>
       <a href="#/courses" data-nav="courses">▤ <span>Courses</span></a>
       <a href="#/assignments" data-nav="assignments">☑ <span>Assignments</span></a>
@@ -23,6 +24,7 @@
       <button class="tiny fullwidth" id="exportBtn">Export progress ↓</button>
       <button class="tiny fullwidth subtle" id="importBtn">Import progress ↑</button>
       <input id="importInput" type="file" accept="application/json,.json" hidden>
+      <button class="tiny fullwidth subtle" id="recoverBtn">Recover pre-import state</button>
       <button class="tiny fullwidth subtle" id="themeBtn">Switch theme</button>
       <div class="footnote">Personal data stays in this browser. Export regularly.</div>
     </div>

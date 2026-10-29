@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "id": "northstar-backend",
+  "title": "Backend Engineering",
+  "subtitle": "Systems reasoning and reliable production engineering",
+  "audience": "Experienced Python backend engineer; no introductory syntax or CRUD prerequisites",
+  "core_course_ids": [
+    "backend-python",
+    "backend-linux",
+    "backend-network",
+    "backend-security",
+    "backend-transactions",
+    "backend-postgres",
+    "backend-distributed",
+    "backend-cache",
+    "backend-messaging",
+    "backend-reliability",
+    "backend-testing",
+    "backend-deployment"
+  ],
+  "optional_course_ids": [
+    "backend-consensus",
+    "backend-database",
+    "backend-platform",
+    "backend-appsec",
+    "backend-performance",
+    "backend-evolution"
+  ],
+  "first_assignment_id": "backend-python-l01-lab",
+  "first_lesson_id": "backend-python-l01",
+  "weekly_target_hours": 5,
+  "learning_policy": "Read, predict, experiment, implement independently and review evidence. Optional branches never gate core completion.",
+  "notes_on_time": "Estimates are study budgets, not deadlines. Capstones and unfamiliar infrastructure can take substantially longer.",
+  "course_count": 18
+}

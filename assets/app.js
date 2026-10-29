@@ -1,14 +1,44 @@
 (() => {
 'use strict';
-const db=window.NS_DATA;
+const tracks=window.NS_TRACKS||{game:window.NS_DATA};
+const requestedTrack=new URLSearchParams(location.search).get('track');
+const track=Object.hasOwn(tracks,requestedTrack)?requestedTrack:'game';
+const db=tracks[track];
+const trackTitles={game:'Game Development',backend:'Backend Engineering',ai:'AI & Agent Engineering'};
+document.title='Northstar · '+trackTitles[track];
+document.querySelector('.brand small').textContent=trackTitles[track]+' / v'+db.manifest.schema_version;
+const selector=document.getElementById('trackSelect');selector.value=track;
+selector.addEventListener('change',()=>{const u=new URL(location.href);u.searchParams.set('track',selector.value);u.hash='/map';location.href=u.href;});
+document.querySelector('.side-note').textContent=db.manifest.learning_policy;
+
 if(!db){document.getElementById('app').textContent='Curriculum data could not load.';return;}
 const courses=db.courses, lessons=db.lessons, assignments=db.assignments, resources=db.resources, choices=db.choices;
 const cm=new Map(courses.map(c=>[c.id,c])), lm=new Map(lessons.map(l=>[l.id,l])), am=new Map(assignments.map(a=>[a.id,a])), rm=new Map(resources.map(r=>[r.id,r]));
 const core=courses.filter(c=>c.lane==='core'), opts=courses.filter(c=>c.lane==='optional');
-const KEY='northstar-game-v3-progress';
+const KEY=track==='game'?'northstar-game-v3-progress':`northstar-${track}-v1-progress`;
 const fresh=()=>({schema:3,lessons:{},assignments:{},proficiency:{},notes:{},branches:{},theme:null});
 let state=fresh();
-try {const s=localStorage.getItem(KEY); if(s){state={...state,...JSON.parse(s)}}}catch(e){console.warn('Progress storage unavailable',e)}
+try {const s=localStorage.getItem(KEY); if(s){state=validateState(JSON.parse(s))}}catch(e){console.warn('Progress storage unavailable',e)}
+function validateState(input){
+ if(!input||typeof input!=='object'||Array.isArray(input))throw new Error('Invalid progress state');
+ const result=fresh();
+ for(const field of ['lessons','assignments','proficiency','notes','branches']){
+  const values=input[field]??{};
+  if(!values||typeof values!=='object'||Array.isArray(values))throw new Error('Invalid '+field);
+  result[field]=Object.create(null);
+  for(const [id,value] of Object.entries(values)){
+   if(!/^[a-z0-9][a-z0-9-]{0,200}$/.test(id)||['constructor','prototype','__proto__'].includes(id))throw new Error('Invalid identifier');
+   if(track!=='game'&&!id.startsWith(track+'-'))throw new Error('Backup contains another track');
+   if(field==='notes'&&(typeof value!=='string'||value.length>100000))throw new Error('Invalid note');
+   if(['lessons','assignments'].includes(field)&&typeof value!=='boolean')throw new Error('Invalid completion value');
+   if(field==='proficiency'&&(!Number.isInteger(value)||value<0||value>4))throw new Error('Invalid proficiency');
+   if(field==='branches'&&(typeof value!=='string'||!cm.has(value)))throw new Error('Invalid branch');
+   result[field][id]=value;
+  }
+ }
+ result.theme=['light','dark'].includes(input.theme)?input.theme:null;
+ return result;
+}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){notify('Browser storage unavailable. Export your progress for safety.')}}
 if(state.theme==='dark'||(!state.theme&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme','dark');
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -22,15 +52,18 @@ const btn=(title,href,primary=false)=>`<a class="btn ${primary?'primary':''}" hr
 function header(ey,title,description){return `<div class="page-top"><div class="eyebrow">${esc(ey)}</div><h1>${esc(title)}</h1>${description?`<p>${esc(description)}</p>`:''}</div>`}
 function navActive(section){document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('active',a.dataset.nav===section))}
 function updateSide(){const n=completedCore().length;$('#sideProgressText').textContent=`${n} of ${coreLessonCount} core lessons completed`;$('#sideProgressBar').style.width=(100*n/coreLessonCount).toFixed(1)+'%'}
-function route(){let bits=(location.hash||'#/map').slice(2).split('/');return [bits[0]||'map',decodeURIComponent(bits.slice(1).join('/'))]}
+function route(){let bits=(location.hash|| (requestedTrack?'#/map':'#/home')).slice(2).split('/');return [bits[0]||'map',decodeURIComponent(bits.slice(1).join('/'))]}
 let mapResizeObserver=null;
-function render(){const [page,id]=route();if(mapResizeObserver){mapResizeObserver.disconnect();mapResizeObserver=null;}$('#app').classList.toggle('map-page',page==='map');updateSide();navActive(({map:'map',courses:'courses',course:'courses',lesson:'courses',assignments:'assignments',choices:'choices'})[page]||'map');
-if(page==='map') renderMap();else if(page==='courses')renderCourses();else if(page==='course')renderCourse(id);else if(page==='lesson')renderLesson(id);else if(page==='assignments')renderAssignments();else if(page==='choices')renderChoices();else location.hash='#/map';
+function render(){const [page,id]=route();if(mapResizeObserver){mapResizeObserver.disconnect();mapResizeObserver=null;}$('#app').classList.toggle('map-page',page==='map');updateSide();navActive(({home:'home',map:'map',courses:'courses',course:'courses',lesson:'courses',assignments:'assignments',choices:'choices'})[page]||'map');
+if(page==='home')renderHome();else if(page==='map') renderMap();else if(page==='courses')renderCourses();else if(page==='course')renderCourse(id);else if(page==='lesson')renderLesson(id);else if(page==='assignments')renderAssignments();else if(page==='choices')renderChoices();else location.hash='#/map';
 window.scrollTo(0,0)
+}
+function renderHome(){
+ $('#app').innerHTML=`<div class="width">${header('NORTHSTAR / THREE LEARNING JOURNEYS','Build understanding. Then build independently.','Three structured curricula for long-term practice. Follow a core path, test your understanding and explore optional depth when a project needs it.')}<div class="track-cards">${Object.entries(tracks).map(([id,data])=>`<a class="pane track-card" href="?track=${id}#/map"><div class="eyebrow">${id==='game'?'CREATE PLAYABLE SYSTEMS':id==='backend'?'REASON ABOUT PRODUCTION':'UNDERSTAND AGENT INTERNALS'}</div><h2>${trackTitles[id]}</h2><p>${esc(data.manifest.subtitle)}</p><div class="metric-strip"><span><b>${data.manifest.core_course_ids.length}</b> core courses</span><span><b>${data.manifest.optional_course_ids.length}</b> branches</span></div><strong>Explore the roadmap →</strong></a>`).join('')}</div><div class="callout"><strong>Your learning record stays on this device.</strong> Each track has separate completion, proficiency, notes and branch choices. Export each track regularly and before changing browser or device. Existing Game Development backups remain compatible.</div><p class="muted">Study loop: read with a question → predict behavior → run a focused experiment → implement independently → review evidence. Course completion records effort; proficiency records confidence. Optional branches never block the core path.</p></div>`;
 }
 function stats(){return `<div class="metric-strip"><span><b>${core.length}</b> core courses</span><span><b>${opts.length}</b> optional branches</span><span><b>${lessons.length}</b> lessons & checkpoints</span><span><b>${assignments.length}</b> assignments</span></div>`}
 let selectedNode=core[0]?.id;
-function renderMap(){const box=$('#app');box.innerHTML=`<div class="width">${header('THE CURRICULUM','Follow the path. Choose your branches.','Follow the recommended core sequence; dashed branches show optional specializations. Open any topic when it becomes useful.')}${stats()}<div class="bar"><h2>Dependency roadmap</h2><div class="actions map-toolbar"><span class="hint">Select a course to see details</span><button class="tiny" id="zoomOut" type="button" aria-label="Zoom out" title="Zoom out">−</button><span class="zoom-readout" id="zoomReadout" aria-live="polite">Fit</span><button class="tiny" id="zoomIn" type="button" aria-label="Zoom in" title="Zoom in">+</button><button class="tiny" id="zoomFit" type="button">Fit width</button>${btn('Browse as list','#/courses')}</div></div><p class="map-legend"><span><i class="legend-line"></i> Suggested course sequence</span><span><i class="legend-line dashed"></i> Additional prerequisites / optional branches</span></p><div class="map-layout"><div class="map-stage" id="mapStage"><div class="map-sizer" id="mapSizer"><div class="diagram" id="diagram"></div></div></div><aside class="pane inspector map-inspector" id="inspector" aria-live="polite" hidden></aside></div><div class="callout">Start with <strong>Movement Playground</strong>, not a spaceship. The course will gradually become a small movement, collision and animation lab. ${btn('Open first lesson','#/lesson/'+db.manifest.first_assignment_id.split('-a1')[0],true)}</div></div>`;
+function renderMap(){const box=$('#app');box.innerHTML=`<div class="width">${header('THE CURRICULUM','Follow the path. Choose your branches.','Follow the recommended core sequence; dashed branches show optional specializations. Open any topic when it becomes useful.')}${stats()}<div class="bar"><h2>Dependency roadmap</h2><div class="actions map-toolbar"><span class="hint">Select a course to see details</span><button class="tiny" id="zoomOut" type="button" aria-label="Zoom out" title="Zoom out">−</button><span class="zoom-readout" id="zoomReadout" aria-live="polite">Fit</span><button class="tiny" id="zoomIn" type="button" aria-label="Zoom in" title="Zoom in">+</button><button class="tiny" id="zoomFit" type="button">Fit width</button>${btn('Browse as list','#/courses')}</div></div><p class="map-legend"><span><i class="legend-line"></i> Suggested course sequence</span><span><i class="legend-line dashed"></i> Additional prerequisites / optional branches</span></p><div class="map-layout"><div class="map-stage" id="mapStage"><div class="map-sizer" id="mapSizer"><div class="diagram" id="diagram"></div></div></div><aside class="pane inspector map-inspector" id="inspector" aria-live="polite" hidden></aside></div><div class="callout">${track==='game'?'Start with <strong>Movement Playground</strong>. Build independence through small, observable systems.':'Start with a focused laboratory. Predict the behavior, reproduce the failure and keep evidence before moving on.'} ${btn('Open first lesson','#/lesson/'+(db.manifest.first_lesson_id||db.manifest.first_assignment_id.split('-a1')[0]),true)}</div></div>`;
 const diagram=$('#diagram');const pos={};let html='';const x=270,oy=35,step=108;
 for(let i=0;i<core.length;i++){let c=core[i],y=oy+i*step;pos[c.id]={x,y,w:260,h:68};
  const done=courseCompleted(c),amt=c.lesson_ids.length;
@@ -73,8 +106,8 @@ function selectCourse(id){selectedNode=id;document.querySelectorAll('[data-cours
 let dep=c.prerequisite_course_ids.map(x=>cm.get(x)?.title).filter(Boolean);
 el.innerHTML=`<button type="button" class="inspector-close" data-close-inspector aria-label="Close course details" title="Close details">×</button><div class="eyebrow">${c.lane==='core'?'CORE COURSE':'OPTIONAL SPECIALIZATION'}</div><h3>${esc(c.title)}</h3><p>${esc(c.summary)}</p><span class="pill ${c.lane==='core'?'core':'opt'}">${courseCompleted(c)} / ${c.lesson_ids.length} lessons completed</span><div class="divider"></div><div class="label">YOU'LL PRACTICE</div><p>${esc(c.focus)}</p><div class="label">COURSE PROJECT</div><p>${esc(lm.get(c.checkpoint_id)?.title)}</p><div class="label">RECOMMENDED PREREQUISITES</div><p>${dep.length?dep.map(esc).join(' · '):'None'}</p>${btn('Open full course','#/course/'+id,true)}`;
 }
-function renderCourses(){let html=`<div class="width">${header('SEQUENTIAL COURSES','The course library','The prescribed order is here when you want structure. Optional branches remain available without locking the core curriculum.')}${stats()}<div class="bar"><input class="field" style="max-width:420px" id="searchCourses" placeholder="Search courses, skills, projects…" aria-label="Search courses"><div class="actions"><button class="tiny" data-setfilter="all">All</button><button class="tiny" data-setfilter="core">Core</button><button class="tiny" data-setfilter="optional">Optional</button></div></div><div id="courseResults"></div></div>`;$('#app').innerHTML=html;let filter='all',search='';let items=()=>courses.filter(c=>(filter==='all'||c.lane===filter)&&[c.title,c.focus,c.summary].join(' ').toLowerCase().includes(search));
-const draw=()=>{let last='',s='';for(let c of items()){if(c.phase!==last){s+=`<div class="phase-heading">${esc(c.phase)}</div>`;last=c.phase}let n=courseCompleted(c),count=c.lesson_ids.length;s+=`<button class="course-row" data-goto="/course/${c.id}"><span class="num">${num(c.position)}</span><div class="body"><strong>${esc(c.title)}</strong><div class="descr">${esc(c.summary)}</div></div><span class="pill ${c.lane==='core'?'core':'opt'}">${c.lane==='core'?'Core':'Optional'}</span><span class="pill">${n}/${count}</span><span>›</span></button>`}$('#courseResults').innerHTML=s||'<div class="empty">No courses match your search.</div>'};draw();
+function renderCourses(){let html=`<div class="width">${header('SEQUENTIAL COURSES','The course library','The prescribed order is here when you want structure. Optional branches remain available without locking the core curriculum.')}${stats()}<div class="bar"><input class="field" style="max-width:420px" id="searchCourses" placeholder="Search courses, skills, projects…" aria-label="Search courses"><div class="actions"><button class="tiny" data-setfilter="all">All</button><button class="tiny" data-setfilter="core">Core</button><button class="tiny" data-setfilter="optional">Optional</button></div></div><div id="courseResults"></div></div>`;$('#app').innerHTML=html;let filter='all',search='';let items=()=>courses.filter(c=>(filter==='all'||c.lane===filter)&&[c.title,c.focus,c.summary,...c.lesson_ids.map(id=>{const l=lm.get(id);return [l.title,l.concepts_in_context,...l.assignments.map(a=>am.get(a)?.instructions)].join(' ')})].join(' ').toLowerCase().includes(search));
+const draw=()=>{let last='',s='';for(let c of items()){if(c.phase!==last){s+=`<div class="phase-heading">${esc(c.phase)}</div>`;last=c.phase}let n=courseCompleted(c),count=c.lesson_ids.length;s+=`<button class="course-row" data-goto="/course/${c.id}"><span class="num">${num(c.position)}</span><div class="body"><strong>${esc(c.title)}</strong><div class="descr">${esc(c.summary)}</div></div><span class="pill ${c.lane==='core'?'core':'opt'}">${c.lane==='core'?'Core':'Optional'}</span><span class="pill">${n}/${count}</span><span>›</span></button>`}if(search){s+='<h2>Matching lessons</h2>'+lessons.filter(l=>[l.title,l.explanation,l.concepts_in_context,...l.assignments.map(id=>am.get(id)?.instructions)].join(' ').toLowerCase().includes(search)).map(l=>`<a class="mini-card" href="#/lesson/${esc(l.id)}">${esc(l.title)}<span class="hint">${esc(cm.get(l.course_id).title)}</span></a>`).join('');}$('#courseResults').innerHTML=s||'<div class="empty">No courses match your search.</div>'};draw();
 $('#searchCourses').addEventListener('input',e=>{search=e.target.value.trim().toLowerCase();draw()});document.querySelectorAll('[data-setfilter]').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.setfilter;draw()}));}
 function renderCourse(id){let c=cm.get(id);if(!c){location.hash='#/courses';return;}let dep=c.prerequisite_course_ids.map(x=>cm.get(x)).filter(Boolean);
 const lessonRows=c.lesson_ids.map((id,i)=>{let l=lm.get(id);return `<button class="lesson-row" data-goto="/lesson/${id}"><span class="n">${num(i+1)}</span><div class="body"><strong>${esc(l.title)}</strong><small>${esc(l.explanation)}</small></div>${l.type==='checkpoint'?'<span class="pill check">Project</span>':''}<span class="done-check ${state.lessons[id]?'yes':''}">${state.lessons[id]?'✓':'·'}</span></button>`}).join('');
@@ -109,14 +142,34 @@ function renderLesson(id){
  $('#lessonNotes').addEventListener('input',e=>{state.notes[id]=e.target.value;persist()});
  document.querySelectorAll('[data-assign]').forEach(input=>input.addEventListener('change',e=>{state.assignments[e.target.dataset.assign]=e.target.checked;persist()}));
 }
-function renderAssignments(){let search='',focus='all';$('#app').innerHTML=`<div class="width">${header('PRACTICE LIBRARY','Assignments','Real game-development practice: focused exercises and integration projects. Filter by course or completion state.')}${stats()}<div class="bar"><input id="searchA" class="field" style="max-width:430px" placeholder="Search exercises and projects…" aria-label="Search assignments"><select id="filterA" class="field" style="max-width:160px"><option value="all">All assignments</option><option value="todo">Not completed</option><option value="complete">Completed</option><option value="projects">Course projects</option></select></div><div id="assignList" class="assignment-list"></div></div>`;
+function renderAssignments(){let search='',focus='all';$('#app').innerHTML=`<div class="width">${header('PRACTICE LIBRARY','Assignments','Focused experiments, independent challenges and integration projects for this track. Filter by course or completion state.')}${stats()}<div class="bar"><input id="searchA" class="field" style="max-width:430px" placeholder="Search exercises and projects…" aria-label="Search assignments"><select id="filterA" class="field" style="max-width:160px"><option value="all">All assignments</option><option value="todo">Not completed</option><option value="complete">Completed</option><option value="projects">Course projects</option></select></div><div id="assignList" class="assignment-list"></div></div>`;
 const draw=()=>{let list=assignments.filter(a=>(focus==='all'||(focus==='todo'&&!state.assignments[a.id])||(focus==='complete'&&state.assignments[a.id])||(focus==='projects'&&a.kind==='course_project'))&&[a.instructions,a.title,cm.get(a.course_id)?.title].join(' ').toLowerCase().includes(search));$('#assignList').innerHTML=list.map(a=>`<div class="mini-card"><div class="row"><span class="pill">${esc(cm.get(a.course_id)?.title)}</span><span class="pill ${a.kind==='course_project'?'check':''}">${a.kind==='course_project'?'Project':a.kind==='guided'?'Warm-up':'Challenge'}</span></div><strong>${esc(a.instructions)}</strong><div class="actions"><a href="#/lesson/${esc(a.lesson_id)}">Open lesson →</a><label class="checkline tinytext"><input data-assignment-list="${esc(a.id)}" type="checkbox" ${state.assignments[a.id]?'checked':''}> Complete</label></div></div>`).join('')||'<div class="empty">No matching assignments.</div>';
 document.querySelectorAll('[data-assignment-list]').forEach(el=>el.addEventListener('change',e=>{state.assignments[e.target.dataset.assignmentList]=e.target.checked;persist();if(focus!=='all')draw()}))};draw();$('#searchA').addEventListener('input',e=>{search=e.target.value.toLowerCase();draw()});$('#filterA').addEventListener('change',e=>{focus=e.target.value;draw()});}
 function renderChoices(){let html=`<div class="width">${header('YOUR OWN DIRECTIONS','Optional branches','You can select one specialization, several, or none. These are opportunities, not mandatory gates.')}${stats()}`;for(let ch of choices){html+=`<section class="choice"><div class="label">CHOICE POINT AFTER ${esc(cm.get(ch.after_course_id)?.title)}</div><h3>${esc(ch.title)}</h3><p>${esc(ch.guidance)}</p><div class="choice-options">${ch.option_course_ids.map(id=>{let c=cm.get(id);return `<button data-choice="${esc(ch.id)}" data-option="${esc(id)}" class="${state.branches[ch.id]===id?'chosen':''}">${esc(c.title)} ${ch.recommended_course_id===id?'★':''}</button>`}).join('')}</div><div class="hint" style="margin-top:10px">${state.branches[ch.id]?'Current focus: '+esc(cm.get(state.branches[ch.id])?.title):'No branch selected yet'}</div></section>`}html+=`<div class="callout">Selecting a branch recommends it as your focus. It does not hide other courses or affect core progress.</div></div>`;$('#app').innerHTML=html;document.querySelectorAll('[data-choice]').forEach(b=>b.addEventListener('click',e=>{state.branches[e.target.dataset.choice]=e.target.dataset.option;persist();renderChoices()}))}
 $('#app').addEventListener('click',e=>{const t=e.target.closest('[data-goto]');if(t){location.hash='#'+t.dataset.goto}});
 $('#themeBtn').addEventListener('click',()=>{const dark=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',dark?'light':'dark');state.theme=dark?'light':'dark';persist()});
-$('#exportBtn').addEventListener('click',()=>{const out={type:'northstar-game-progress',exported_at:new Date().toISOString(),curriculum_version:db.manifest.schema_version,state};let b=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});let url=URL.createObjectURL(b);let a=document.createElement('a');a.href=url;a.download='northstar-game-progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)});
+$('#exportBtn').addEventListener('click',()=>{const out={type:`northstar-${track}-progress`,track_id:track,exported_at:new Date().toISOString(),curriculum_version:db.manifest.schema_version,state};let b=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});let url=URL.createObjectURL(b);let a=document.createElement('a');a.href=url;a.download=`northstar-${track}-progress.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)});
 $('#importBtn').addEventListener('click',()=>$('#importInput').click());
-$('#importInput').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{const b=JSON.parse(await file.text());if(b.type!=='northstar-game-progress'||!b.state||!b.state.lessons||!b.state.assignments)throw new Error('Not a compatible backup');if(!confirm('Import this backup and replace the current progress in this browser?'))return;state={...fresh(),...b.state};persist();notify('Progress imported');render()}catch(err){notify('Cannot import: '+err.message)}e.target.value=''});
-window.addEventListener('hashchange',render);if(!location.hash)location.hash='#/map';else render();
+$('#importInput').addEventListener('change',async e=>{
+ const file=e.target.files?.[0];if(!file)return;
+ try{
+  if(file.size>10*1024*1024)throw new Error('Backup exceeds 10 MB');
+  const b=JSON.parse(await file.text());
+  if(b.type!==`northstar-${track}-progress`||(b.track_id&&b.track_id!==track)||!b.state?.lessons||!b.state?.assignments)throw new Error('Select a compatible '+trackTitles[track]+' backup');
+  const incoming=validateState(b.state);
+  if(!confirm('Replace '+trackTitles[track]+' progress with this backup? A local pre-import recovery copy will be kept. Export first for a portable backup.'))return;
+  // Write the recovery copy before replacing anything; storage failure aborts the import.
+  localStorage.setItem(KEY+'-before-import',JSON.stringify(state));
+  localStorage.setItem(KEY,JSON.stringify(incoming));state=incoming;
+  document.documentElement.setAttribute('data-theme',state.theme||'light');
+  notify('Progress imported for '+trackTitles[track]);render();
+ }catch(err){notify('Cannot import: '+err.message)}finally{e.target.value='';}
+});
+$('#recoverBtn').addEventListener('click',()=>{try{
+ const raw=localStorage.getItem(KEY+'-before-import');if(!raw){notify('No pre-import recovery copy on this device');return;}
+ const restored=validateState(JSON.parse(raw));
+ if(!confirm('Restore the local state from before the last import for this track?'))return;
+ localStorage.setItem(KEY,JSON.stringify(restored));state=restored;document.documentElement.setAttribute('data-theme',state.theme||'light');render();notify('Pre-import progress restored');
+}catch(err){notify('Cannot restore: '+err.message)}});
+window.addEventListener('hashchange',render);if(!location.hash)location.hash=requestedTrack?'#/map':'#/home';else render();
 })();

@@ -1,0 +1,32 @@
+name: Validate Northstar
+on:
+  pull_request:
+  push:
+    branches: [main, 'feature/**']
+permissions:
+  contents: read
+jobs:
+  curriculum-and-browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python tests/validate.py
+      - run: python tests/validate_tracks.py
+      - run: node --check assets/app.js && node tests/progress_test.cjs
+      - run: python build_site.py && git diff --exit-code -- assets/data.js northstar-game-standalone.html
+      - run: pip install playwright==1.58.0
+      - run: python -m playwright install --with-deps chromium
+      - run: python tests/platform_browser.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-qa
+          path: tests/qa-*.png

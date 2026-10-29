@@ -1,0 +1,390 @@
+[
+  {
+    "id": "backend-python",
+    "track_id": "backend",
+    "title": "Python execution and concurrency",
+    "phase": "01 · Systems foundations",
+    "position": 1,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Reason about interpreter execution, task lifetimes and the difference between concurrency and parallelism.",
+    "focus": "Execution, ownership and the interpreter; Structured concurrency and backpressure",
+    "prerequisite_course_ids": [],
+    "lesson_ids": [
+      "backend-python-l01",
+      "backend-python-l02",
+      "backend-python-project"
+    ],
+    "checkpoint_id": "backend-python-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-linux",
+    "track_id": "backend",
+    "title": "Operating systems and Linux diagnosis",
+    "phase": "01 · Systems foundations",
+    "position": 2,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Connect process, memory, file descriptor and scheduling behavior to symptoms seen in Python services.",
+    "focus": "Processes, virtual memory and resource limits; Diagnosing blocked work on Linux",
+    "prerequisite_course_ids": [
+      "backend-python"
+    ],
+    "lesson_ids": [
+      "backend-linux-l01",
+      "backend-linux-l02",
+      "backend-linux-project"
+    ],
+    "checkpoint_id": "backend-linux-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-network",
+    "track_id": "backend",
+    "title": "Networking and HTTP under failure",
+    "phase": "01 · Systems foundations",
+    "position": 3,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Understand byte streams, connection setup, proxy behavior and API semantics under retries.",
+    "focus": "TCP, DNS, TLS and connection budgets; HTTP semantics, proxies and safe retries",
+    "prerequisite_course_ids": [
+      "backend-linux"
+    ],
+    "lesson_ids": [
+      "backend-network-l01",
+      "backend-network-l02",
+      "backend-network-project"
+    ],
+    "checkpoint_id": "backend-network-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-security",
+    "track_id": "backend",
+    "title": "API security and trust boundaries",
+    "phase": "01 · Systems foundations",
+    "position": 4,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Protect identities, resources and downstream systems with explicit authorization and bounded inputs.",
+    "focus": "Authentication is not object authorization; Tokens, sessions and downstream trust",
+    "prerequisite_course_ids": [
+      "backend-network"
+    ],
+    "lesson_ids": [
+      "backend-security-l01",
+      "backend-security-l02",
+      "backend-security-project"
+    ],
+    "checkpoint_id": "backend-security-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-transactions",
+    "track_id": "backend",
+    "title": "Relational design and transactional APIs",
+    "phase": "02 · Engineering practice",
+    "position": 5,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Model invariants and enforce them under concurrent updates rather than relying on happy-path application checks.",
+    "focus": "Constraints, isolation and write anomalies; Schema evolution and transaction boundaries",
+    "prerequisite_course_ids": [
+      "backend-security"
+    ],
+    "lesson_ids": [
+      "backend-transactions-l01",
+      "backend-transactions-l02",
+      "backend-transactions-project"
+    ],
+    "checkpoint_id": "backend-transactions-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-postgres",
+    "track_id": "backend",
+    "title": "PostgreSQL internals and query performance",
+    "phase": "02 · Engineering practice",
+    "position": 6,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Use plans, indexes, visibility and WAL evidence to explain database behavior.",
+    "focus": "Plans, indexes and cardinality; MVCC, vacuum, WAL and connection pools",
+    "prerequisite_course_ids": [
+      "backend-transactions"
+    ],
+    "lesson_ids": [
+      "backend-postgres-l01",
+      "backend-postgres-l02",
+      "backend-postgres-project"
+    ],
+    "checkpoint_id": "backend-postgres-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-distributed",
+    "track_id": "backend",
+    "title": "Distributed systems and failure semantics",
+    "phase": "02 · Engineering practice",
+    "position": 7,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Reason about ordering, consistency, retries and coordination under partial failure.",
+    "focus": "Partial failure, clocks and consistency; Retries, idempotency and coordination",
+    "prerequisite_course_ids": [
+      "backend-postgres"
+    ],
+    "lesson_ids": [
+      "backend-distributed-l01",
+      "backend-distributed-l02",
+      "backend-distributed-project"
+    ],
+    "checkpoint_id": "backend-distributed-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-cache",
+    "track_id": "backend",
+    "title": "Caching and performance experiments",
+    "phase": "02 · Engineering practice",
+    "position": 8,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Measure the consistency and load consequences of caching rather than adding Redis by reflex.",
+    "focus": "Cache-aside, invalidation and stale data; Stampedes, queueing and measurement",
+    "prerequisite_course_ids": [
+      "backend-distributed"
+    ],
+    "lesson_ids": [
+      "backend-cache-l01",
+      "backend-cache-l02",
+      "backend-cache-project"
+    ],
+    "checkpoint_id": "backend-cache-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-messaging",
+    "track_id": "backend",
+    "title": "Durable jobs, messaging and workflows",
+    "phase": "03 · Engineering practice",
+    "position": 9,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Design recoverable work with explicit delivery, ordering and side-effect guarantees.",
+    "focus": "Acknowledgements, duplicates and the outbox; Ordering, retries and long-running jobs",
+    "prerequisite_course_ids": [
+      "backend-cache"
+    ],
+    "lesson_ids": [
+      "backend-messaging-l01",
+      "backend-messaging-l02",
+      "backend-messaging-project"
+    ],
+    "checkpoint_id": "backend-messaging-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-reliability",
+    "track_id": "backend",
+    "title": "Reliability, observability and incident response",
+    "phase": "03 · Engineering practice",
+    "position": 10,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Set service objectives, preserve useful telemetry and practice diagnosis under failure.",
+    "focus": "SLIs, SLOs and overload control; Metrics, traces and useful logs",
+    "prerequisite_course_ids": [
+      "backend-messaging"
+    ],
+    "lesson_ids": [
+      "backend-reliability-l01",
+      "backend-reliability-l02",
+      "backend-reliability-project"
+    ],
+    "checkpoint_id": "backend-reliability-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-testing",
+    "track_id": "backend",
+    "title": "Testing, profiling and capacity planning",
+    "phase": "03 · Engineering practice",
+    "position": 11,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Use properties, fault injection and measurements to challenge implementation assumptions.",
+    "focus": "Properties, contracts and realistic test boundaries; Profiling, load shape and capacity",
+    "prerequisite_course_ids": [
+      "backend-reliability"
+    ],
+    "lesson_ids": [
+      "backend-testing-l01",
+      "backend-testing-l02",
+      "backend-testing-project"
+    ],
+    "checkpoint_id": "backend-testing-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-deployment",
+    "track_id": "backend",
+    "title": "Deployment, infrastructure and architecture",
+    "phase": "03 · Engineering practice",
+    "position": 12,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Operate a service through change, recovery and growth with explicit architectural tradeoffs.",
+    "focus": "Reproducible builds, releases and recovery; Architecture, system design and engineering decisions",
+    "prerequisite_course_ids": [
+      "backend-testing"
+    ],
+    "lesson_ids": [
+      "backend-deployment-l01",
+      "backend-deployment-l02",
+      "backend-deployment-project"
+    ],
+    "checkpoint_id": "backend-deployment-project",
+    "estimated_hours": 30,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-consensus",
+    "track_id": "backend",
+    "title": "Advanced distributed systems",
+    "phase": "Optional specializations",
+    "position": 13,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Study consensus, replication and coordination beyond client-side retry patterns.",
+    "focus": "Consensus and replicated state machines",
+    "prerequisite_course_ids": [
+      "backend-distributed"
+    ],
+    "lesson_ids": [
+      "backend-consensus-l01",
+      "backend-consensus-project"
+    ],
+    "checkpoint_id": "backend-consensus-project",
+    "estimated_hours": 13,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-database",
+    "track_id": "backend",
+    "title": "Database engineering",
+    "phase": "Optional specializations",
+    "position": 14,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Explore storage, recovery, replication and operational database design.",
+    "focus": "Storage engines and recovery contracts",
+    "prerequisite_course_ids": [
+      "backend-postgres"
+    ],
+    "lesson_ids": [
+      "backend-database-l01",
+      "backend-database-project"
+    ],
+    "checkpoint_id": "backend-database-project",
+    "estimated_hours": 13,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-platform",
+    "track_id": "backend",
+    "title": "Cloud and platform engineering",
+    "phase": "Optional specializations",
+    "position": 15,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Turn deployment knowledge into safe automation and multi-service operations.",
+    "focus": "Scheduling, autoscaling and platform boundaries",
+    "prerequisite_course_ids": [
+      "backend-deployment"
+    ],
+    "lesson_ids": [
+      "backend-platform-l01",
+      "backend-platform-project"
+    ],
+    "checkpoint_id": "backend-platform-project",
+    "estimated_hours": 13,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-appsec",
+    "track_id": "backend",
+    "title": "Security engineering",
+    "phase": "Optional specializations",
+    "position": 16,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Go deeper into threat models, abuse resistance and verification of trust boundaries.",
+    "focus": "Threat models and secure operations",
+    "prerequisite_course_ids": [
+      "backend-security"
+    ],
+    "lesson_ids": [
+      "backend-appsec-l01",
+      "backend-appsec-project"
+    ],
+    "checkpoint_id": "backend-appsec-project",
+    "estimated_hours": 13,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-performance",
+    "track_id": "backend",
+    "title": "Performance engineering",
+    "phase": "Optional specializations",
+    "position": 17,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Study contention, memory locality and efficient I/O with controlled experiments.",
+    "focus": "Contention, batching and memory costs",
+    "prerequisite_course_ids": [
+      "backend-testing"
+    ],
+    "lesson_ids": [
+      "backend-performance-l01",
+      "backend-performance-project"
+    ],
+    "checkpoint_id": "backend-performance-project",
+    "estimated_hours": 13,
+    "content_status": "authored"
+  },
+  {
+    "id": "backend-evolution",
+    "track_id": "backend",
+    "title": "Architecture evolution and event sourcing",
+    "phase": "Optional specializations",
+    "position": 18,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Explore event-based models only when history and reconstruction justify their complexity.",
+    "focus": "Events, projections and semantic versioning",
+    "prerequisite_course_ids": [
+      "backend-messaging"
+    ],
+    "lesson_ids": [
+      "backend-evolution-l01",
+      "backend-evolution-project"
+    ],
+    "checkpoint_id": "backend-evolution-project",
+    "estimated_hours": 13,
+    "content_status": "authored"
+  }
+]

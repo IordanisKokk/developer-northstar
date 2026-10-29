@@ -1,0 +1,1240 @@
+[
+  {
+    "id": "ai-foundations-l01-lab",
+    "lesson_id": "ai-foundations-l01",
+    "course_id": "ai-foundations",
+    "kind": "guided",
+    "title": "Laboratory: Tokens, attention and next-token prediction",
+    "instructions": "Tokenize English, Greek, JSON and source code; compare character counts with token counts for the actual chosen model.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "The artifact records tokenizer identity and identifies a case where characters poorly predict tokens.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Does a longer context window guarantee use of every supplied fact?"
+  },
+  {
+    "id": "ai-foundations-l01-challenge",
+    "lesson_id": "ai-foundations-l01",
+    "course_id": "ai-foundations",
+    "kind": "independent",
+    "title": "Independent: Tokens, attention and next-token prediction",
+    "instructions": "Create minimal prompt pairs differing in one relevant fact and inspect response changes.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "At least five minimal prompt pairs change one fact only; the report records when output follows the changed evidence and when it ignores it.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Does a longer context window guarantee use of every supplied fact?"
+  },
+  {
+    "id": "ai-foundations-l02-lab",
+    "lesson_id": "ai-foundations-l02",
+    "course_id": "ai-foundations",
+    "kind": "guided",
+    "title": "Laboratory: Decoding, inference cost and uncertainty",
+    "instructions": "Run a fixed extraction task 20 times at two supported sampling settings and measure validity and exact-match success.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Report failures, token usage, time to first token and full completion latency separately.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why can temperature zero still fail repeatability across deployments?"
+  },
+  {
+    "id": "ai-foundations-l02-challenge",
+    "lesson_id": "ai-foundations-l02",
+    "course_id": "ai-foundations",
+    "kind": "independent",
+    "title": "Independent: Decoding, inference cost and uncertainty",
+    "instructions": "Increase context length while holding output size fixed and explain the latency/memory trend.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Context-length experiments hold model, settings and output budget constant and report TTFT, completion latency and memory where observable.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why can temperature zero still fail repeatability across deployments?"
+  },
+  {
+    "id": "ai-foundations-project-build",
+    "lesson_id": "ai-foundations-project",
+    "course_id": "ai-foundations",
+    "kind": "course_project",
+    "title": "LLM fundamentals and inference project",
+    "instructions": "Build an inference notebook and CLI using a small local model or a fixture-backed provider adapter. Measure tokenization, sampling variability, context sensitivity and a baseline task set.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Record model revision, generation settings, prompt bytes and token usage.",
+      "Compare at least 20 fixed tasks across two decoding configurations.",
+      "Demonstrate a confident incorrect response and explain why likelihood is not factual confidence."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-interfaces-l01-lab",
+    "lesson_id": "ai-interfaces-l01",
+    "course_id": "ai-interfaces",
+    "kind": "guided",
+    "title": "Laboratory: Typed requests and validated results",
+    "instructions": "Implement a fake and one provider adapter for a typed extraction request.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Fixtures cover text success, tool request, refusal, length stop, invalid JSON and missing required fields.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Can schema-valid output authorize a payment?"
+  },
+  {
+    "id": "ai-interfaces-l01-challenge",
+    "lesson_id": "ai-interfaces-l01",
+    "course_id": "ai-interfaces",
+    "kind": "independent",
+    "title": "Independent: Typed requests and validated results",
+    "instructions": "Add semantic validation for dates and amounts after schema validation.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Schema-valid but impossible dates and out-of-range amounts are rejected as semantic errors with no downstream tool effect.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Can schema-valid output authorize a payment?"
+  },
+  {
+    "id": "ai-interfaces-l02-lab",
+    "lesson_id": "ai-interfaces-l02",
+    "course_id": "ai-interfaces",
+    "kind": "guided",
+    "title": "Laboratory: Streaming is an event protocol",
+    "instructions": "Parse a recorded event stream split across arbitrary byte boundaries, including partial JSON tool arguments.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "No tool executes before its complete validated arguments; a midstream error preserves an incomplete status.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why should a UI not treat first text as final success?"
+  },
+  {
+    "id": "ai-interfaces-l02-challenge",
+    "lesson_id": "ai-interfaces-l02",
+    "course_id": "ai-interfaces",
+    "kind": "independent",
+    "title": "Independent: Streaming is an event protocol",
+    "instructions": "Add client cancellation and a maximum buffered tool-argument size.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Cancellation closes the stream and marks the turn incomplete; tool argument buffers exceeding the configured byte limit are rejected before execution.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why should a UI not treat first text as final success?"
+  },
+  {
+    "id": "ai-interfaces-project-build",
+    "lesson_id": "ai-interfaces-project",
+    "course_id": "ai-interfaces",
+    "kind": "course_project",
+    "title": "Model APIs, structured output and streaming project",
+    "instructions": "Build a provider-independent Python completion interface with one real provider adapter and a scripted fake. Support text, tool calls, usage, stop reasons and streaming events.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Malformed output, refusal, rate limit and truncated stream have distinct typed outcomes.",
+      "A stream can be cancelled without leaving an open response.",
+      "Contract tests run offline and a separately marked live smoke test records the model identifier."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-tools-l01-lab",
+    "lesson_id": "ai-tools-l01",
+    "course_id": "ai-tools",
+    "kind": "guided",
+    "title": "Laboratory: Schemas are contracts, tool calls are proposals",
+    "instructions": "Create a registry with typed arguments, explicit result envelopes and no dynamic code evaluation.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Unknown tools and invalid argument fields fail before side effects; every result retains its call ID.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why can a tool named read_file still be dangerous?"
+  },
+  {
+    "id": "ai-tools-l01-challenge",
+    "lesson_id": "ai-tools-l01",
+    "course_id": "ai-tools",
+    "kind": "independent",
+    "title": "Independent: Schemas are contracts, tool calls are proposals",
+    "instructions": "Fuzz nested and oversized arguments and apply depth/size limits before expensive processing.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Deeply nested and oversized payloads are rejected within a declared input-size/depth limit before expensive tool work or unbounded allocation.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why can a tool named read_file still be dangerous?"
+  },
+  {
+    "id": "ai-tools-l02-lab",
+    "lesson_id": "ai-tools-l02",
+    "course_id": "ai-tools",
+    "kind": "guided",
+    "title": "Laboratory: Dispatch, permissions and execution budgets",
+    "instructions": "Dispatch three independent read tools with per-call budgets and a policy-gated mock write.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "One timed-out read does not mislabel another result; denied writes never invoke the implementation.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why does validating arguments twice help?"
+  },
+  {
+    "id": "ai-tools-l02-challenge",
+    "lesson_id": "ai-tools-l02",
+    "course_id": "ai-tools",
+    "kind": "independent",
+    "title": "Independent: Dispatch, permissions and execution budgets",
+    "instructions": "Simulate a write that commits then times out and require reconciliation rather than blind retry.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "A write that times out after commit enters an uncertain/reconciliation state and is not automatically repeated by the dispatcher.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why does validating arguments twice help?"
+  },
+  {
+    "id": "ai-tools-project-build",
+    "lesson_id": "ai-tools-project",
+    "course_id": "ai-tools",
+    "kind": "course_project",
+    "title": "Tool calling and dispatch from primitives project",
+    "instructions": "Implement a typed tool registry and dispatcher for calculator, document search and a mock write operation. Run an adversarial fixture suite without relying on a model.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Unknown names, malformed inputs and oversized results cannot reach tool implementation.",
+      "Read-only tools can run concurrently with stable result-to-call association.",
+      "Write operations pass an independent authorization gate and return bounded, redacted results."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-loop-l01-lab",
+    "lesson_id": "ai-loop-l01",
+    "course_id": "ai-loop",
+    "kind": "guided",
+    "title": "Laboratory: The agent is a state machine",
+    "instructions": "Implement the state machine with a fake model returning two tool rounds followed by an answer.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "A transition log accounts for every call, result, error and terminal reason with deterministic fixture replay.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "What turns a chatbot with tools into an agent loop?"
+  },
+  {
+    "id": "ai-loop-l01-challenge",
+    "lesson_id": "ai-loop-l01",
+    "course_id": "ai-loop",
+    "kind": "independent",
+    "title": "Independent: The agent is a state machine",
+    "instructions": "Inject malformed model actions and a repeating tool cycle; stop with typed errors and bounded attempts.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Malformed actions terminate with a typed error; repeated identical tool cycles stop at the configured repetition or step limit with the trace intact.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "What turns a chatbot with tools into an agent loop?"
+  },
+  {
+    "id": "ai-loop-l02-lab",
+    "lesson_id": "ai-loop-l02",
+    "course_id": "ai-loop",
+    "kind": "guided",
+    "title": "Laboratory: Context is a budgeted working set",
+    "instructions": "Implement a context selector that keeps instructions, recent complete turns and tool-call/result groups within a token budget.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "A small-context test never leaves orphan results and always retains the latest user goal.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why should the event log be larger than the prompt?"
+  },
+  {
+    "id": "ai-loop-l02-challenge",
+    "lesson_id": "ai-loop-l02",
+    "course_id": "ai-loop",
+    "kind": "independent",
+    "title": "Independent: Context is a budgeted working set",
+    "instructions": "Add a summary with source event IDs and compare task success before and after compression.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Every summary references original event IDs; the same task set compares success and retained constraints before and after compression.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why should the event log be larger than the prompt?"
+  },
+  {
+    "id": "ai-loop-project-build",
+    "lesson_id": "ai-loop-project",
+    "course_id": "ai-loop",
+    "kind": "course_project",
+    "title": "Agent execution loops and context management project",
+    "instructions": "Build a framework-independent agent loop over the provider and dispatcher interfaces. Support multiple tool rounds, explicit terminal states, bounded context and a replayable fake model.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Fixtures cover text termination, multi-tool rounds, tool errors and repeated identical calls.",
+      "The loop terminates on step, elapsed-time, token or cost budget exhaustion.",
+      "Tool-call/result pairs remain intact during context trimming."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-mcp-l01-lab",
+    "lesson_id": "ai-mcp-l01",
+    "course_id": "ai-mcp",
+    "kind": "guided",
+    "title": "Laboratory: Hosts, clients, servers and protocol revisions",
+    "instructions": "Create transcripts for tools/list and tools/call under the pinned revision and validate metadata and IDs.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Tests distinguish a protocol error, a tool execution error and an unsupported revision.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why is MCP discovery not permission to execute a tool?"
+  },
+  {
+    "id": "ai-mcp-l01-challenge",
+    "lesson_id": "ai-mcp-l01",
+    "course_id": "ai-mcp",
+    "kind": "independent",
+    "title": "Independent: Hosts, clients, servers and protocol revisions",
+    "instructions": "Add an older supported revision behind an explicit adapter rather than mixing wire shapes.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Revision-labeled fixtures retain separate handshake and per-request metadata paths; unsupported combinations fail with explicit version errors.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why is MCP discovery not permission to execute a tool?"
+  },
+  {
+    "id": "ai-mcp-l02-lab",
+    "lesson_id": "ai-mcp-l02",
+    "course_id": "ai-mcp",
+    "kind": "guided",
+    "title": "Laboratory: Transport, tool discovery and authentication",
+    "instructions": "Launch a local MCP server, enumerate all tool pages and invoke a bounded read tool through the harness adapter.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "stderr logs cannot corrupt framing; a broken subprocess and a cancelled request leave no hanging run.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Can a named-pipe bridge call itself standard MCP transport automatically?"
+  },
+  {
+    "id": "ai-mcp-l02-challenge",
+    "lesson_id": "ai-mcp-l02",
+    "course_id": "ai-mcp",
+    "kind": "independent",
+    "title": "Independent: Transport, tool discovery and authentication",
+    "instructions": "Mock expired HTTP credentials and metadata/header mismatch; verify failure without leaking tokens.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Expired credentials and metadata/header mismatch produce distinct failures; tokens do not appear in traces, errors or persisted run events.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Can a named-pipe bridge call itself standard MCP transport automatically?"
+  },
+  {
+    "id": "ai-mcp-project-build",
+    "lesson_id": "ai-mcp-project",
+    "course_id": "ai-mcp",
+    "kind": "course_project",
+    "title": "MCP architecture and versioned interoperability project",
+    "instructions": "Add an MCP adapter to the harness using a supported official SDK revision or a small explicitly limited client. Integrate a disposable local server and a recorded HTTP server fixture.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Declare supported protocol revisions and retain compatibility transcripts for each.",
+      "List tools across pagination and map MCP schemas/results without losing error distinctions.",
+      "Cancellation closes or cancels the request according to the selected transport and revision.",
+      "No legacy initialize/session assumptions are silently applied to the 2026-07-28 baseline."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-durability-l01-lab",
+    "lesson_id": "ai-durability-l01",
+    "course_id": "ai-durability",
+    "kind": "guided",
+    "title": "Laboratory: Event history, checkpoints and replay",
+    "instructions": "Build append-only run events plus a projected current-state table in one transaction.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "After restart, the projection reconstructs the same terminal state from events.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why does saving after every step not guarantee exactly-once effects?"
+  },
+  {
+    "id": "ai-durability-l01-challenge",
+    "lesson_id": "ai-durability-l01",
+    "course_id": "ai-durability",
+    "kind": "independent",
+    "title": "Independent: Event history, checkpoints and replay",
+    "instructions": "Inject a crash after a write and require deduplication or an operator reconciliation record.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The injected post-effect crash resumes into a deduplicated result or explicit operator reconciliation; no unacknowledged second write occurs.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why does saving after every step not guarantee exactly-once effects?"
+  },
+  {
+    "id": "ai-durability-l02-lab",
+    "lesson_id": "ai-durability-l02",
+    "course_id": "ai-durability",
+    "kind": "guided",
+    "title": "Laboratory: Workflows before open-ended autonomy",
+    "instructions": "Implement an approval wait and a two-stage retrieve/verify workflow without a framework.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Waiting consumes no worker loop; restart preserves the pending action and approval identity.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "When should an agent decision become deterministic code?"
+  },
+  {
+    "id": "ai-durability-l02-challenge",
+    "lesson_id": "ai-durability-l02",
+    "course_id": "ai-durability",
+    "kind": "independent",
+    "title": "Independent: Workflows before open-ended autonomy",
+    "instructions": "Port only the orchestration layer to LangGraph and compare replay behavior with the primitive implementation.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The LangGraph comparison runs the same crash and approval fixtures and documents where replay reuses recorded output versus re-executing a tool.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "When should an agent decision become deterministic code?"
+  },
+  {
+    "id": "ai-durability-project-build",
+    "lesson_id": "ai-durability-project",
+    "course_id": "ai-durability",
+    "kind": "course_project",
+    "title": "Durable state and recoverable orchestration project",
+    "instructions": "Persist runs, events, tool intents and outcomes in SQLite or PostgreSQL. Resume an interrupted agent execution and support a manual approval state.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Crash injection at every persistence boundary yields an explicit recoverable or uncertain state.",
+      "A committed mock write is not repeated after restart.",
+      "Pending approval resumes only for the same principal, tool and normalized arguments."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-retrieval-l01-lab",
+    "lesson_id": "ai-retrieval-l01",
+    "course_id": "ai-retrieval",
+    "kind": "guided",
+    "title": "Laboratory: Indexing, chunking and retrieval evaluation",
+    "instructions": "Index a small technical corpus with heading-aware chunks and build a 30-query relevance set.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "The report includes lexical baseline recall@5 and at least five inspected failure cases.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why is answer quality insufficient to evaluate retrieval?"
+  },
+  {
+    "id": "ai-retrieval-l01-challenge",
+    "lesson_id": "ai-retrieval-l01",
+    "course_id": "ai-retrieval",
+    "kind": "independent",
+    "title": "Independent: Indexing, chunking and retrieval evaluation",
+    "instructions": "Compare fixed-size chunks with section chunks using the same queries and corpus version.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The chunking comparison keeps queries and corpus revision fixed and reports recall@5 plus at least five changed relevance judgments.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why is answer quality insufficient to evaluate retrieval?"
+  },
+  {
+    "id": "ai-retrieval-l02-lab",
+    "lesson_id": "ai-retrieval-l02",
+    "course_id": "ai-retrieval",
+    "kind": "guided",
+    "title": "Laboratory: Hybrid search, reranking and grounded generation",
+    "instructions": "Compare lexical, dense and hybrid top-k results, then add a reranking stage with a fixed candidate budget.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Report retrieval quality and latency by stage; every generated citation resolves to a supporting indexed passage.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Can a reranker recover a document missing from all candidate lists?"
+  },
+  {
+    "id": "ai-retrieval-l02-challenge",
+    "lesson_id": "ai-retrieval-l02",
+    "course_id": "ai-retrieval",
+    "kind": "independent",
+    "title": "Independent: Hybrid search, reranking and grounded generation",
+    "instructions": "Create an unanswerable query set and require abstention when evidence is insufficient.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Unanswerable queries are scored separately; the system abstains without fabricating a citation and reports false-answer and false-abstention counts.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Can a reranker recover a document missing from all candidate lists?"
+  },
+  {
+    "id": "ai-retrieval-project-build",
+    "lesson_id": "ai-retrieval-project",
+    "course_id": "ai-retrieval",
+    "kind": "course_project",
+    "title": "Retrieval and grounded answers project",
+    "instructions": "Build a document retrieval service with lexical and vector baselines, provenance-bearing chunks and a held-out query set. Integrate it as a harness tool.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Evaluate at least 30 queries with relevance labels and report recall@k and ranking quality.",
+      "Every returned chunk records document ID, version, offsets and access scope.",
+      "Cross-tenant queries and deleted documents never appear in results."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-memory-l01-lab",
+    "lesson_id": "ai-memory-l01",
+    "course_id": "ai-memory",
+    "kind": "guided",
+    "title": "Laboratory: History, working memory and long-term records",
+    "instructions": "Implement typed memory records for observation, preference and derived summary with provenance and scope.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "A corrected preference supersedes the old record without losing the audit relation.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why should every model response not become permanent memory?"
+  },
+  {
+    "id": "ai-memory-l01-challenge",
+    "lesson_id": "ai-memory-l01",
+    "course_id": "ai-memory",
+    "kind": "independent",
+    "title": "Independent: History, working memory and long-term records",
+    "instructions": "Add TTL and user deletion, then test search and prompt construction after expiry.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Expired and deleted memory records are absent from both search results and subsequent prompt context, including previously cached candidate lists.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why should every model response not become permanent memory?"
+  },
+  {
+    "id": "ai-memory-l02-lab",
+    "lesson_id": "ai-memory-l02",
+    "course_id": "ai-memory",
+    "kind": "guided",
+    "title": "Laboratory: Artifacts, hydration and consistency",
+    "instructions": "Store image/file bytes separately from searchable descriptors and expose search_memory and fetch_artifact tools.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Search does not fetch bytes; hydration rejects revoked access and oversized content.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why recheck permissions during hydration?"
+  },
+  {
+    "id": "ai-memory-l02-challenge",
+    "lesson_id": "ai-memory-l02",
+    "course_id": "ai-memory",
+    "kind": "independent",
+    "title": "Independent: Artifacts, hydration and consistency",
+    "instructions": "Crash between blob upload and metadata commit and implement an orphan reconciliation job.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The reconciliation job finds the deliberately orphaned blob and applies the documented retain/delete policy without deleting a referenced live artifact.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why recheck permissions during hydration?"
+  },
+  {
+    "id": "ai-memory-project-build",
+    "lesson_id": "ai-memory-project",
+    "course_id": "ai-memory",
+    "kind": "course_project",
+    "title": "Memory and context lifecycle project",
+    "instructions": "Add an artifact-backed memory service to the harness: metadata and searchable text in a database, binary payloads behind an explicit fetch operation. Implement deletion and provenance.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Search results do not silently hydrate large binaries into model context.",
+      "A deleted record and its derived chunks become unavailable to subsequent retrieval.",
+      "Memory writes preserve origin, timestamp, scope and confidence or verification status."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-evaluation-l01-lab",
+    "lesson_id": "ai-evaluation-l01",
+    "course_id": "ai-evaluation",
+    "kind": "guided",
+    "title": "Laboratory: Datasets, scorers and experimental discipline",
+    "instructions": "Create JSONL tasks with expected tool effects, answer evidence and policy constraints.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "The runner exports per-task artifacts and detects a deliberately introduced cross-tenant tool bug.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why can a higher average score be a regression?"
+  },
+  {
+    "id": "ai-evaluation-l01-challenge",
+    "lesson_id": "ai-evaluation-l01",
+    "course_id": "ai-evaluation",
+    "kind": "independent",
+    "title": "Independent: Datasets, scorers and experimental discipline",
+    "instructions": "Blind-label ten outputs and compare human judgments with a model judge’s decisions.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The human/model-judge comparison reports agreement and the actual disagreement cases; no judge sees hidden reference labels in its candidate prompt.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why can a higher average score be a regression?"
+  },
+  {
+    "id": "ai-evaluation-l02-lab",
+    "lesson_id": "ai-evaluation-l02",
+    "course_id": "ai-evaluation",
+    "kind": "guided",
+    "title": "Laboratory: Stochasticity, replay and adversarial regression",
+    "instructions": "Run baseline and candidate policies on identical task fixtures with multiple trials and fixed budgets.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Report per-category deltas, variability and all unauthorized-effect failures.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "When is replay insufficient to approve a prompt change?"
+  },
+  {
+    "id": "ai-evaluation-l02-challenge",
+    "lesson_id": "ai-evaluation-l02",
+    "course_id": "ai-evaluation",
+    "kind": "independent",
+    "title": "Independent: Stochasticity, replay and adversarial regression",
+    "instructions": "Turn the three worst failures into minimized regression fixtures that run without network access.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Each minimized fixture reproduces its original failure offline and fails when the relevant guard is deliberately removed.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "When is replay insufficient to approve a prompt change?"
+  },
+  {
+    "id": "ai-evaluation-project-build",
+    "lesson_id": "ai-evaluation-project",
+    "course_id": "ai-evaluation",
+    "kind": "course_project",
+    "title": "Evaluation and regression engineering project",
+    "instructions": "Create an offline harness evaluation runner with scripted tools, held-out tasks, budget scoring and adversarial cases. Compare two prompt or context policies.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "At least 40 tasks include normal, unanswerable, tool-failure and malicious-input cases.",
+      "Reports separate task success, policy violations, cost, latency and tool correctness.",
+      "Any model-judged score is calibrated against a human-labeled subset and does not replace deterministic checks."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-security-l01-lab",
+    "lesson_id": "ai-security-l01",
+    "course_id": "ai-security",
+    "kind": "guided",
+    "title": "Laboratory: Prompt injection and the confused deputy",
+    "instructions": "Inject a document asking the agent to export secrets and call a write tool outside the requested scope.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "The model may propose the action, but policy blocks it and records a redacted reason before execution.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why is a system prompt not a permission system?"
+  },
+  {
+    "id": "ai-security-l01-challenge",
+    "lesson_id": "ai-security-l01",
+    "course_id": "ai-security",
+    "kind": "independent",
+    "title": "Independent: Prompt injection and the confused deputy",
+    "instructions": "Add a time-of-check/time-of-use test that mutates arguments after approval.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Changing approved normalized arguments invalidates the approval; the mutated operation never reaches the tool implementation.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why is a system prompt not a permission system?"
+  },
+  {
+    "id": "ai-security-l02-lab",
+    "lesson_id": "ai-security-l02",
+    "course_id": "ai-security",
+    "kind": "guided",
+    "title": "Laboratory: Sandbox boundaries and credential scope",
+    "instructions": "Run an untrusted script under a documented container or OS sandbox with denied network and a writable scratch directory only.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Tests attempt parent-path reads, network egress, fork growth and timeout escape; each has an observed enforced result.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Does seccomp alone isolate the filesystem?"
+  },
+  {
+    "id": "ai-security-l02-challenge",
+    "lesson_id": "ai-security-l02",
+    "course_id": "ai-security",
+    "kind": "independent",
+    "title": "Independent: Sandbox boundaries and credential scope",
+    "instructions": "Add per-tool scoped credentials through a broker rather than the sandbox environment.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The sandbox cannot read broker credentials or request a resource outside the tool-specific scope; audit records identify each denied attempt without exposing secrets.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Does seccomp alone isolate the filesystem?"
+  },
+  {
+    "id": "ai-security-project-build",
+    "lesson_id": "ai-security-project",
+    "course_id": "ai-security",
+    "kind": "course_project",
+    "title": "Permissions, prompt injection and sandboxing project",
+    "instructions": "Add a permission engine, approval records and a sandboxed execution boundary to the harness. Run an attack suite using malicious retrieved documents and tool descriptions.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Retrieved instructions cannot grant a tool permission or change an approved argument.",
+      "Denied network, file and subprocess operations fail at an enforcement boundary.",
+      "Credentials are absent from prompts, exported traces and sandbox environments unless explicitly required."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-operations-l01-lab",
+    "lesson_id": "ai-operations-l01",
+    "course_id": "ai-operations",
+    "kind": "guided",
+    "title": "Laboratory: Tracing runs and controlling cost",
+    "instructions": "Emit a trace for a multi-round run with one failed tool and one retry.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "The trace accounts for wall time and estimated/actual usage and contains no fixture secret.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why is tokens per request insufficient for agent cost?"
+  },
+  {
+    "id": "ai-operations-l01-challenge",
+    "lesson_id": "ai-operations-l01",
+    "course_id": "ai-operations",
+    "kind": "independent",
+    "title": "Independent: Tracing runs and controlling cost",
+    "instructions": "Add a canary secret and verify redaction across logs, spans and persisted evaluation artifacts.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "A synthetic canary secret appears in no exported log, span or evaluation artifact; automated scanning reports the checked artifact set.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why is tokens per request insufficient for agent cost?"
+  },
+  {
+    "id": "ai-operations-l02-lab",
+    "lesson_id": "ai-operations-l02",
+    "course_id": "ai-operations",
+    "kind": "guided",
+    "title": "Laboratory: Latency budgets, routing and graceful failure",
+    "instructions": "Simulate provider rate limits, delayed tools and missing usage; enforce a run deadline and maximum spend.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "No run exceeds the configured step limit; uncertain cost is surfaced and retries share the original deadline.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "When can a cheap model cost more overall?"
+  },
+  {
+    "id": "ai-operations-l02-challenge",
+    "lesson_id": "ai-operations-l02",
+    "course_id": "ai-operations",
+    "kind": "independent",
+    "title": "Independent: Latency budgets, routing and graceful failure",
+    "instructions": "Compare a cheap-first router with one strong model on the same held-out task set.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The routing comparison reports total cost including retries/escalations, task success and p95 latency on the same held-out inputs.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "When can a cheap model cost more overall?"
+  },
+  {
+    "id": "ai-operations-project-build",
+    "lesson_id": "ai-operations-project",
+    "course_id": "ai-operations",
+    "kind": "course_project",
+    "title": "Latency, observability and production reliability project",
+    "instructions": "Instrument the harness and run a dependency-failure game day. Compare serial and safe parallel tool scheduling, context policies and model-routing decisions.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "A trace explains model time, tool time, queueing, retries, token usage and terminal reason.",
+      "A provider outage does not create an unbounded retry or spending loop.",
+      "Prompt and trace redaction is tested before telemetry leaves the process."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-capstone-l01-lab",
+    "lesson_id": "ai-capstone-l01",
+    "course_id": "ai-capstone",
+    "kind": "guided",
+    "title": "Laboratory: Designing the harness boundaries",
+    "instructions": "Write interface contracts and a vertical slice from user input through model/tool round to persisted answer.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "The same run executes using fake providers/tools without network and real adapters without changing loop code.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Which code must never be delegated to the model?"
+  },
+  {
+    "id": "ai-capstone-l01-challenge",
+    "lesson_id": "ai-capstone-l01",
+    "course_id": "ai-capstone",
+    "kind": "independent",
+    "title": "Independent: Designing the harness boundaries",
+    "instructions": "Replace one persistence or provider adapter and rerun all contract tests.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Replacing one adapter leaves the loop unchanged and passes the same provider/persistence contract fixtures, including cancellation and recovery cases.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Which code must never be delegated to the model?"
+  },
+  {
+    "id": "ai-capstone-l02-lab",
+    "lesson_id": "ai-capstone-l02",
+    "course_id": "ai-capstone",
+    "kind": "guided",
+    "title": "Laboratory: Release review and framework comparison",
+    "instructions": "Perform a release review using the full capstone criteria, then port a small workflow to LangGraph for comparison.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "The review links each claim to a test, trace or reproducible command and lists unsupported cases honestly.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "What evidence would justify replacing the custom loop with a framework?"
+  },
+  {
+    "id": "ai-capstone-l02-challenge",
+    "lesson_id": "ai-capstone-l02",
+    "course_id": "ai-capstone",
+    "kind": "independent",
+    "title": "Independent: Release review and framework comparison",
+    "instructions": "Have another engineer follow the runbook or perform a cold-start self-review without relying on shell history.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "A cold-start review completes setup and one failure-recovery drill from the runbook alone; missing steps become corrected documentation and regression checks.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "What evidence would justify replacing the custom loop with a framework?"
+  },
+  {
+    "id": "ai-capstone-project-build",
+    "lesson_id": "ai-capstone-project",
+    "course_id": "ai-capstone",
+    "kind": "course_project",
+    "title": "Independent agent harness capstone project",
+    "instructions": "Deliver a framework-independent Python agent harness for a technical-document assistant. Include typed model adapters, streaming, tool dispatch, MCP integration, durable event state, retrieval, artifact memory, policy enforcement, budgets, traces and repeatable evaluations. Do not use an orchestration framework inside the core loop.",
+    "hours": 20,
+    "acceptance_criteria": [
+      "A clean checkout runs offline fixture evaluations with one documented command.",
+      "At least 40 held-out tasks include tool failures, denial, malicious evidence and unanswerable questions.",
+      "Crash/restart preserves completed effects and surfaces ambiguous writes for reconciliation.",
+      "Integrate one real MCP server with declared supported revisions and no embedded credentials.",
+      "Provide a budget/latency report, threat model, architecture decisions, runbook and trace examples.",
+      "Compare one framework implementation against the primitive harness and explain replay, context and permission differences."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-multiagent-l01-lab",
+    "lesson_id": "ai-multiagent-l01",
+    "course_id": "ai-multiagent",
+    "kind": "guided",
+    "title": "Laboratory: Coordination, handoffs and shared state",
+    "instructions": "Implement two workers producing evidence-bearing reports and a supervisor that resolves disagreement.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Every claim retains source provenance; budget accounting includes all child runs.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why can agreement between agents be weak evidence?"
+  },
+  {
+    "id": "ai-multiagent-l01-challenge",
+    "lesson_id": "ai-multiagent-l01",
+    "course_id": "ai-multiagent",
+    "kind": "independent",
+    "title": "Independent: Coordination, handoffs and shared state",
+    "instructions": "Add a malicious worker message and verify it cannot expand permissions or overwrite the root goal.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "A malicious child message cannot expand tool scopes or alter the root user goal; the supervisor records the rejected instruction and preserves evidence.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why can agreement between agents be weak evidence?"
+  },
+  {
+    "id": "ai-multiagent-project-build",
+    "lesson_id": "ai-multiagent-project",
+    "course_id": "ai-multiagent",
+    "kind": "course_project",
+    "title": "Multi-agent systems project",
+    "instructions": "Build a bounded supervisor/worker experiment comparing one agent, a deterministic workflow and two specialized agents on the same tasks.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Compare at least 20 held-out tasks for success, cost, latency and disagreement.",
+      "Workers cannot recursively create unbounded workers or inherit broader permissions.",
+      "A failed worker leaves an inspectable partial result and a bounded recovery path."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-ragdeep-l01-lab",
+    "lesson_id": "ai-ragdeep-l01",
+    "course_id": "ai-ragdeep",
+    "kind": "guided",
+    "title": "Laboratory: Retrieval planning and temporal truth",
+    "instructions": "Create documents with revisions and evaluate current-state and historical questions separately.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Ablation results show whether rewriting, reranking and memory each help their intended query category.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why can more retrieved context reduce quality?"
+  },
+  {
+    "id": "ai-ragdeep-l01-challenge",
+    "lesson_id": "ai-ragdeep-l01",
+    "course_id": "ai-ragdeep",
+    "kind": "independent",
+    "title": "Independent: Retrieval planning and temporal truth",
+    "instructions": "Implement a two-hop query planner with a fixed retrieval budget and evidence for each hop.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The two-hop planner uses no more than the declared retrieval budget and every intermediate inference cites a retrieved source passage.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why can more retrieved context reduce quality?"
+  },
+  {
+    "id": "ai-ragdeep-project-build",
+    "lesson_id": "ai-ragdeep-project",
+    "course_id": "ai-ragdeep",
+    "kind": "course_project",
+    "title": "Advanced RAG and memory project",
+    "instructions": "Compare query rewriting, hybrid retrieval, reranking and memory policies through controlled ablations on a versioned corpus.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Each stage has a quality/latency/cost delta against the same baseline.",
+      "Temporal queries resolve the correct document version.",
+      "Deleted or revoked records disappear from both candidates and hydrated evidence."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-local-l01-lab",
+    "lesson_id": "ai-local-l01",
+    "course_id": "ai-local",
+    "kind": "guided",
+    "title": "Laboratory: Quantization, batching and KV memory",
+    "instructions": "Run one model at two quantization levels and two context sizes using identical task prompts.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "The report includes task accuracy, memory peak, TTFT and throughput at concurrency 1 and 4.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why does fitting model weights in VRAM not guarantee serving capacity?"
+  },
+  {
+    "id": "ai-local-l01-challenge",
+    "lesson_id": "ai-local-l01",
+    "course_id": "ai-local",
+    "kind": "independent",
+    "title": "Independent: Quantization, batching and KV memory",
+    "instructions": "Add an admission limit and reject oversized contexts before allocation.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "Requests exceeding the configured context or admission limit are rejected before allocation; admitted requests remain within the declared memory budget.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why does fitting model weights in VRAM not guarantee serving capacity?"
+  },
+  {
+    "id": "ai-local-project-build",
+    "lesson_id": "ai-local-project",
+    "course_id": "ai-local",
+    "kind": "course_project",
+    "title": "Local models and inference systems project",
+    "instructions": "Serve a local model behind the harness provider interface and compare quantization, batching and context sizes under a fixed task workload.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Record model license, revision, quantization, hardware, memory and serving configuration.",
+      "Measure time to first token, throughput and task success under concurrent requests.",
+      "OOM and overload fail predictably without corrupting harness state."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-multimodal-l01-lab",
+    "lesson_id": "ai-multimodal-l01",
+    "course_id": "ai-multimodal",
+    "kind": "guided",
+    "title": "Laboratory: Media content blocks and evidence",
+    "instructions": "Persist a message containing text, two images and a follow-up question, then replay it through the provider adapter.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Replayed content preserves order and source references; oversized and corrupt image fixtures are rejected.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why must image preprocessing be versioned in evaluations?"
+  },
+  {
+    "id": "ai-multimodal-l01-challenge",
+    "lesson_id": "ai-multimodal-l01",
+    "course_id": "ai-multimodal",
+    "kind": "independent",
+    "title": "Independent: Media content blocks and evidence",
+    "instructions": "Compare original and downscaled images on a labeled small-text task and report errors.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The labeled small-text comparison reports exact-match errors by preprocessing variant and preserves original source identity for every resized image.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why must image preprocessing be versioned in evaluations?"
+  },
+  {
+    "id": "ai-multimodal-project-build",
+    "lesson_id": "ai-multimodal-project",
+    "course_id": "ai-multimodal",
+    "kind": "course_project",
+    "title": "Multimodal agents project",
+    "instructions": "Build an image-aware inspection assistant that retrieves artifact descriptors, explicitly hydrates selected images and answers with source references.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Image order and source identity survive persistence and replay.",
+      "Corrupt, oversized and unsupported media fail before model submission.",
+      "Evaluation includes unreadable images and visually ambiguous cases requiring abstention."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-sandboxing-l01-lab",
+    "lesson_id": "ai-sandboxing-l01",
+    "course_id": "ai-sandboxing",
+    "kind": "guided",
+    "title": "Laboratory: Isolation as defense in depth",
+    "instructions": "Run fork, output-growth, path-escape and egress attempts in a disposable restricted runner.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Each attempt has a recorded enforced denial or a documented unsupported boundary; cleanup leaves no descendants.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why is a timeout around subprocess.wait insufficient?"
+  },
+  {
+    "id": "ai-sandboxing-l01-challenge",
+    "lesson_id": "ai-sandboxing-l01",
+    "course_id": "ai-sandboxing",
+    "kind": "independent",
+    "title": "Independent: Isolation as defense in depth",
+    "instructions": "Add a narrowly scoped credential broker and demonstrate that code cannot request a different resource.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The credential broker rejects requests for another resource or principal; runner code cannot obtain the broker’s underlying credential material.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why is a timeout around subprocess.wait insufficient?"
+  },
+  {
+    "id": "ai-sandboxing-project-build",
+    "lesson_id": "ai-sandboxing-project",
+    "course_id": "ai-sandboxing",
+    "kind": "course_project",
+    "title": "Agent security and isolation engineering project",
+    "instructions": "Build a disposable execution service with filesystem, process, CPU, memory and network restrictions plus per-request audit records.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "An adversarial fixture suite cannot access host secrets or unrestricted network.",
+      "Timeout cleanup removes descendant processes and temporary artifacts.",
+      "The threat model states kernel and infrastructure trust assumptions."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-models-l01-lab",
+    "lesson_id": "ai-models-l01",
+    "course_id": "ai-models",
+    "kind": "guided",
+    "title": "Laboratory: Training objectives, LoRA and data quality",
+    "instructions": "Train a small LoRA adapter on a narrow structured-output task with a licensed dataset and a source-level split.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Compare prompt-only and adapted model performance on held-out tasks and report malformed outputs.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why can validation accuracy be misleading after random row splitting?"
+  },
+  {
+    "id": "ai-models-l01-challenge",
+    "lesson_id": "ai-models-l01",
+    "course_id": "ai-models",
+    "kind": "independent",
+    "title": "Independent: Training objectives, LoRA and data quality",
+    "instructions": "Introduce a distribution-shift test and inspect whether adaptation worsens unrelated tasks.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The distribution-shift suite compares baseline and adapted models using held-out sources and reports regressions as well as target-task gains.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why can validation accuracy be misleading after random row splitting?"
+  },
+  {
+    "id": "ai-models-project-build",
+    "lesson_id": "ai-models-project",
+    "course_id": "ai-models",
+    "kind": "course_project",
+    "title": "Model engineering and adaptation project",
+    "instructions": "Run a small adapter-training experiment or a fully specified low-cost reproducible training configuration with a real small-model trial. Compare with a prompt-only baseline.",
+    "hours": 20,
+    "acceptance_criteria": [
+      "Training, validation and held-out data are split by source/task to reduce leakage.",
+      "A real training run records model revision, seed, configuration and resource use.",
+      "Report quality, safety regressions and whether adaptation is worth maintaining."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  },
+  {
+    "id": "ai-evalsystems-l01-lab",
+    "lesson_id": "ai-evalsystems-l01",
+    "course_id": "ai-evalsystems",
+    "kind": "guided",
+    "title": "Laboratory: Evaluation as a production data pipeline",
+    "instructions": "Implement resumable evaluation batches with isolated task stores and deterministic result identifiers.",
+    "hours": 1.5,
+    "acceptance_criteria": [
+      "Restart does not duplicate completed task effects; candidate comparisons use identical dataset/scorer versions.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "experiment",
+    "self_review_question": "Why should scorer changes trigger a new report version?"
+  },
+  {
+    "id": "ai-evalsystems-l01-challenge",
+    "lesson_id": "ai-evalsystems-l01",
+    "course_id": "ai-evalsystems",
+    "kind": "independent",
+    "title": "Independent: Evaluation as a production data pipeline",
+    "instructions": "Bootstrap paired score differences and display confidence ranges alongside critical failure counts.",
+    "hours": 2,
+    "acceptance_criteria": [
+      "The paired comparison reports a bootstrap interval with resampling method and seed, plus separate counts of critical policy violations.",
+      "Submit the implementation and a reproducible command or fixture showing the requested behavior, including one failing case."
+    ],
+    "assessment_type": "independent_transfer",
+    "self_review_question": "Why should scorer changes trigger a new report version?"
+  },
+  {
+    "id": "ai-evalsystems-project-build",
+    "lesson_id": "ai-evalsystems-project",
+    "course_id": "ai-evalsystems",
+    "kind": "course_project",
+    "title": "Evaluation infrastructure project",
+    "instructions": "Create an evaluation service or CLI pipeline with dataset versioning, isolated task state, parallel workers, result comparison and reviewable reports.",
+    "hours": 8,
+    "acceptance_criteria": [
+      "Interrupted runs resume without silently mixing candidate versions.",
+      "Worker concurrency preserves task isolation and root budgets.",
+      "Reports include per-task evidence and uncertainty rather than only a leaderboard."
+    ],
+    "assessment_type": "integration_project",
+    "self_review_question": "Which failure can you reproduce and recover from without manual database edits?"
+  }
+]

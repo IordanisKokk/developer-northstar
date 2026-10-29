@@ -1,0 +1,411 @@
+[
+  {
+    "id": "ai-foundations",
+    "track_id": "ai",
+    "title": "LLM fundamentals and inference",
+    "phase": "01 · Agent foundations",
+    "position": 1,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Explain token generation and model limits well enough to debug applications without treating the model as an oracle.",
+    "focus": "Tokens, attention and next-token prediction; Decoding, inference cost and uncertainty",
+    "prerequisite_course_ids": [],
+    "lesson_ids": [
+      "ai-foundations-l01",
+      "ai-foundations-l02",
+      "ai-foundations-project"
+    ],
+    "checkpoint_id": "ai-foundations-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-interfaces",
+    "track_id": "ai",
+    "title": "Model APIs, structured output and streaming",
+    "phase": "01 · Agent foundations",
+    "position": 2,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Create a typed provider boundary that handles partial responses and failure honestly.",
+    "focus": "Typed requests and validated results; Streaming is an event protocol",
+    "prerequisite_course_ids": [
+      "ai-foundations"
+    ],
+    "lesson_ids": [
+      "ai-interfaces-l01",
+      "ai-interfaces-l02",
+      "ai-interfaces-project"
+    ],
+    "checkpoint_id": "ai-interfaces-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-tools",
+    "track_id": "ai",
+    "title": "Tool calling and dispatch from primitives",
+    "phase": "01 · Agent foundations",
+    "position": 3,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Build a controlled bridge from model proposals to deterministic application operations.",
+    "focus": "Schemas are contracts, tool calls are proposals; Dispatch, permissions and execution budgets",
+    "prerequisite_course_ids": [
+      "ai-interfaces"
+    ],
+    "lesson_ids": [
+      "ai-tools-l01",
+      "ai-tools-l02",
+      "ai-tools-project"
+    ],
+    "checkpoint_id": "ai-tools-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-loop",
+    "track_id": "ai",
+    "title": "Agent execution loops and context management",
+    "phase": "01 · Agent foundations",
+    "position": 4,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Implement the loop yourself and make each transition inspectable.",
+    "focus": "The agent is a state machine; Context is a budgeted working set",
+    "prerequisite_course_ids": [
+      "ai-tools"
+    ],
+    "lesson_ids": [
+      "ai-loop-l01",
+      "ai-loop-l02",
+      "ai-loop-project"
+    ],
+    "checkpoint_id": "ai-loop-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-mcp",
+    "track_id": "ai",
+    "title": "MCP architecture and versioned interoperability",
+    "phase": "02 · Reliable agent systems",
+    "position": 5,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Learn the actual protocol boundary and integrate tools without confusing MCP with model tool calling.",
+    "focus": "Hosts, clients, servers and protocol revisions; Transport, tool discovery and authentication",
+    "prerequisite_course_ids": [
+      "ai-loop"
+    ],
+    "lesson_ids": [
+      "ai-mcp-l01",
+      "ai-mcp-l02",
+      "ai-mcp-project"
+    ],
+    "checkpoint_id": "ai-mcp-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-durability",
+    "track_id": "ai",
+    "title": "Durable state and recoverable orchestration",
+    "phase": "02 · Reliable agent systems",
+    "position": 6,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Make runs resumable without duplicating external actions.",
+    "focus": "Event history, checkpoints and replay; Workflows before open-ended autonomy",
+    "prerequisite_course_ids": [
+      "ai-mcp"
+    ],
+    "lesson_ids": [
+      "ai-durability-l01",
+      "ai-durability-l02",
+      "ai-durability-project"
+    ],
+    "checkpoint_id": "ai-durability-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-retrieval",
+    "track_id": "ai",
+    "title": "Retrieval and grounded answers",
+    "phase": "02 · Reliable agent systems",
+    "position": 7,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Build a measurable search pipeline before adding agentic retrieval complexity.",
+    "focus": "Indexing, chunking and retrieval evaluation; Hybrid search, reranking and grounded generation",
+    "prerequisite_course_ids": [
+      "ai-durability"
+    ],
+    "lesson_ids": [
+      "ai-retrieval-l01",
+      "ai-retrieval-l02",
+      "ai-retrieval-project"
+    ],
+    "checkpoint_id": "ai-retrieval-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-memory",
+    "track_id": "ai",
+    "title": "Memory and context lifecycle",
+    "phase": "02 · Reliable agent systems",
+    "position": 8,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Separate searchable memory from raw artifacts and enforce retention and provenance.",
+    "focus": "History, working memory and long-term records; Artifacts, hydration and consistency",
+    "prerequisite_course_ids": [
+      "ai-retrieval"
+    ],
+    "lesson_ids": [
+      "ai-memory-l01",
+      "ai-memory-l02",
+      "ai-memory-project"
+    ],
+    "checkpoint_id": "ai-memory-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-evaluation",
+    "track_id": "ai",
+    "title": "Evaluation and regression engineering",
+    "phase": "03 · Reliable agent systems",
+    "position": 9,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Measure task success and failure modes with repeatable datasets rather than impressive demos.",
+    "focus": "Datasets, scorers and experimental discipline; Stochasticity, replay and adversarial regression",
+    "prerequisite_course_ids": [
+      "ai-memory"
+    ],
+    "lesson_ids": [
+      "ai-evaluation-l01",
+      "ai-evaluation-l02",
+      "ai-evaluation-project"
+    ],
+    "checkpoint_id": "ai-evaluation-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-security",
+    "track_id": "ai",
+    "title": "Permissions, prompt injection and sandboxing",
+    "phase": "03 · Reliable agent systems",
+    "position": 10,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Enforce authority in code and contain untrusted tool inputs and outputs.",
+    "focus": "Prompt injection and the confused deputy; Sandbox boundaries and credential scope",
+    "prerequisite_course_ids": [
+      "ai-evaluation"
+    ],
+    "lesson_ids": [
+      "ai-security-l01",
+      "ai-security-l02",
+      "ai-security-project"
+    ],
+    "checkpoint_id": "ai-security-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-operations",
+    "track_id": "ai",
+    "title": "Latency, observability and production reliability",
+    "phase": "03 · Reliable agent systems",
+    "position": 11,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Operate agent runs as budgeted distributed workloads with partial failures.",
+    "focus": "Tracing runs and controlling cost; Latency budgets, routing and graceful failure",
+    "prerequisite_course_ids": [
+      "ai-security"
+    ],
+    "lesson_ids": [
+      "ai-operations-l01",
+      "ai-operations-l02",
+      "ai-operations-project"
+    ],
+    "checkpoint_id": "ai-operations-project",
+    "estimated_hours": 18,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-capstone",
+    "track_id": "ai",
+    "title": "Independent agent harness capstone",
+    "phase": "03 · Reliable agent systems",
+    "position": 12,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Integrate primitives into a reliable Python harness and compare it with established implementations.",
+    "focus": "Designing the harness boundaries; Release review and framework comparison",
+    "prerequisite_course_ids": [
+      "ai-operations"
+    ],
+    "lesson_ids": [
+      "ai-capstone-l01",
+      "ai-capstone-l02",
+      "ai-capstone-project"
+    ],
+    "checkpoint_id": "ai-capstone-project",
+    "estimated_hours": 30,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-multiagent",
+    "track_id": "ai",
+    "title": "Multi-agent systems",
+    "phase": "Optional specializations",
+    "position": 13,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Evaluate whether decomposition improves a task enough to justify coordination overhead.",
+    "focus": "Coordination, handoffs and shared state",
+    "prerequisite_course_ids": [
+      "ai-evaluation"
+    ],
+    "lesson_ids": [
+      "ai-multiagent-l01",
+      "ai-multiagent-project"
+    ],
+    "checkpoint_id": "ai-multiagent-project",
+    "estimated_hours": 13,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-ragdeep",
+    "track_id": "ai",
+    "title": "Advanced RAG and memory",
+    "phase": "Optional specializations",
+    "position": 14,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Explore retrieval planning, temporal memory and ablation-driven improvements.",
+    "focus": "Retrieval planning and temporal truth",
+    "prerequisite_course_ids": [
+      "ai-memory"
+    ],
+    "lesson_ids": [
+      "ai-ragdeep-l01",
+      "ai-ragdeep-project"
+    ],
+    "checkpoint_id": "ai-ragdeep-project",
+    "estimated_hours": 13,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-local",
+    "track_id": "ai",
+    "title": "Local models and inference systems",
+    "phase": "Optional specializations",
+    "position": 15,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Understand serving, quantization and hardware tradeoffs without assuming local means free.",
+    "focus": "Quantization, batching and KV memory",
+    "prerequisite_course_ids": [
+      "ai-operations"
+    ],
+    "lesson_ids": [
+      "ai-local-l01",
+      "ai-local-project"
+    ],
+    "checkpoint_id": "ai-local-project",
+    "estimated_hours": 13,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-multimodal",
+    "track_id": "ai",
+    "title": "Multimodal agents",
+    "phase": "Optional specializations",
+    "position": 16,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Add images and other artifacts while preserving ordering, provenance and bounded hydration.",
+    "focus": "Media content blocks and evidence",
+    "prerequisite_course_ids": [
+      "ai-memory"
+    ],
+    "lesson_ids": [
+      "ai-multimodal-l01",
+      "ai-multimodal-project"
+    ],
+    "checkpoint_id": "ai-multimodal-project",
+    "estimated_hours": 13,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-sandboxing",
+    "track_id": "ai",
+    "title": "Agent security and isolation engineering",
+    "phase": "Optional specializations",
+    "position": 17,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Test containment against concrete generated-code and tool abuse scenarios.",
+    "focus": "Isolation as defense in depth",
+    "prerequisite_course_ids": [
+      "ai-security"
+    ],
+    "lesson_ids": [
+      "ai-sandboxing-l01",
+      "ai-sandboxing-project"
+    ],
+    "checkpoint_id": "ai-sandboxing-project",
+    "estimated_hours": 13,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-models",
+    "track_id": "ai",
+    "title": "Model engineering and adaptation",
+    "phase": "Optional specializations",
+    "position": 18,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Learn when fine-tuning is justified and how to evaluate it against prompting and retrieval.",
+    "focus": "Training objectives, LoRA and data quality",
+    "prerequisite_course_ids": [
+      "ai-evaluation"
+    ],
+    "lesson_ids": [
+      "ai-models-l01",
+      "ai-models-project"
+    ],
+    "checkpoint_id": "ai-models-project",
+    "estimated_hours": 25,
+    "content_status": "authored"
+  },
+  {
+    "id": "ai-evalsystems",
+    "track_id": "ai",
+    "title": "Evaluation infrastructure",
+    "phase": "Optional specializations",
+    "position": 19,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Build scalable, reviewable evaluation operations and protect benchmark integrity.",
+    "focus": "Evaluation as a production data pipeline",
+    "prerequisite_course_ids": [
+      "ai-evaluation"
+    ],
+    "lesson_ids": [
+      "ai-evalsystems-l01",
+      "ai-evalsystems-project"
+    ],
+    "checkpoint_id": "ai-evalsystems-project",
+    "estimated_hours": 13,
+    "content_status": "authored"
+  }
+]
