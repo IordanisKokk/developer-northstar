@@ -1,0 +1,10 @@
+# Local-generated files and personal state
+.DS_Store
+__pycache__/
+*.pyc
+.env
+.env.*
+progress-*.json
+*-progress.json
+backups/
+node_modules/

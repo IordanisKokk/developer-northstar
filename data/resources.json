@@ -1,0 +1,746 @@
+[
+  {
+    "id": "godot-nodes",
+    "title": "Godot: Nodes and Scenes",
+    "url": "https://docs.godotengine.org/en/stable/getting_started/step_by_step/nodes_and_scenes.html",
+    "category": "official",
+    "annotation": "How Godot composes scenes from nodes.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-instancing",
+    "title": "Godot: Creating instances",
+    "url": "https://docs.godotengine.org/en/stable/getting_started/step_by_step/instancing.html",
+    "category": "official",
+    "annotation": "Reusable scene instances and overrides.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-signals",
+    "title": "Godot: Using signals",
+    "url": "https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html",
+    "category": "official",
+    "annotation": "Emitting and connecting signals to decouple behavior.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-first-script",
+    "title": "Godot: Creating your first script",
+    "url": "https://docs.godotengine.org/en/stable/getting_started/step_by_step/scripting_first_script.html",
+    "category": "official",
+    "annotation": "Attach scripts and manipulate node behavior.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-steps",
+    "title": "Godot: Step by step",
+    "url": "https://docs.godotengine.org/en/stable/getting_started/step_by_step/index.html",
+    "category": "official",
+    "annotation": "The original introductory sequence on nodes, scripts, input and signals.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-2d",
+    "title": "Godot: Introduction to 2D",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/2d/introduction_to_2d.html",
+    "category": "official",
+    "annotation": "The 2D editor and engine subsystem overview.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-scripting",
+    "title": "Godot: Scripting documentation",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/index.html",
+    "category": "official",
+    "annotation": "Find lifecycle, resource, autoload, and debugging topics.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-move",
+    "title": "Godot: 2D movement overview",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/2d/2d_movement.html",
+    "category": "official",
+    "annotation": "Different movement models and CharacterBody2D setup.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-math",
+    "title": "Godot: Vector math",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/math/vector_math.html",
+    "category": "official",
+    "annotation": "Vector magnitude, normalization, direction and operations.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-physics",
+    "title": "Godot: Physics documentation",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/physics/index.html",
+    "category": "official",
+    "annotation": "Bodies, collision shapes, areas, queries and interpolation.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-anim",
+    "title": "Godot: Animation introduction",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/animation/introduction.html",
+    "category": "official",
+    "annotation": "AnimationPlayer and keyframes; animate node properties.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-animation-tree",
+    "title": "Godot: Using AnimationTree",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/animation/animation_tree.html",
+    "category": "official",
+    "annotation": "Blend, transition and coordinate animations.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-sprite-anim",
+    "title": "Godot: 2D sprite animation",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/2d/2d_sprite_animation.html",
+    "category": "official",
+    "annotation": "AnimatedSprite2D, frames and sprite sheets.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-ui",
+    "title": "Godot: GUI tutorials",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/ui/index.html",
+    "category": "official",
+    "annotation": "Control node layouts, focus and UI interaction.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-navigation",
+    "title": "Godot: Navigation overview",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/navigation/index.html",
+    "category": "official",
+    "annotation": "Navigation regions, agents, maps and debug tooling.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-shaders",
+    "title": "Godot: Your first 2D shader",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/shaders/your_first_shader/your_first_2d_shader.html",
+    "category": "official",
+    "annotation": "A direct introduction to 2D fragment and vertex shaders.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-render",
+    "title": "Godot: 2D tutorials",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/2d/index.html",
+    "category": "official",
+    "annotation": "Rendering, lights, particles, TileMaps and backgrounds.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-debug",
+    "title": "Godot: Debugging and profiling",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/debug/index.html",
+    "category": "official",
+    "annotation": "Debugger and performance tools.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-export",
+    "title": "Godot: Exporting projects",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/export/index.html",
+    "category": "official",
+    "annotation": "Build, export presets and packaging.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-3d",
+    "title": "Godot: Introduction to 3D",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/3d/introduction_to_3d.html",
+    "category": "official",
+    "annotation": "Core 3D scene, camera and transform concepts.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-net",
+    "title": "Godot: High-level multiplayer",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html",
+    "category": "official",
+    "annotation": "Replication, authority and multiplayer APIs.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "gpp",
+    "title": "Game Programming Patterns: Contents",
+    "url": "https://gameprogrammingpatterns.com/contents.html",
+    "category": "book",
+    "annotation": "Browse chapters on loops, state, components and optimization.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "gpp-loop",
+    "title": "Game Programming Patterns: Game Loop",
+    "url": "https://gameprogrammingpatterns.com/game-loop.html",
+    "category": "book",
+    "annotation": "Game-loop timing and update sequencing.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "gpp-state",
+    "title": "Game Programming Patterns: State",
+    "url": "https://gameprogrammingpatterns.com/state.html",
+    "category": "book",
+    "annotation": "Represent behavior states without nested conditions.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "gpp-component",
+    "title": "Game Programming Patterns: Component",
+    "url": "https://gameprogrammingpatterns.com/component.html",
+    "category": "book",
+    "annotation": "Composition and decoupling gameplay systems.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "gpp-observer",
+    "title": "Game Programming Patterns: Observer",
+    "url": "https://gameprogrammingpatterns.com/observer.html",
+    "category": "book",
+    "annotation": "Events, coupling and notification patterns.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "gpp-objectpool",
+    "title": "Game Programming Patterns: Object Pool",
+    "url": "https://gameprogrammingpatterns.com/object-pool.html",
+    "category": "book",
+    "annotation": "Allocation cost and reuse trade-offs.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "gpp-eventqueue",
+    "title": "Game Programming Patterns: Event Queue",
+    "url": "https://gameprogrammingpatterns.com/event-queue.html",
+    "category": "book",
+    "annotation": "Deferred communication and event processing.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "redblob-path",
+    "title": "Red Blob Games: A* Introduction",
+    "url": "https://www.redblobgames.com/pathfinding/a-star/introduction.html",
+    "category": "interactive",
+    "annotation": "Illustrated pathfinding, heuristics and grids.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "redblob-grid",
+    "title": "Red Blob Games: Grids",
+    "url": "https://www.redblobgames.com/grids/hexagons/",
+    "category": "interactive",
+    "annotation": "Spatial grids and practical coordinate systems.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "gaffer-time",
+    "title": "Gaffer on Games: Fix Your Timestep!",
+    "url": "https://gafferongames.com/post/fix_your_timestep/",
+    "category": "article",
+    "annotation": "Fixed steps, simulation stability and rendering.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "book-shaders",
+    "title": "The Book of Shaders",
+    "url": "https://thebookofshaders.com/",
+    "category": "interactive",
+    "annotation": "Interactive shader programming primer.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "kenney",
+    "title": "Kenney: Game Assets",
+    "url": "https://kenney.nl/assets",
+    "category": "asset",
+    "annotation": "Consistent legal-friendly prototyping assets; check individual licenses.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-demos",
+    "title": "Godot: Official Demo Projects",
+    "url": "https://github.com/godotengine/godot-demo-projects",
+    "category": "reference",
+    "annotation": "Study small, complete, engine-idiomatic examples.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "game-accessibility",
+    "title": "Game Accessibility Guidelines",
+    "url": "https://gameaccessibilityguidelines.com/",
+    "category": "guide",
+    "annotation": "Accessibility guidance for interaction, visuals and cognition.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "steam-doc",
+    "title": "Steamworks: Documentation",
+    "url": "https://partner.steamgames.com/doc/home",
+    "category": "official",
+    "annotation": "Commercial publishing and Steam platform documentation.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "steam-coming",
+    "title": "Steamworks: Coming Soon",
+    "url": "https://partner.steamgames.com/doc/store/coming_soon",
+    "category": "official",
+    "annotation": "Store page timing, wishlists and presentation.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "steam-demo",
+    "title": "Steamworks: Demos",
+    "url": "https://partner.steamgames.com/doc/store/application/demos",
+    "category": "official",
+    "annotation": "Demo setup and release guidance.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "game-design-concepts",
+    "title": "Game Design Concepts — Ian Schreiber",
+    "url": "https://gamedesignconcepts.wordpress.com/2009/07/",
+    "category": "course",
+    "annotation": "Free sequential game-design lectures and practical experiments.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "gmtk",
+    "title": "Game Maker’s Toolkit",
+    "url": "https://gamemakerstoolkit.com/",
+    "category": "video",
+    "annotation": "Design analysis and examples of game mechanics and production.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "odinfmt",
+    "title": "The Odin Project: JavaScript curriculum example",
+    "url": "https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript",
+    "category": "model",
+    "annotation": "Lesson–project alternation as an instructional model, not game-specific content.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "roadmap",
+    "title": "roadmap.sh: Game Developer",
+    "url": "https://roadmap.sh/game-developer",
+    "category": "coverage",
+    "annotation": "Broad map for checking coverage; not the prescribed learning sequence.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "gdscript",
+    "title": "Godot: GDScript documentation",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/index.html",
+    "category": "official",
+    "annotation": "Language features, typing and code organization.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "input",
+    "title": "Godot: Input events",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/inputs/inputevent.html",
+    "category": "official",
+    "annotation": "Actions, polling, input events and devices.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "saving",
+    "title": "Godot: Saving games",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/io/saving_games.html",
+    "category": "official",
+    "annotation": "Saving and loading runtime state and IDs.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "resources",
+    "title": "Godot: Resources",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/resources.html",
+    "category": "official",
+    "annotation": "Data assets, sharing, copying and runtime configuration.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "learncpp",
+    "title": "LearnCpp — modern C++",
+    "url": "https://www.learncpp.com/",
+    "category": "course",
+    "annotation": "A detailed C++ learning course for the optional native programming branch.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "optimization",
+    "title": "Godot: Optimizing projects",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/performance/index.html",
+    "category": "official",
+    "annotation": "Performance profiling and bottleneck investigation.",
+    "verification": "selected_official_or_established_source; not individually HTTP-checked in this build"
+  },
+  {
+    "id": "godot-inputmap",
+    "title": "Godot — Input examples",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/inputs/input_examples.html",
+    "category": "official",
+    "annotation": "Set named and remappable inputs",
+    "recommended_section": "Input actions and handling",
+    "estimated_read_minutes": 15,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-physbody",
+    "title": "Godot — CharacterBody2D",
+    "url": "https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html",
+    "category": "official",
+    "annotation": "Movement state, sliding and collision",
+    "recommended_section": "move_and_slide and velocity",
+    "estimated_read_minutes": 20,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-rigidbody",
+    "title": "Godot — RigidBody2D",
+    "url": "https://docs.godotengine.org/en/stable/classes/class_rigidbody2d.html",
+    "category": "official",
+    "annotation": "Forces, impulse and CCD",
+    "recommended_section": "apply_central_impulse and CCDMode",
+    "estimated_read_minutes": 25,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-area",
+    "title": "Godot — Area2D",
+    "url": "https://docs.godotengine.org/en/stable/classes/class_area2d.html",
+    "category": "official",
+    "annotation": "Triggers and overlap detection",
+    "recommended_section": "body_entered and body_exited",
+    "estimated_read_minutes": 12,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-ray",
+    "title": "Godot — Ray-casting",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/physics/ray-casting.html",
+    "category": "official",
+    "annotation": "Detect occluders and interactions",
+    "recommended_section": "RayCast2D usage",
+    "estimated_read_minutes": 15,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-joint",
+    "title": "Godot — PinJoint2D",
+    "url": "https://docs.godotengine.org/en/stable/classes/class_pinjoint2d.html",
+    "category": "official",
+    "annotation": "A towing joint experiment",
+    "recommended_section": "body_a/body_b constraints",
+    "estimated_read_minutes": 15,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-animation",
+    "title": "Godot — Using AnimationPlayer",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/animation/introduction.html",
+    "category": "official",
+    "annotation": "Keyframes, tracks and timeline",
+    "recommended_section": "Animation editing workflow",
+    "estimated_read_minutes": 18,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-tween",
+    "title": "Godot — Tween reference",
+    "url": "https://docs.godotengine.org/en/stable/classes/class_tween.html",
+    "category": "official",
+    "annotation": "Dynamic property animation and interruption",
+    "recommended_section": "Creation and kill methods",
+    "estimated_read_minutes": 15,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-particles",
+    "title": "Godot — 2D particle systems",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/2d/particle_systems_2d.html",
+    "category": "official",
+    "annotation": "Game-feel VFX",
+    "recommended_section": "GPUParticles2D parameters",
+    "estimated_read_minutes": 20,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-groups",
+    "title": "Godot — Scene groups",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html",
+    "category": "official",
+    "annotation": "Lightweight group interactions",
+    "recommended_section": "Group calls and scene-tree methods",
+    "estimated_read_minutes": 12,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-usingresources",
+    "title": "Godot — Resources",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/resources.html",
+    "category": "official",
+    "annotation": "Data-driven content and sharing",
+    "recommended_section": "Resource lifecycle and instances",
+    "estimated_read_minutes": 17,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-file",
+    "title": "Godot — Saving games",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/io/saving_games.html",
+    "category": "official",
+    "annotation": "Persistent state and serialized properties",
+    "recommended_section": "Persist object state",
+    "estimated_read_minutes": 22,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-nav2d",
+    "title": "Godot — 2D Navigation",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/navigation/",
+    "category": "official",
+    "annotation": "Navigation for moving agents",
+    "recommended_section": "2D navigation topic overview",
+    "estimated_read_minutes": 20,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-gui",
+    "title": "Godot — Control node",
+    "url": "https://docs.godotengine.org/en/stable/classes/class_control.html",
+    "category": "official",
+    "annotation": "Layout, anchors and focus",
+    "recommended_section": "Focus and mouse filtering",
+    "estimated_read_minutes": 20,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-profiler",
+    "title": "Godot — The Profiler",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/debug/the_profiler.html",
+    "category": "official",
+    "annotation": "Find frame-time hot spots",
+    "recommended_section": "Profiler monitors and capture",
+    "estimated_read_minutes": 20,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-unit",
+    "title": "Godot — GDScript language reference (assertions and error handling)",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+    "category": "official",
+    "annotation": "Use built-in assertions for small rules tests; this is not a testing framework tutorial",
+    "recommended_section": "assert and error handling",
+    "estimated_read_minutes": 15,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-exports",
+    "title": "Godot — Exporting projects",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/export/exporting_projects.html",
+    "category": "official",
+    "annotation": "Build distribution",
+    "recommended_section": "Export templates and presets",
+    "estimated_read_minutes": 22,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-2dshadows",
+    "title": "Godot — 2D Lights and Shadows",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/2d/2d_lights_and_shadows.html",
+    "category": "official",
+    "annotation": "Visual readability",
+    "recommended_section": "Light2D and occluders",
+    "estimated_read_minutes": 17,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-color",
+    "title": "Godot — CanvasItem shader",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/shaders/shader_reference/canvas_item_shader.html",
+    "category": "official",
+    "annotation": "Shader stages and built-ins",
+    "recommended_section": "fragment() and uniforms",
+    "estimated_read_minutes": 25,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "gpp-subclass",
+    "title": "Game Programming Patterns — Subclass Sandbox",
+    "url": "https://gameprogrammingpatterns.com/subclass-sandbox.html",
+    "category": "established",
+    "annotation": "Avoid inheritance overgrowth",
+    "recommended_section": "Compare subclass and composition",
+    "estimated_read_minutes": 20,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "redblob-bfs",
+    "title": "Red Blob Games — Breadth First Search",
+    "url": "https://www.redblobgames.com/pathfinding/a-star/introduction.html",
+    "category": "established",
+    "annotation": "Map connectivity and reachability",
+    "recommended_section": "Breadth-first search illustrations",
+    "estimated_read_minutes": 22,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "steam-build",
+    "title": "Steamworks — Release Process",
+    "url": "https://partner.steamgames.com/documentation/releasing",
+    "category": "official",
+    "annotation": "Release readiness and build review",
+    "recommended_section": "Store presence, build checklist, launch",
+    "estimated_read_minutes": 25,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "steam-buildupload",
+    "title": "Steamworks — Uploading to Steam",
+    "url": "https://partner.steamgames.com/doc/sdk/uploading",
+    "category": "official",
+    "annotation": "Delivery workflow and branches",
+    "recommended_section": "Build upload documentation",
+    "estimated_read_minutes": 20,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "game-design-intro",
+    "title": "Game Design Concepts — Introduction",
+    "url": "https://gamedesignconcepts.wordpress.com/",
+    "category": "established",
+    "annotation": "Start the sequential game design course; choose relevant sections",
+    "recommended_section": "Start here — overview and course sequence",
+    "estimated_read_minutes": 20,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "game-design-loops",
+    "title": "Game Design Concepts — Game Design Concepts archive",
+    "url": "https://gamedesignconcepts.wordpress.com/2009/07/",
+    "category": "established",
+    "annotation": "Guided reading on mechanics, feedback and playtesting",
+    "recommended_section": "Selected game design lessons",
+    "estimated_read_minutes": 25,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "gaffer-timestep",
+    "title": "Gaffer on Games — Fix Your Timestep!",
+    "url": "https://gafferongames.com/post/fix_your_timestep/",
+    "category": "established",
+    "annotation": "Frame rates and numerical stability",
+    "recommended_section": "Fixed timestep and accumulator",
+    "estimated_read_minutes": 30,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "gpp-dirty",
+    "title": "Game Programming Patterns — Dirty Flag",
+    "url": "https://gameprogrammingpatterns.com/dirty-flag.html",
+    "category": "established",
+    "annotation": "Cache invalidation for frequently used derived state",
+    "recommended_section": "Pattern and caveats",
+    "estimated_read_minutes": 18,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "gpp-spatial",
+    "title": "Game Programming Patterns — Spatial Partition",
+    "url": "https://gameprogrammingpatterns.com/spatial-partition.html",
+    "category": "established",
+    "annotation": "Managing many nearby entities efficiently",
+    "recommended_section": "Grid partition examples",
+    "estimated_read_minutes": 20,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-input",
+    "title": "Godot — InputEvent",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/inputs/inputevent.html",
+    "category": "official",
+    "annotation": "Input semantics and action mapping",
+    "recommended_section": "Event propagation",
+    "estimated_read_minutes": 18,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-physicsint",
+    "title": "Godot — Physics interpolation",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/physics/interpolation/physics_interpolation_introduction.html",
+    "category": "official",
+    "annotation": "Timing, render interpolation and motion",
+    "recommended_section": "Physics interpolation overview",
+    "estimated_read_minutes": 20,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "godot-2dforces",
+    "title": "Godot — 2D joints",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/physics/index.html",
+    "category": "official",
+    "annotation": "Constraints and physics control",
+    "recommended_section": "2D physics bodies/joints",
+    "estimated_read_minutes": 20,
+    "verification": "selected authoritative resource; automated link health may require online verification"
+  },
+  {
+    "id": "design-mechanics",
+    "title": "Game Design Concepts — Mechanics and Dynamics",
+    "url": "https://gamedesignconcepts.wordpress.com/2009/07/13/level-5-mechanics-and-dynamics/",
+    "category": "established",
+    "annotation": "Theory distinguishing mechanics from player experience",
+    "recommended_section": "MDA; rules and emergent behaviors",
+    "estimated_read_minutes": 20,
+    "verification": "web-sourced link, spot checked where indicated; not bulk HTTP-tested"
+  },
+  {
+    "id": "design-early",
+    "title": "Game Design Concepts — Early Design Process",
+    "url": "https://gamedesignconcepts.wordpress.com/2009/07/09/level-4-the-early-stages-of-the-design-process/",
+    "category": "established",
+    "annotation": "Choose design questions and scope boundaries",
+    "recommended_section": "Iterative process and constraints",
+    "estimated_read_minutes": 20,
+    "verification": "web-sourced link, spot checked where indicated; not bulk HTTP-tested"
+  },
+  {
+    "id": "godot-best-practices",
+    "title": "Godot — Best Practices",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/best_practices/index.html",
+    "category": "official",
+    "annotation": "Architecture guidance in Godot",
+    "recommended_section": "Scene organization; autoloads versus nodes",
+    "estimated_read_minutes": 25,
+    "verification": "web-sourced link, spot checked where indicated; not bulk HTTP-tested"
+  },
+  {
+    "id": "godot-sceneorg",
+    "title": "Godot — Scene Organization",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/best_practices/scene_organization.html",
+    "category": "official",
+    "annotation": "Scene responsibilities and dependency boundaries",
+    "recommended_section": "Communication between reusable scenes",
+    "estimated_read_minutes": 20,
+    "verification": "web-sourced link, spot checked where indicated; not bulk HTTP-tested"
+  },
+  {
+    "id": "godot-autoload",
+    "title": "Godot — Autoloads vs regular nodes",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/best_practices/autoloads_versus_regular_nodes.html",
+    "category": "official",
+    "annotation": "Avoid a universal hidden global state",
+    "recommended_section": "When and when not to use Autoload",
+    "estimated_read_minutes": 22,
+    "verification": "web-sourced link, spot checked where indicated; not bulk HTTP-tested"
+  }
+]

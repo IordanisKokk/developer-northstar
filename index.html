@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark"><title>Northstar · Game Development</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-symbol">✳</span><div><strong>Northstar</strong><small>Game development / v4.0</small></div></div>
+    <div class="side-label">JOURNEY</div>
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <a href="#/map" data-nav="map">↗ <span>Roadmap</span></a>
+      <a href="#/courses" data-nav="courses">▤ <span>Courses</span></a>
+      <a href="#/assignments" data-nav="assignments">☑ <span>Assignments</span></a>
+      <a href="#/choices" data-nav="choices">⑂ <span>Specializations</span></a>
+    </nav>
+    <div class="side-label">PRACTICE</div>
+    <div class="side-note">Start with <b>Movement Playground</b>. Follow lessons in order, branch when ready.</div>
+    <div class="side-bottom">
+      <div class="progress-mini"><div id="sideProgressText">0 of 0 core lessons complete</div><div class="track"><span id="sideProgressBar"></span></div></div>
+      <button class="tiny fullwidth" id="exportBtn">Export progress ↓</button>
+      <button class="tiny fullwidth subtle" id="importBtn">Import progress ↑</button>
+      <input id="importInput" type="file" accept="application/json,.json" hidden>
+      <button class="tiny fullwidth subtle" id="themeBtn">Switch theme</button>
+      <div class="footnote">Personal data stays in this browser. Export regularly.</div>
+    </div>
+  </aside>
+  <main class="main" id="app" tabindex="-1"><div class="loading">Loading curriculum…</div></main>
+</div>
+<script src="assets/data.js"></script><script src="assets/app.js"></script>
+</body></html>

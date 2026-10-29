@@ -1,0 +1,48 @@
+[
+  {
+    "id": "ai-vs-worlds",
+    "after_course_id": "g10-ai",
+    "title": "Choose a systems interest to explore alongside the core",
+    "option_course_ids": [
+      "s01-game-ai",
+      "s02-procgen",
+      "s07-narrative"
+    ],
+    "recommended_course_id": "s01-game-ai",
+    "guidance": "These deeper branches become useful after their actual prerequisites; choosing one never locks the others."
+  },
+  {
+    "id": "presentation-vs-3d",
+    "after_course_id": "g13-testing",
+    "title": "Choose a presentation specialization",
+    "option_course_ids": [
+      "s03-graphics",
+      "s04-3d"
+    ],
+    "recommended_course_id": "s03-graphics",
+    "guidance": "For the current 2D salvage project, shaders and graphics are more immediately useful than full 3D."
+  },
+  {
+    "id": "specialist-depth",
+    "after_course_id": "g13-testing",
+    "title": "Optional technical depth",
+    "option_course_ids": [
+      "s05-multiplayer",
+      "s06-engines"
+    ],
+    "recommended_course_id": null,
+    "guidance": "Neither branch is required for the commercial 2D indie path."
+  },
+  {
+    "id": "salvage-mastery",
+    "after_course_id": "g15-capstone",
+    "title": "Deepen a mechanic before full production (optional)",
+    "option_course_ids": [
+      "s01-game-ai",
+      "s02-procgen",
+      "s03-graphics"
+    ],
+    "recommended_course_id": "s01-game-ai",
+    "guidance": "Choose one bottleneck in your vertical slice; do not take all specializations merely for completeness."
+  }
+]

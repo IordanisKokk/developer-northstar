@@ -1,0 +1,693 @@
+[
+  {
+    "id": "g01-editor",
+    "track_id": "game",
+    "title": "Godot studio & your first playground",
+    "phase": "01 · Foundations",
+    "position": 1,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Learn how to think in scenes and nodes by building an immediately interactive toy rather than copying a full game.",
+    "focus": "Godot editor, scene tree, input, GDScript, frame updates, basic debugging.",
+    "prerequisite_course_ids": [],
+    "lesson_ids": [
+      "g01-editor-start-a-movement-playground",
+      "g01-editor-scenes-nodes-and-reusable-instances",
+      "g01-editor-gdscript-that-communicates-intent",
+      "g01-editor-input-and-per-frame-updates",
+      "g01-editor-signals-and-scene-lifecycle",
+      "g01-editor-debugging-instead-of-guessing",
+      "g01-editor-checkpoint"
+    ],
+    "checkpoint_id": "g01-editor-checkpoint",
+    "estimated_hours": 26,
+    "content_status": "authored",
+    "design_thread": "After every exercise, ask: what decision does the mechanic give the player, what feedback makes it legible, and what tiny playable variation can test it?"
+  },
+  {
+    "id": "g02-math",
+    "track_id": "game",
+    "title": "Vectors and expressive 2D movement",
+    "phase": "01 · Foundations",
+    "position": 2,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Build intuition for game mathematics by testing contrasting control schemes.",
+    "focus": "Coordinates, direction, length, normalization, angles, interpolation, acceleration.",
+    "prerequisite_course_ids": [
+      "g01-editor"
+    ],
+    "lesson_ids": [
+      "g02-math-position-displacement-and-vector2",
+      "g02-math-magnitude-and-normalization",
+      "g02-math-rotation-angles-and-trigonometry",
+      "g02-math-velocity-acceleration-and-drag",
+      "g02-math-interpolation-and-smooth-follow",
+      "g02-math-space-flight-physics",
+      "g02-math-checkpoint"
+    ],
+    "checkpoint_id": "g02-math-checkpoint",
+    "estimated_hours": 28,
+    "content_status": "authored",
+    "design_thread": "After every exercise, ask: what decision does the mechanic give the player, what feedback makes it legible, and what tiny playable variation can test it?"
+  },
+  {
+    "id": "g03-physics",
+    "track_id": "game",
+    "title": "Collisions, interactions and simulation",
+    "phase": "01 · Foundations",
+    "position": 3,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Learn to reason about bodies, overlaps, queries and contact responses by building tactile obstacle courses.",
+    "focus": "CharacterBody2D, Area2D, RigidBody2D, collision layers, masks, raycasting.",
+    "prerequisite_course_ids": [
+      "g02-math"
+    ],
+    "lesson_ids": [
+      "g03-physics-shapes-layers-and-masks",
+      "g03-physics-characterbody2d-contact-behavior",
+      "g03-physics-areas-and-overlap-events",
+      "g03-physics-rigid-bodies-and-impulses",
+      "g03-physics-raycasts-and-precise-queries",
+      "g03-physics-fast-body-collision",
+      "g03-physics-towing-constraints",
+      "g03-physics-checkpoint"
+    ],
+    "checkpoint_id": "g03-physics-checkpoint",
+    "estimated_hours": 33,
+    "content_status": "authored",
+    "design_thread": "After every exercise, ask: what decision does the mechanic give the player, what feedback makes it legible, and what tiny playable variation can test it?"
+  },
+  {
+    "id": "g03b-tinygame",
+    "track_id": "game",
+    "title": "Finish a tiny game — the first release",
+    "phase": "01 · Foundations",
+    "position": 4,
+    "lane": "core",
+    "recommended": true,
+    "summary": "Ship a tiny but complete game before spending months accumulating features.",
+    "focus": "Goal, failure, restart, tiny game loop, first-time playtest, exported build.",
+    "prerequisite_course_ids": [
+      "g03-physics"
+    ],
+    "lesson_ids": [
+      "g03b-tinygame-promise",
+      "g03b-tinygame-startend",
+      "g03b-tinygame-difficulty",
+      "g03b-tinygame-playtest",
+      "g03b-tinygame-export",
+      "g03b-tinygame-checkpoint"
+    ],
+    "checkpoint_id": "g03b-tinygame-checkpoint",
+    "estimated_hours": 23,
+    "content_status": "authored"
+  },
+  {
+    "id": "g04-animation",
+    "track_id": "game",
+    "title": "Animation and game feel",
+    "phase": "02 · Craft",
+    "position": 5,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Make actions readable and satisfying through timing, motion, effects and sound.",
+    "focus": "AnimationPlayer, AnimatedSprite2D, tweens, transitions, audio, particles, feedback.",
+    "prerequisite_course_ids": [
+      "g03b-tinygame"
+    ],
+    "lesson_ids": [
+      "g04-animation-frames-keyframes-and-easing",
+      "g04-animation-animatedsprite2d-and-sprite-sheets",
+      "g04-animation-animationplayer-and-tweens",
+      "g04-animation-animation-state-and-transitions",
+      "g04-animation-particles-audio-and-hit-feedback",
+      "g04-animation-checkpoint"
+    ],
+    "checkpoint_id": "g04-animation-checkpoint",
+    "estimated_hours": 23,
+    "content_status": "authored"
+  },
+  {
+    "id": "g05-architecture",
+    "track_id": "game",
+    "title": "Game code architecture",
+    "phase": "02 · Craft",
+    "position": 6,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Learn how to combine mechanics into changeable systems while avoiding premature frameworks.",
+    "focus": "State machines, component composition, events, configuration, ownership, tests, saving.",
+    "prerequisite_course_ids": [
+      "g04-animation"
+    ],
+    "lesson_ids": [
+      "g05-architecture-define-responsibility-boundaries",
+      "g05-architecture-finite-state-machines",
+      "g05-architecture-signals-commands-and-event-flow",
+      "g05-architecture-composition-and-data-driven-content",
+      "g05-architecture-save-load-and-durable-identity",
+      "g05-architecture-architecture-checkpoint-and-refactor",
+      "g05-architecture-checkpoint"
+    ],
+    "checkpoint_id": "g05-architecture-checkpoint",
+    "estimated_hours": 26,
+    "content_status": "authored"
+  },
+  {
+    "id": "g06-mechanics",
+    "track_id": "game",
+    "title": "Gameplay mechanics and systems",
+    "phase": "02 · Craft",
+    "position": 7,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Turn reusable foundations into small, expressive mechanics, each with explicit rules.",
+    "focus": "Health, damage, cooldowns, pickups, inventories, abilities, status effects.",
+    "prerequisite_course_ids": [
+      "g05-architecture"
+    ],
+    "lesson_ids": [
+      "g06-mechanics-interactions-with-explicit-contracts",
+      "g06-mechanics-health-damage-and-invulnerability",
+      "g06-mechanics-inventory-and-items",
+      "g06-mechanics-cooldowns-abilities-and-resources",
+      "g06-mechanics-progression-and-upgrade-balancing",
+      "g06-mechanics-checkpoint"
+    ],
+    "checkpoint_id": "g06-mechanics-checkpoint",
+    "estimated_hours": 23,
+    "content_status": "authored"
+  },
+  {
+    "id": "g07-design",
+    "track_id": "game",
+    "title": "Game design and rapid prototyping",
+    "phase": "02 · Craft",
+    "position": 8,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Learn how rules create decisions, why people keep playing and how to evaluate fun.",
+    "focus": "Core loops, mechanics/dynamics, goals, risk/reward, iteration, difficulty.",
+    "prerequisite_course_ids": [
+      "g06-mechanics"
+    ],
+    "lesson_ids": [
+      "g07-design-mechanics-dynamics-and-player-goals",
+      "g07-design-core-loops-and-meaningful-decisions",
+      "g07-design-difficulty-and-challenge-curves",
+      "g07-design-balancing-with-observation",
+      "g07-design-rapid-experiments-and-cutting-scope",
+      "g07-design-checkpoint"
+    ],
+    "checkpoint_id": "g07-design-checkpoint",
+    "estimated_hours": 23,
+    "content_status": "authored"
+  },
+  {
+    "id": "g08-ui",
+    "track_id": "game",
+    "title": "Game UI, UX and accessibility",
+    "phase": "02 · Craft",
+    "position": 9,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Build interfaces that explain choices and work for different users and input devices.",
+    "focus": "HUDs, control focus, onboarding, settings, input remapping, accessibility.",
+    "prerequisite_course_ids": [
+      "g06-mechanics"
+    ],
+    "lesson_ids": [
+      "g08-ui-hud-hierarchy-and-readability",
+      "g08-ui-menus-and-input-focus",
+      "g08-ui-tutorialization-without-lectures",
+      "g08-ui-accessible-settings-and-feedback",
+      "g08-ui-user-testing-of-interfaces",
+      "g08-ui-checkpoint"
+    ],
+    "checkpoint_id": "g08-ui-checkpoint",
+    "estimated_hours": 23,
+    "content_status": "authored"
+  },
+  {
+    "id": "g09-level",
+    "track_id": "game",
+    "title": "Level and encounter design",
+    "phase": "03 · Complete games",
+    "position": 10,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Construct places that teach, challenge and guide players through meaningful experiences.",
+    "focus": "Level grammar, encounter setup, spatial guidance, pacing and readability.",
+    "prerequisite_course_ids": [
+      "g07-design",
+      "g08-ui"
+    ],
+    "lesson_ids": [
+      "g09-level-spatial-readability-and-wayfinding",
+      "g09-level-level-progression-grammar",
+      "g09-level-encounters-and-enemy-placement",
+      "g09-level-pacing-and-tension",
+      "g09-level-iterating-from-playtest-traces",
+      "g09-level-checkpoint"
+    ],
+    "checkpoint_id": "g09-level-checkpoint",
+    "estimated_hours": 23,
+    "content_status": "authored"
+  },
+  {
+    "id": "g10-ai",
+    "track_id": "game",
+    "title": "Game AI essentials",
+    "phase": "03 · Complete games",
+    "position": 11,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Build understandable enemies that produce interesting situations without needing machine learning.",
+    "focus": "Finite-state behaviors, perception, pursuing, navigation, investigation, debugging.",
+    "prerequisite_course_ids": [
+      "g05-architecture",
+      "g09-level"
+    ],
+    "lesson_ids": [
+      "g10-ai-behavior-state-machines",
+      "g10-ai-sight-sound-and-suspicion",
+      "g10-ai-steering-and-pursuit",
+      "g10-ai-navigation-and-obstacles",
+      "g10-ai-ai-debugging-and-fairness",
+      "g10-ai-checkpoint"
+    ],
+    "checkpoint_id": "g10-ai-checkpoint",
+    "estimated_hours": 23,
+    "content_status": "authored"
+  },
+  {
+    "id": "g11-world",
+    "track_id": "game",
+    "title": "Randomness and procedural fundamentals",
+    "phase": "03 · Complete games",
+    "position": 12,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Use controlled randomness to produce variety without sacrificing solvability or intended design.",
+    "focus": "RNG, deterministic seeds, weighted selection, rooms, guarantees, validation.",
+    "prerequisite_course_ids": [
+      "g09-level"
+    ],
+    "lesson_ids": [
+      "g11-world-random-number-generators-and-seeds",
+      "g11-world-distributions-and-weighted-choices",
+      "g11-world-tile-grids-and-room-connectivity",
+      "g11-world-rule-based-and-constrained-generation",
+      "g11-world-procedural-qa-and-reproducibility",
+      "g11-world-checkpoint"
+    ],
+    "checkpoint_id": "g11-world-checkpoint",
+    "estimated_hours": 23,
+    "content_status": "authored"
+  },
+  {
+    "id": "g12-microgame",
+    "track_id": "game",
+    "title": "Ship one polished microgame",
+    "phase": "03 · Complete games",
+    "position": 13,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Practice the complete development cycle in a deliberately small game with beginning, rules and ending.",
+    "focus": "Scope, vertical slices, integrated mechanics, playtesting and finished builds.",
+    "prerequisite_course_ids": [
+      "g04-animation",
+      "g07-design",
+      "g08-ui",
+      "g09-level",
+      "g10-ai"
+    ],
+    "lesson_ids": [
+      "g12-microgame-define-a-one-page-game-specification",
+      "g12-microgame-integrate-without-regression",
+      "g12-microgame-playtest-comprehension",
+      "g12-microgame-polish-and-freeze-scope",
+      "g12-microgame-export-and-release-a-playable-build",
+      "g12-microgame-checkpoint"
+    ],
+    "checkpoint_id": "g12-microgame-checkpoint",
+    "estimated_hours": 23,
+    "content_status": "authored"
+  },
+  {
+    "id": "g13-testing",
+    "track_id": "game",
+    "title": "Debugging, automated checks and performance",
+    "phase": "04 · Professional craft",
+    "position": 14,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Learn to diagnose actual problems and optimize measurements, not intuitions.",
+    "focus": "Bug reproduction, performance budgets, CPU/GPU profiling, memory, regression QA.",
+    "prerequisite_course_ids": [
+      "g12-microgame"
+    ],
+    "lesson_ids": [
+      "g13-testing-reproduction-logs-and-breakpoints",
+      "g13-testing-profiling-the-frame",
+      "g13-testing-memory-and-allocation-behavior",
+      "g13-testing-rendering-and-draw-cost",
+      "g13-testing-regression-suites-and-smoke-testing",
+      "g13-testing-asteroid-stress",
+      "g13-testing-checkpoint"
+    ],
+    "checkpoint_id": "g13-testing-checkpoint",
+    "estimated_hours": 28,
+    "content_status": "authored"
+  },
+  {
+    "id": "g14-production",
+    "track_id": "game",
+    "title": "Content pipelines, tooling and collaboration",
+    "phase": "04 · Professional craft",
+    "position": 15,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Convert prototypes into repeatable production processes without overengineering.",
+    "focus": "Assets, licensing, source control, import pipelines, builds, feedback handoffs.",
+    "prerequisite_course_ids": [
+      "g12-microgame"
+    ],
+    "lesson_ids": [
+      "g14-production-asset-import-and-provenance",
+      "g14-production-project-organization-and-version-control",
+      "g14-production-designer-friendly-tooling",
+      "g14-production-build-and-release-automation",
+      "g14-production-creative-collaboration-and-handoffs",
+      "g14-production-checkpoint"
+    ],
+    "checkpoint_id": "g14-production-checkpoint",
+    "estimated_hours": 23,
+    "content_status": "authored"
+  },
+  {
+    "id": "g15-capstone",
+    "track_id": "game",
+    "title": "Exploration & Salvage capstone — design and vertical slice",
+    "phase": "05 · Capstone & shipping",
+    "position": 16,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Turn the existing Godot game into a focused, testable experience rather than an infinite feature backlog.",
+    "focus": "Core loop, sonar, enemy response, salvage, extraction, production cuts, vertical slice.",
+    "prerequisite_course_ids": [
+      "g10-ai",
+      "g11-world",
+      "g13-testing",
+      "g14-production"
+    ],
+    "lesson_ids": [
+      "g15-capstone-define-the-player-promise-and-scope",
+      "g15-capstone-sonar-as-a-risk-reward-mechanic",
+      "g15-capstone-salvage-towing-and-extraction",
+      "g15-capstone-system-integration-and-state-ownership",
+      "g15-capstone-vertical-slice-readiness",
+      "g15-capstone-checkpoint"
+    ],
+    "checkpoint_id": "g15-capstone-checkpoint",
+    "estimated_hours": 45,
+    "content_status": "authored",
+    "effort_note": "Guided curriculum work only; actual vertical-slice production may require far more time."
+  },
+  {
+    "id": "g16-validation",
+    "track_id": "game",
+    "title": "Playtesting, iteration and audience validation",
+    "phase": "05 · Capstone & shipping",
+    "position": 17,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Learn from real players before expanding investment in content or marketing.",
+    "focus": "Playtest observation, hypotheses, retention, feedback, usability, discovery signals.",
+    "prerequisite_course_ids": [
+      "g15-capstone"
+    ],
+    "lesson_ids": [
+      "g16-validation-recruiting-and-running-useful-playtests",
+      "g16-validation-qualitative-versus-quantitative-signals",
+      "g16-validation-prioritizing-changes",
+      "g16-validation-validating-the-game-premise",
+      "g16-validation-decision-gates-and-scope-cuts",
+      "g16-validation-checkpoint"
+    ],
+    "checkpoint_id": "g16-validation-checkpoint",
+    "estimated_hours": 23,
+    "content_status": "authored"
+  },
+  {
+    "id": "g16b-fullproduction",
+    "track_id": "game",
+    "title": "Complete the full game — production to release candidate",
+    "phase": "05 · Your first serious game",
+    "position": 18,
+    "lane": "core",
+    "recommended": true,
+    "summary": "Transform the validated vertical slice into a complete, stable, content-rich game with tested beginning-to-end progression.",
+    "focus": "Scope lock, production planning, content cadence, alpha, beta, release candidate, save compatibility and support.",
+    "prerequisite_course_ids": [
+      "g16-validation"
+    ],
+    "lesson_ids": [
+      "g16b-fullproduction-scope",
+      "g16b-fullproduction-milestones",
+      "g16b-fullproduction-content",
+      "g16b-fullproduction-alpha",
+      "g16b-fullproduction-beta",
+      "g16b-fullproduction-saves",
+      "g16b-fullproduction-releasecandidate",
+      "g16b-fullproduction-checkpoint"
+    ],
+    "checkpoint_id": "g16b-fullproduction-checkpoint",
+    "estimated_hours": 45,
+    "content_status": "authored",
+    "effort_note": "Course study hours are separate from full game production; do not interpret as a game completion estimate."
+  },
+  {
+    "id": "g17-publishing",
+    "track_id": "game",
+    "title": "Publishing, promotion and release operations",
+    "phase": "05 · Capstone & shipping",
+    "position": 19,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Prepare a genuine commercial release, from positioning and demo quality to launch operations.",
+    "focus": "Store presence, demo, distribution, localization, pricing, press, post-launch.",
+    "prerequisite_course_ids": [
+      "g16b-fullproduction"
+    ],
+    "lesson_ids": [
+      "g17-publishing-positioning-and-market-research",
+      "g17-publishing-steam-page-and-visual-communication",
+      "g17-publishing-demos-festivals-and-wishlists",
+      "g17-publishing-pricing-localization-and-accessibility",
+      "g17-publishing-launch-operations-and-support",
+      "g17-publishing-checkpoint"
+    ],
+    "checkpoint_id": "g17-publishing-checkpoint",
+    "estimated_hours": 23,
+    "content_status": "authored"
+  },
+  {
+    "id": "g18-studio",
+    "track_id": "game",
+    "title": "Indie studio foundations and sustainable development",
+    "phase": "05 · Capstone & shipping",
+    "position": 20,
+    "lane": "core",
+    "recommended": false,
+    "summary": "Learn the economic and human realities of building an independent studio without assuming instant scale.",
+    "focus": "Budget, IP, collaboration, contracts, funding options, runway and production decisions.",
+    "prerequisite_course_ids": [
+      "g17-publishing"
+    ],
+    "lesson_ids": [
+      "g18-studio-scope-and-sustainable-planning",
+      "g18-studio-budgets-and-revenue-reality",
+      "g18-studio-collaborators-contracts-and-ownership",
+      "g18-studio-publishers-grants-and-funding-tradeoffs",
+      "g18-studio-studio-strategy-and-next-project",
+      "g18-studio-checkpoint"
+    ],
+    "checkpoint_id": "g18-studio-checkpoint",
+    "estimated_hours": 23,
+    "content_status": "authored"
+  },
+  {
+    "id": "s01-game-ai",
+    "track_id": "game",
+    "title": "Advanced Game AI & autonomous behavior",
+    "phase": "06 · Optional specializations",
+    "position": 19,
+    "lane": "optional",
+    "recommended": true,
+    "summary": "Explore richer enemy decision systems for stealth, tactics and systemic worlds.",
+    "focus": "Behavior trees, utility selection, cover, squads, AI authoring and behavior tests.",
+    "prerequisite_course_ids": [
+      "g10-ai"
+    ],
+    "lesson_ids": [
+      "s01-game-ai-behavior-trees-and-reusable-tasks",
+      "s01-game-ai-utility-driven-decision-making",
+      "s01-game-ai-group-tactics-and-coordination",
+      "s01-game-ai-testing-emergent-enemy-behavior",
+      "s01-game-ai-checkpoint"
+    ],
+    "checkpoint_id": "s01-game-ai-checkpoint",
+    "estimated_hours": 20,
+    "content_status": "authored"
+  },
+  {
+    "id": "s02-procgen",
+    "track_id": "game",
+    "title": "Advanced Procedural Worlds & Simulation",
+    "phase": "06 · Optional specializations",
+    "position": 20,
+    "lane": "optional",
+    "recommended": true,
+    "summary": "Create richly varied sectors while preserving navigability, intent and testability.",
+    "focus": "Graphs, generation grammar, noise, authored constraints, ecology and simulation.",
+    "prerequisite_course_ids": [
+      "g11-world"
+    ],
+    "lesson_ids": [
+      "s02-procgen-room-graphs-and-spatial-partitioning",
+      "s02-procgen-noise-and-thematic-clustering",
+      "s02-procgen-generation-grammars-and-constraints",
+      "s02-procgen-simulating-systemic-ecology",
+      "s02-procgen-checkpoint"
+    ],
+    "checkpoint_id": "s02-procgen-checkpoint",
+    "estimated_hours": 20,
+    "content_status": "authored"
+  },
+  {
+    "id": "s03-graphics",
+    "track_id": "game",
+    "title": "Rendering, shaders and advanced VFX",
+    "phase": "06 · Optional specializations",
+    "position": 21,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Develop rendering literacy and build atmospheric interactive effects.",
+    "focus": "CanvasItem shaders, fragment math, materials, lighting, GPU profiling.",
+    "prerequisite_course_ids": [
+      "g04-animation",
+      "g13-testing"
+    ],
+    "lesson_ids": [
+      "s03-graphics-how-the-2d-rendering-pipeline-works",
+      "s03-graphics-canvasitem-shader-fundamentals",
+      "s03-graphics-lighting-color-and-compositing",
+      "s03-graphics-profiling-vfx-and-drawing",
+      "s03-graphics-checkpoint"
+    ],
+    "checkpoint_id": "s03-graphics-checkpoint",
+    "estimated_hours": 20,
+    "content_status": "authored"
+  },
+  {
+    "id": "s04-3d",
+    "track_id": "game",
+    "title": "3D Gameplay Development",
+    "phase": "06 · Optional specializations",
+    "position": 22,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Extend existing gameplay principles into 3D coordinate systems, cameras and spatial interaction.",
+    "focus": "Vector3, transforms, cameras, CharacterBody3D, collision, 3D animation.",
+    "prerequisite_course_ids": [
+      "g03-physics",
+      "g09-level"
+    ],
+    "lesson_ids": [
+      "s04-3d-3d-spaces-vectors-and-transforms",
+      "s04-3d-3d-camera-systems",
+      "s04-3d-3d-physics-and-interaction",
+      "s04-3d-animation-and-3d-presentation",
+      "s04-3d-checkpoint"
+    ],
+    "checkpoint_id": "s04-3d-checkpoint",
+    "estimated_hours": 20,
+    "content_status": "authored"
+  },
+  {
+    "id": "s05-multiplayer",
+    "track_id": "game",
+    "title": "Multiplayer Networking",
+    "phase": "06 · Optional specializations",
+    "position": 23,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Understand authority, replication and latency by building one small networked game.",
+    "focus": "Networking authority, serialization, prediction, interpolation and security.",
+    "prerequisite_course_ids": [
+      "g05-architecture"
+    ],
+    "lesson_ids": [
+      "s05-multiplayer-authority-and-game-state",
+      "s05-multiplayer-replication-and-event-synchronization",
+      "s05-multiplayer-interpolation-and-prediction",
+      "s05-multiplayer-recovery-disconnects-and-testing",
+      "s05-multiplayer-checkpoint"
+    ],
+    "checkpoint_id": "s05-multiplayer-checkpoint",
+    "estimated_hours": 20,
+    "content_status": "authored"
+  },
+  {
+    "id": "s06-engines",
+    "track_id": "game",
+    "title": "C++, engine internals and data-oriented systems",
+    "phase": "06 · Optional specializations",
+    "position": 24,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Go beyond engine use into native performance and foundational architecture.",
+    "focus": "C++ ownership, update loops, ECS principles, memory, rendering pipeline fundamentals.",
+    "prerequisite_course_ids": [
+      "g13-testing"
+    ],
+    "lesson_ids": [
+      "s06-engines-modern-c-ownership-and-lifetime",
+      "s06-engines-writing-a-tiny-simulation-loop",
+      "s06-engines-data-layout-and-locality",
+      "s06-engines-engine-architecture-and-rendering-concepts",
+      "s06-engines-checkpoint"
+    ],
+    "checkpoint_id": "s06-engines-checkpoint",
+    "estimated_hours": 20,
+    "content_status": "authored"
+  },
+  {
+    "id": "s07-narrative",
+    "track_id": "game",
+    "title": "Narrative, quests and systemic worldbuilding",
+    "phase": "06 · Optional specializations",
+    "position": 25,
+    "lane": "optional",
+    "recommended": false,
+    "summary": "Design branching stories and systemic quest states without fragile hardcoded scripting.",
+    "focus": "Quest graphs, dialogue tools, narrative state, consequences and environmental storytelling.",
+    "prerequisite_course_ids": [
+      "g06-mechanics",
+      "g09-level"
+    ],
+    "lesson_ids": [
+      "s07-narrative-quest-state-and-dependency-graphs",
+      "s07-narrative-dialogue-and-branching-consequences",
+      "s07-narrative-environmental-storytelling",
+      "s07-narrative-systemic-quests-and-testing",
+      "s07-narrative-checkpoint"
+    ],
+    "checkpoint_id": "s07-narrative-checkpoint",
+    "estimated_hours": 20,
+    "content_status": "authored"
+  }
+]
